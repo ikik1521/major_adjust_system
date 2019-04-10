@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+
+	<settings>
+		<!-- 开启驼峰命名法 -->
+		<setting name="mapUnderscoreToCamelCase" value="true" />
+	</settings>
+	
+	<!-- 以下environments标签和mappers标签都是mybatis的配置文件里的配置，但是在整合spring之后这些配置都会配置到spring.xml里，
+		  这两个标签都会被删除以免冲突，但是我是写dao的人员，我需要对我写的方法及sql语句进行测试，所以这里才会有这些配置，在写
+		 service的时候也会用到。但是整合整个项目或者在整个项目测试的话这里的配置一定要注释掉！！！！！
+	-->
+	<environments default="development">
+		<environment id="development">
+			<transactionManager type="JDBC" />
+			<dataSource type="POOLED">
+				<property name="driver" value="com.mysql.jdbc.Driver" />
+				<property name="url" value="jdbc:mysql://localhost:3306/major_adjust_system" />
+				<property name="username" value="root" />
+				<property name="password" value="060402" />
+			</dataSource>
+		</environment>
+	</environments>
+	<mappers>
+		<mapper resource="cn/sucec/major_adjust_system/dao/MajorDao.xml" />
+		<mapper resource="cn/sucec/major_adjust_system/dao/CancleTableDao.xml" />
+		<mapper resource="cn/sucec/major_adjust_system/dao/PauseTableDao.xml" />
+		<mapper resource="cn/sucec/major_adjust_system/dao/ReasonDao.xml" />
+		<mapper resource="cn/sucec/major_adjust_system/dao/WaringTableDao.xml" />
+	</mappers>
+
+</configuration>
