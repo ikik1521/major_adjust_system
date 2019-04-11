@@ -23,7 +23,7 @@
 				<property name="password" value="060402" />
 			</dataSource>
 		</environment>
-	</environments>
+	</environments> 
 	<mappers>
 		<mapper resource="cn/sucec/major_adjust_system/dao/MajorDao.xml" />
 		<mapper resource="cn/sucec/major_adjust_system/dao/CancleTableDao.xml" />

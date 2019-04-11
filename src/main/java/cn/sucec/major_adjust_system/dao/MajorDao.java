@@ -30,31 +30,30 @@ public interface MajorDao {
 	public int getEyByMajorCode(@Param("majorCode") String majorCode);
 	
 	/**
-	 * 获取所有专业的当年调剂率(this_adjustment)，不含艺体生
-	 * 返回:	key-string:majorCode 专业代码
-	 * 		value-Double:thisAdjustment 对应专业的当年调剂率
+	 * 获取所有不含艺体专业的，而且是已有两届及以上毕业生的专业的，当年调剂率
+	 * 获取所有不含艺体专业的，而且是已有两届及以上毕业生的专业的，当年this_transfer
+	 * 即 nowYear-5>(数据库的中的招生年份enrollment_year)
+	 * 用完这个方法之后，还要通过工具类得到Map(String,Double) majorCode-thisAdjustment这样的格式
+	 * 获取所有不含艺体专业的，而且是已有两届及以上毕业生的专业的，当年this_transfer
+	 * 这两个获得的集合都是一样的List集合，所以是一个方法，只是转换的方法不同罢了 
+	 * @param:nowYear :当前的年份
 	 * @return
+	 * 已测试，可以使用
 	 */
-	@MapKey("majorCode")
-	public Map<String, Double> getAllThisAdjustment();
+	public List<Major> getAllThisAdjustmentAndThisTransfer(@Param("nowYear") Integer nowYear);
 	
-	/**
-	 * 获取所有专业的申请转出人数/该专业本年级在籍在册在校生人数的比例(this_transfer),不含艺体生
-	 * 返回:	key-string:majorCode 专业代码
-	 * 		value-Double:thisTransfer 对应专业的当年申请转出人数/该专业本年级在籍在册在校生人数的比例
-	 * @return
-	 */
-	public Map<String, Double> getAllThistransfer();
 	
 	/**
 	 * 挑出所有“转专业或专业分流后学生人数-今年的”人数不足20人的专业名单，不含艺体生
+	 * 而且是已有两届及以上毕业生的专业的，当年的人数<20人的major集合
+	 * 即 nowYear-5>(数据库的中的招生年份enrollment_year)
 	 */
-	public List<Major> getMajorLess20NoArt();
+	public List<Major> getMajorLess20NoArt(@Param("nowYear") Integer nowYear);
 	
 	/**
 	 * 挑出所有“转专业或专业分流后学生人数-今年的”人数不足15人的艺体专业名单
 	 */
-	public List<Major> getMajorLess15Art();
+	public List<Major> getMajorLess15Art(@Param("nowYear") Integer nowYear);
 	
 	/**
 	 * 获取所有"当年毕业生的初次就业率"，排除新设专业没有就业率，不含艺体生

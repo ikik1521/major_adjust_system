@@ -4,16 +4,20 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cn.sucec.major_adjust_system.dao.MajorDao">
   
-  <select id="getMajorName" resultType="java.lang.String">
+	<select id="getMajorName" resultType="java.lang.String">
 		SELECT `major_name` FROM `major` WHERE `major_code`= #{majorCode}
-  </select>
+  	</select>
   
-  <select id="getEyByMajorCode" resultType="java.lang.Integer">
+  	<select id="getEyByMajorCode" resultType="java.lang.Integer">
   		SELECT `enrollment_year` FROM `major` WHERE `major_code`= #{majorCode}
-  </select>
-  
-  <select id="getAllThisAdjustment" resultType="map">
-  		SELECT `major_code`,`this_adjustment` FROM `major` WHERE `art`="否" and 
-  </select>
+  	</select> 
+   
+  	<select id="getAllThisAdjustmentAndThisTransfer" resultType="cn.sucec.major_adjust_system.model.Major">
+  		SELECT * FROM `major` WHERE `art`="否" AND (#{nowYear}-5)>`enrollment_year`
+ 	</select> 
+ 	
+ 	<!-- <select id="getMajorLess20NoArt" resultType="cn.sucec.major_adjust_system.model.Major">
+ 	</select> -->
+ 	
   
 </mapper>

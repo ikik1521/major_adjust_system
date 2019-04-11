@@ -1,6 +1,7 @@
 package cn.sucec.major_adjust_system.test;
 
 import java.io.InputStream;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -13,6 +14,7 @@ import org.junit.Test;
 
 import cn.sucec.major_adjust_system.dao.MajorDao;
 import cn.sucec.major_adjust_system.model.Major;
+import cn.sucec.major_adjust_system.tools.Change;
 
 public class DaoTest {
 	
@@ -26,10 +28,10 @@ public class DaoTest {
 		
 		// 3.通过session操作数据库
 		MajorDao majorDao = session.getMapper(MajorDao.class);
-		Map<String, Double> map = majorDao.getAllThisAdjustment();
-		  for (Object o : map.keySet()) {
-			   System.out.println("key=" + o + " value=" + map.get(o));
-			  }
+		List<Major> majors = majorDao.getMajorLess20NoArt(2019);
+		System.out.println(majors);
+		
+		
 	}
 	
 }
