@@ -12,14 +12,20 @@ import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 import org.junit.Test;
 
-import cn.sucec.major_adjust_system.dao.MajorDao;
-import cn.sucec.major_adjust_system.model.Major;
+import cn.sucec.major_adjust_system.dao.MajorTableDao;
+import cn.sucec.major_adjust_system.model.MajorTable;
 import cn.sucec.major_adjust_system.tools.Change;
 
 public class DaoTest {
 	
+	Change change = new Change();
+
+//	for(String key:map.keySet()) {
+//        System.out.println("Key: "+key+" Value: "+map.get(key));
+//    }
+	
 	@Test
-	public void name() throws Exception {
+	public void test() throws Exception {
 		// 1.获取创建数据库链接的会话的工厂类，根据配置文件创建
 		InputStream inputStream = Resources.getResourceAsStream("mybatis-Config.xml");
 		SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
@@ -27,11 +33,28 @@ public class DaoTest {
 		SqlSession session = sqlSessionFactory.openSession();
 		
 		// 3.通过session操作数据库
-		MajorDao majorDao = session.getMapper(MajorDao.class);
-		List<Major> majors = majorDao.getMajorLess20NoArt(2019);
-		System.out.println(majors);
-		
-		
+		MajorTableDao majorTableDao = session.getMapper(MajorTableDao.class);
+		List<MajorTable> majorTables = majorTableDao.selectAll(2019);
+//		for (MajorTable major : majorTables) {
+//			if (major.getFirstEmploymentRate().equals("")){
+//				majorTables.remove(major);
+//			}
+//		}
+//		for (MajorTable major : majorTables) {
+//			System.out.println(major);
+//		}
+		//List<MajorTable> majors2 = change.LastAdjustment(majorTables);
+		//List<MajorTable> newList = majors2.subList(0, 3);
+		//for (MajorTable major : newList) {
+			//System.out.println(major);
+		//}
+	}
+	
+	@Test
+	public void name() {
+		int i = 67;
+		int count = (int) Math.round(i*0.05);
+		System.out.println(count);
 	}
 	
 }

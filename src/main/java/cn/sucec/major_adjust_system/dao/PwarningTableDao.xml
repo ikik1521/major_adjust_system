@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.sucec.major_adjust_system.dao.PwarningTableDao">
+  
+  <insert id="addOne">
+  	insert into `pwarning_table`(`pwarning_year`,`pmajor_code`,`pmajor_name`,`pwarning_reason`)
+  		values(#{PwarningYear},#{PmajorCode},#{PmajorName},#{PwarningReason})
+  </insert>
+  
+  <!-- <insert id="batchAdd">
+  	INSERT INTO
+  		`pwarning_table`(`pwarning_year`,`pmajor_code`,`pmajor_name`,`pwarning_reason`)
+  	VALUES
+  	<foreach collection="">
+  	
+  	</foreach>
+  </insert> -->
+  
+</mapper>

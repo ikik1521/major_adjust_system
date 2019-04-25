@@ -5,7 +5,7 @@ package cn.sucec.major_adjust_system.model;
  * @author WangChuo
  *
  */ 
-public class Major {
+public class MajorTable {
 	
 	private Integer id; //ÐòºÅ
 	private String majorCode; // ×¨Òµ´úÂë
@@ -144,7 +144,7 @@ public class Major {
 	
 	@Override
 	public String toString() {
-		return "Major [id=" + id + ", majorCode=" + majorCode + ", majorName=" + majorName
+		return "MajorTable [id=" + id + ", majorCode=" + majorCode + ", majorName=" + majorName
 				+ ", enrollmentYear=" + enrollmentYear + ", continuousEnrollment=" + continuousEnrollment + ", years="
 				+ years + ", art=" + art + ", provinceWarning=" + provinceWarning + ", schoolWarning=" + schoolWarning
 				+ ", lastAdjustment=" + lastAdjustment + ", thisAdjustment=" + thisAdjustment + ", lastTransfer="
@@ -154,11 +154,11 @@ public class Major {
 				+ ", currentPosrgraduteRate=" + currentPosrgraduteRate + "]";
 	}
 	
-	public Major() {
+	public MajorTable() {
 		super();
 	}
 	
-	public Major(Integer id, String majorCode, String majorName, Integer enrollmentYear,
+	public MajorTable(Integer id, String majorCode, String majorName, Integer enrollmentYear,
 			String continuousEnrollment, Integer years, String art, String provinceWarning, String schoolWarning,
 			Double lastAdjustment, Double thisAdjustment, Double lastTransfer, Double middleTransfer,
 			Double thisTransfer, Integer highStudentNumber, Integer lowStudentNumber, Double firstEmploymentRate,

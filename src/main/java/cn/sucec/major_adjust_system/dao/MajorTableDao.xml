@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.sucec.major_adjust_system.dao.MajorTableDao">
+  
+	<select id="getMajorName" resultType="java.lang.String">
+		SELECT `major_name` FROM `major_table` WHERE `major_code`= #{majorCode}
+  	</select>
+  
+  	<select id="getEyByMajorCode" resultType="java.lang.Integer">
+  		SELECT `enrollment_year` FROM `major_table` WHERE `major_code`= #{majorCode}
+  	</select> 
+   
+  	<select id="selectAll" resultType="cn.sucec.major_adjust_system.model.MajorTable">
+  		SELECT * FROM `major_table` WHERE (#{nowYear}-5)&gt;=`enrollment_year` AND `art`="否" AND `continuous_enrollment`="否" AND `this_adjustment`!=900.0
+  	</select>
+ 	
+ 	<select id="getMajorLess20" resultType="cn.sucec.major_adjust_system.model.MajorTable">
+ 		SELECT * FROM `major_table` WHERE (#{nowYear}-5)&gt;=`enrollment_year` AND `art`="否" AND `continuous_enrollment`="否" AND `this_adjustment`!=900.0 AND `low_student_number` &lt;15
+ 	</select> 
+ 	
+</mapper>

@@ -5,7 +5,7 @@ package cn.sucec.major_adjust_system.model;
  * @author WangChuo
  *
  */
-public class Reason {
+public class ReasonTable {
 	
 	private Integer id; //ÐòºÅ
 	private String content; //ÄÚÈÝ
@@ -25,14 +25,14 @@ public class Reason {
 	
 	@Override
 	public String toString() {
-		return "Reason [id=" + id + ", content=" + content + "]";
+		return "ReasonTable [id=" + id + ", content=" + content + "]";
 	}
 	
-	public Reason() {
+	public ReasonTable() {
 		super();
 	}
 	
-	public Reason(Integer id, String content) {
+	public ReasonTable(Integer id, String content) {
 		super();
 		this.id = id;
 		this.content = content;
