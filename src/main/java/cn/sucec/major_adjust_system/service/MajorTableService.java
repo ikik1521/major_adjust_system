@@ -5,8 +5,6 @@ import java.util.List;
 
 import javax.servlet.ServletOutputStream;
 
-import org.apache.ibatis.annotations.Param;
-
 import cn.sucec.major_adjust_system.model.MajorTable;
 
 public interface MajorTableService extends BaseService<MajorTable>{
@@ -24,5 +22,6 @@ public interface MajorTableService extends BaseService<MajorTable>{
 	public List<MajorTable> getMajorLess20(Integer nowYear);
 
 	public void zhuanYeFenXi(int year);
+
 	
 }

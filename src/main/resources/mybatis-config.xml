@@ -31,6 +31,6 @@
 		<mapper resource="cn/sucec/major_adjust_system/dao/ReasonTableDao.xml" />
 		<mapper resource="cn/sucec/major_adjust_system/dao/WarningTableDao.xml" />
 		<mapper resource="cn/sucec/major_adjust_system/dao/PwarningTableDao.xml" />
-	</mappers>    -->
+	</mappers>     -->
 
 </configuration>

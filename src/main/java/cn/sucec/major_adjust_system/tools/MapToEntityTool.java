@@ -45,7 +45,7 @@ public class MapToEntityTool {
 				
 		for (Map.Entry<Object, Object> entry:map.entrySet()) {
 			key = entry.getKey().toString();
-			if (key.contains("_")) {
+			while (key.contains("_")) {
 				//找到了add_date 防止有a_b_c_d这样的，所以把if换成while
 				key1 = key.substring(0,key.indexOf("_"));//得到add
 				key2 = key.substring(key.indexOf("_")+1);//得到data

@@ -24,7 +24,12 @@
     <a href="download">文件下载</a>
     
     <br/>
-    <a href="yujing">开始进行专业分析</a>
+    <a href="zhuanyefenxi">开始进行专业分析</a>
+    
+    <br/>
+    <a href="chakanyujing">查看预警专业</a>
+    
+    
     
 </body>
 </html>

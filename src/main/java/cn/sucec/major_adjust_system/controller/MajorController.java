@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.lang.reflect.InvocationTargetException;
 import java.text.ParseException;
+import java.util.List;
 
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
@@ -17,7 +18,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
-import cn.sucec.major_adjust_system.model.PwarningTable;
+import cn.sucec.major_adjust_system.model.DetailwarningTable;
+import cn.sucec.major_adjust_system.service.DetailwarningTableService;
 import cn.sucec.major_adjust_system.service.MajorTableService;
 import cn.sucec.major_adjust_system.service.PwarningTableService;
 
@@ -27,7 +29,8 @@ public class MajorController {
 	@Autowired
 	private MajorTableService majorTableService;
 	
-	private PwarningTableService pwarningTableService;
+	@Autowired
+	private DetailwarningTableService detailwarningTableService;
 
 	// 上传文件会自动绑定到MultipartFile中
 	@RequestMapping(value = "/upload", method = RequestMethod.POST)
@@ -67,16 +70,19 @@ public class MajorController {
 
 	}
 	
-	@RequestMapping("/yujing")
-	public String yujing() {
+	@RequestMapping("/zhuanyefenxi")
+	public String zhuanyefenxi() {
 		int year = 2019;
-		int count = 3;
 		System.out.println("这里是专业分析");
-		//majorTableService.zhuanYeFenXi(year);
-		PwarningTable pwarningTable = new PwarningTable(2019, "050303", "广告学", "当年专业调剂率位于所有招生专业的前5%");
-		System.out.println(pwarningTableService);
-		pwarningTableService.add(pwarningTable);
-		//pwarningTableService.addOne(pwarningTable2);
+		majorTableService.zhuanYeFenXi(year);
+		return "success";
+	}
+	
+	@RequestMapping("/chakanyujing")
+	public String chakanyujing() {
+		System.out.println("这里是查看预警专业");
+		List<DetailwarningTable> detailwarningTables = detailwarningTableService.selectAll();
+		
 		return "success";
 	}
 }

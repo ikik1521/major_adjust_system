@@ -9,13 +9,12 @@
   		values(#{PwarningYear},#{PmajorCode},#{PmajorName},#{PwarningReason})
   </insert>
   
-  <!-- <insert id="batchAdd">
-  	INSERT INTO
-  		`pwarning_table`(`pwarning_year`,`pmajor_code`,`pmajor_name`,`pwarning_reason`)
-  	VALUES
-  	<foreach collection="">
-  	
-  	</foreach>
-  </insert> -->
+  <select id="getWarningMajor" resultType="cn.sucec.major_adjust_system.model.PwarningTable">
+  	SELECT * FROM `pwarning_table` GROUP BY `pmajor_code` HAVING COUNT(`pmajor_code`) >1
+  </select>
+  
+  <select id="getPwarningTableByMajorCode" resultType="cn.sucec.major_adjust_system.model.PwarningTable">
+  	SELECT * FROM `pwarning_table` WHERE `pmajor_code`=#{majorCode}
+  </select>
   
 </mapper>

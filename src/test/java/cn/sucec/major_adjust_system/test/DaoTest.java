@@ -35,19 +35,9 @@ public class DaoTest {
 		// 3.通过session操作数据库
 		MajorTableDao majorTableDao = session.getMapper(MajorTableDao.class);
 		List<MajorTable> majorTables = majorTableDao.selectAll(2019);
-//		for (MajorTable major : majorTables) {
-//			if (major.getFirstEmploymentRate().equals("")){
-//				majorTables.remove(major);
-//			}
-//		}
-//		for (MajorTable major : majorTables) {
-//			System.out.println(major);
-//		}
-		//List<MajorTable> majors2 = change.LastAdjustment(majorTables);
-		//List<MajorTable> newList = majors2.subList(0, 3);
-		//for (MajorTable major : newList) {
-			//System.out.println(major);
-		//}
+		int year = 2019;
+		int count = 3;
+		Change.ZuiZhongYuJingZhuanYe(majorTables, year, count);
 	}
 	
 	@Test

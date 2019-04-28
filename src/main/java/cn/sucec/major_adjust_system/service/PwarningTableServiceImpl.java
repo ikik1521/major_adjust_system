@@ -1,5 +1,7 @@
 package cn.sucec.major_adjust_system.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,8 +22,18 @@ public class PwarningTableServiceImpl extends BaseServiceImpl<PwarningTable> imp
 
 	@Override
 	public void addOne(PwarningTable pwarningTable) {
-		System.out.println("======pwarningTableDao:" + pwarningTableDao);
+		//System.out.println("======pwarningTableDao:" + pwarningTableDao);
 		pwarningTableDao.addOne(pwarningTable);
+	}
+
+	@Override
+	public List<PwarningTable> getWarningMajor() {
+		return pwarningTableDao.getWarningMajor();
+	}
+
+	@Override
+	public List<PwarningTable> getPwarningTableByMajorCode(String majorCode) {
+		return pwarningTableDao.getPwarningTableByMajorCode(majorCode);
 	}
 
 }

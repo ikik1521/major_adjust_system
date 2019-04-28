@@ -1,12 +1,7 @@
 package cn.sucec.major_adjust_system.service;
 
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-
-import java.beans.IntrospectionException;
 import java.io.IOException;
 import java.io.InputStream;
-import java.lang.reflect.InvocationTargetException;
-import java.text.ParseException;
 import java.util.List;
 
 import javax.servlet.ServletOutputStream;
@@ -18,6 +13,7 @@ import cn.sucec.major_adjust_system.dao.BaseDao;
 import cn.sucec.major_adjust_system.dao.MajorTableDao;
 import cn.sucec.major_adjust_system.dao.WarningTableDao;
 import cn.sucec.major_adjust_system.model.MajorTable;
+import cn.sucec.major_adjust_system.model.PwarningTable;
 import cn.sucec.major_adjust_system.model.WarningTable;
 import cn.sucec.major_adjust_system.tools.Change;
 import cn.sucec.major_adjust_system.tools.ExcelutilMine;
@@ -28,6 +24,12 @@ public class MajorTableServiceImpl extends BaseServiceImpl<MajorTable> implement
 	@Autowired
 	private MajorTableDao majorTableDao;
 
+	@Autowired
+	private PwarningTableService pwarningTableService;
+
+	@Autowired
+	private WarningTableService warningTableService;
+
 	@Override
 	public BaseDao getBaseDao() {
 		return majorTableDao;
@@ -35,8 +37,6 @@ public class MajorTableServiceImpl extends BaseServiceImpl<MajorTable> implement
 
 	@Autowired
 	private WarningTableDao warningTableDao;
-	
-	String tableName = "major_table";
 
 	/**
 	 * 导入Excel
@@ -51,7 +51,6 @@ public class MajorTableServiceImpl extends BaseServiceImpl<MajorTable> implement
 				super.add(major);
 			}
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
@@ -67,7 +66,7 @@ public class MajorTableServiceImpl extends BaseServiceImpl<MajorTable> implement
 
 		// 调用ExcelUtil的方法
 		try {
-			ExcelutilMine.createExcelFile("专业预警", list,outputStream);
+			ExcelutilMine.createExcelFile("专业预警", list, outputStream);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -93,12 +92,35 @@ public class MajorTableServiceImpl extends BaseServiceImpl<MajorTable> implement
 		return majorTableDao.getMajorLess20(nowYear);
 	}
 
+	/**
+	 * 进行专业分析，选出预预警专业
+	 */
 	@Override
 	public void zhuanYeFenXi(int year) {
+		// 获取所有作为基数的专业列表
 		List<MajorTable> majors = selectAll(year);
+		// 确定要取倒数几个专业
 		int number = majors.size();
-		int count = (int) Math.round(number*0.05);
+		int count = (int) Math.round(number * 0.05);
+		
+		// 根据文档第十四条那五个规则，依次放入预预警数据表中，但是没有原因合并和删除重复的
 		Change.ThisAdjustment(majors, count, year);
+		Change.ThisTransfer(majors, count, year);
+		Change.SecondEmploymentRate(majors, count, year);
+		Change.CurrentPosrgraduteRate(majors, count, year);
+		Change.MajorNumberLess20(majors, year);
+
+		List<PwarningTable> warninglist = pwarningTableService.getWarningMajor();
+		// 将预预警专业名单中的专业添加到简易的预警专业名单中
+		Change.YuYuJingToYuYjing(warninglist);
+		
+		// 根据文档第十五条的五条规则，加入简易的预警专业名单中
+		// 这个时候在简易的预警专业名单中，有通过预预警专业过来的也有直接通过文档第十五条5条规则挑出来的
+		// 所以设计到重复的问题要进行排掉之后重新添加到详细的预警专业名单中
+		Change.ZuiZhongYuJingZhuanYe(majors, year, count);
+		// 把简易预警专业中的重复的预警专业集合挑出来
+		List<WarningTable> chongfuWarningMajor = warningTableService.getChongFu();
+		// 将具有重复的简易预警专业整理后放到详细的预警专业名单中
+		Change.YuJingToXiangXiYuJing(chongfuWarningMajor,year);
 	}
-	
 }
