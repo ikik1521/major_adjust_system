@@ -30,12 +30,24 @@ public interface MajorTableDao extends BaseDao {
 	public List<MajorTable> selectAll(@Param("nowYear") Integer nowYear);
 	
 	/**
-	 * 挑出所有“转专业或专业分流后学生人数-今年的”人数不足20人的专业名单，不含艺体生
+	 * 挑出当年所有“转专业或专业分流后学生人数-今年的”人数不足20人的专业名单，不含艺体生
 	 * 而且是已有两届及以上毕业生的专业的，当年的人数<20人的major集合
 	 * 即 nowYear-5>(数据库的中的招生年份enrollment_year)
 	 * 已测试，可以使用
 	 */
 	public List<MajorTable> getMajorLess20(@Param("nowYear") Integer nowYear);
+
+	/**
+	 * 查出当年转专业或专业分流后学生人数不足20人的专业集合，不含艺体生
+	 * @return
+	 */
+	public List<MajorTable> getMajorLess20JinNian(@Param("nowYear") Integer nowYear);
+
+	/**
+	 * 查出去年转专业或专业分流后学生人数不足20人的专业集合，不含艺体生
+	 * @return
+	 */
+	public List<MajorTable> getMajorLess20QuNian(@Param("nowYear") Integer nowYear);
 	
 	
 }

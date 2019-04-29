@@ -17,7 +17,15 @@
   	</select>
  	
  	<select id="getMajorLess20" resultType="cn.sucec.major_adjust_system.model.MajorTable">
- 		SELECT * FROM `major_table` WHERE (#{nowYear}-5)&gt;=`enrollment_year` AND `art`="否" AND `continuous_enrollment`="否" AND `this_adjustment`!=900.0 AND `low_student_number` &lt;15
+ 		SELECT * FROM `major_table` WHERE (#{nowYear}-5)&gt;=`enrollment_year` AND `art`="否" AND `continuous_enrollment`="否" AND `this_adjustment`!=900.0 AND `low_student_number` &lt;20
  	</select> 
+ 	
+ 	<select id="getMajorLess20JinNian" resultType="cn.sucec.major_adjust_system.model.MajorTable">
+  		SELECT * FROM `major_table` WHERE (#{nowYear}-5)&gt;=`enrollment_year` AND `art`="否" AND `continuous_enrollment`="否" AND `this_adjustment`!=900.0 AND `low_student_number` &lt;20
+  	</select>
+  	
+  	<select id="getMajorLess20QuNian" resultType="cn.sucec.major_adjust_system.model.MajorTable">
+  		SELECT * FROM `major_table` WHERE (#{nowYear}-5)&gt;=`enrollment_year` AND `art`="否" AND `continuous_enrollment`="否" AND `this_adjustment`!=900.0 AND `high_student_number` &lt;20
+  	</select>
  	
 </mapper>

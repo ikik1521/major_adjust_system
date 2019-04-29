@@ -20,8 +20,7 @@ import cn.sucec.major_adjust_system.service.PwarningTableService;
 import cn.sucec.major_adjust_system.service.WarningTableService;
 
 /**
- * 此工具类是进行需要的排序并且存入数据库中
- * 
+  * 此工具类是进行需要的排序并且存入数据库中
  * @author WangChuo
  * 
  */
@@ -42,10 +41,6 @@ public class Change {
 
 	private static Change change;
 
-//	public void setTestService(PwarningTableService pwarningTableService) {
-//		this.pwarningTableService = pwarningTableService;
-//	}
-
 	@PostConstruct
 	public void init() {
 		change = this;
@@ -54,36 +49,6 @@ public class Change {
 		change.majorTableService = this.majorTableService;
 		change.detailwarningTableService = this.detailwarningTableService;
 	}
-
-//	/**
-//	 * 此方法是根据lastAdjustment进行升序排序，要取前三个 去年的专业调剂率 已测试，可以使用
-//	 * 
-//	 * @param majorTables
-//	 * @return
-//	 */
-//	public static List<MajorTable> LastAdjustment(List<MajorTable> majorTables, int count, int nowYear) {
-//		Collections.sort(majorTables, new Comparator<MajorTable>() {
-//			@Override
-//			public int compare(MajorTable o1, MajorTable o2) {
-//				if (o1.getLastAdjustment() < o2.getLastAdjustment()) {
-//					return 1;
-//				}
-//				if (o1.getLastAdjustment() == o2.getLastAdjustment()) {
-//					return 0;
-//				}
-//				return -1;
-//			}
-//		});
-//
-//		List<MajorTable> newList = majorTables.subList(0, count);
-//		List<PwarningTable> pwarningTables = new ArrayList<PwarningTable>();
-//		int PwarningYear = nowYear;
-//		String PmajorCode = null;
-//		String PmajorName = null;
-//		String PwarningReason = "";
-//
-//		return newList;
-//	}
 
 	/**
 	 * 此方法是根据thisAdjustment进行升序排序，要取前三个 当年的专业调剂率 已测试，可以使用
@@ -281,7 +246,7 @@ public class Change {
 		int pwarningYear = nowYear;
 		String pmajorCode = null;
 		String pmajorName = null;
-		String pwarningReason = "，当年转专业或专业分流工作结束后，学生人数不足20人";
+		String pwarningReason = "，当年转专业或专业分流工作结束后学生人数不足20人";
 		for (MajorTable majorTable : majorTables) {
 			if (majorTable.getLowStudentNumber() < 20) {
 				pmajorCode = majorTable.getMajorCode();

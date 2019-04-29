@@ -18,6 +18,6 @@
    
    <select id="getWarningTableByMajorCode" resultType="cn.sucec.major_adjust_system.model.WarningTable">
   		SELECT * FROM `warning_table` WHERE `major_code`=#{majorCode}
-  </select>
+   </select>
   
 </mapper>

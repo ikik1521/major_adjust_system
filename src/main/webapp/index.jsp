@@ -27,7 +27,20 @@
     <a href="zhuanyefenxi">开始进行专业分析</a>
     
     <br/>
-    <a href="chakanyujing">查看预警专业</a>
+    <a href="chakanjinnianyujing">查看今年预警专业</a>
+    
+    <br/>
+    <a href="chakanwangnianyujing">查看往年预警专业</a>
+    
+    <br/>
+    <a href="chaKanZanTingZhuanYe">查看暂停招生专业</a>
+    
+    <br/>
+    <a href="chaKanZhuanYeCheXiao">查看专业撤销名单</a>
+    
+    <br/>
+    <a href="qingkongshuju">清空数据</a>
+    
     
     
     

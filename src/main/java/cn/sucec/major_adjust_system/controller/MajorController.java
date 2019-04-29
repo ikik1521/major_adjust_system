@@ -19,9 +19,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import cn.sucec.major_adjust_system.model.DetailwarningTable;
+import cn.sucec.major_adjust_system.model.PauseTable;
 import cn.sucec.major_adjust_system.service.DetailwarningTableService;
 import cn.sucec.major_adjust_system.service.MajorTableService;
-import cn.sucec.major_adjust_system.service.PwarningTableService;
+import cn.sucec.major_adjust_system.service.PauseTableService;
 
 @Controller
 public class MajorController {
@@ -31,6 +32,9 @@ public class MajorController {
 	
 	@Autowired
 	private DetailwarningTableService detailwarningTableService;
+	
+	@Autowired
+	private PauseTableService pauseTableService;
 
 	// 上传文件会自动绑定到MultipartFile中
 	@RequestMapping(value = "/upload", method = RequestMethod.POST)
@@ -74,14 +78,48 @@ public class MajorController {
 	public String zhuanyefenxi() {
 		int year = 2019;
 		System.out.println("这里是专业分析");
+		// 对传上来的表进行数据分析，挑出预警专业放入详细预警专业数据表中
 		majorTableService.zhuanYeFenXi(year);
+		// 对预警专业数据表进行分析，挑出要暂停招生的专业
+		pauseTableService.fenXiZanTingZhuanYe(year);
 		return "success";
 	}
 	
-	@RequestMapping("/chakanyujing")
-	public String chakanyujing() {
-		System.out.println("这里是查看预警专业");
-		List<DetailwarningTable> detailwarningTables = detailwarningTableService.selectAll();
+	@RequestMapping("/chakanjinnianyujing")
+	public String chakanjinnianyujing() {
+		int year = 2019;
+		System.out.println("这里是查看今年预警专业");
+		List<DetailwarningTable> detailwarningMajors = detailwarningTableService.getWarningMajorByYear(year);
+		for (DetailwarningTable detailwarningMajor : detailwarningMajors) {
+			System.out.println(detailwarningMajor);
+		}
+		return "success";
+	}
+	
+	@RequestMapping("/chakanwangnianyujing")
+	public String chakanwangnianyujing() {
+		System.out.println("这里是查看往年预警专业");
+		List<DetailwarningTable> detailwarningMajors = detailwarningTableService.selectAll();
+		for (DetailwarningTable detailwarningMajor : detailwarningMajors) {
+			System.out.println(detailwarningMajor);
+		}
+		return "success";
+	}
+	
+	@RequestMapping("/chaKanZanTingZhuanYe")
+	public String chaKanZanTingZhuanYe() {
+		System.out.println("这里是查看暂停招生预警专业");
+		List<PauseTable> pauseMajors = pauseTableService.selectAll();
+		for (PauseTable pauseMajor : pauseMajors) {
+			System.out.println(pauseMajor);
+		}
+		return "success";
+	}
+	
+	@RequestMapping("/qingkongshuju")
+	public String qingkongshuju() {
+		System.out.println("这里是清空所有数据");
+		// 通过service调用每一个表的删除方法，除了详细预警专业名单数据表以外的都清除掉
 		
 		return "success";
 	}

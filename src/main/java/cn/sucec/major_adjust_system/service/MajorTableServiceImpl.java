@@ -123,4 +123,16 @@ public class MajorTableServiceImpl extends BaseServiceImpl<MajorTable> implement
 		// 将具有重复的简易预警专业整理后放到详细的预警专业名单中
 		Change.YuJingToXiangXiYuJing(chongfuWarningMajor,year);
 	}
+	
+
+	@Override
+	public List<MajorTable> getMajorLess20JinNian(int year) {
+		return majorTableDao.getMajorLess20JinNian(year);
+	}
+	
+
+	@Override
+	public List<MajorTable> getMajorLess20QuNian(int year) {
+		return majorTableDao.getMajorLess20QuNian(year);
+	}
 }

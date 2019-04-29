@@ -4,4 +4,12 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cn.sucec.major_adjust_system.dao.DetailwarningTableDao">
   
+  <select id="getWarningMajorByYear" resultType="cn.sucec.major_adjust_system.model.DetailwarningTable">
+  		SELECT * FROM `detailwarning_table` WHERE `warning_year`=#{year}
+  </select>
+  
+  <select id="getWarningMajorByMajorCode" resultType="cn.sucec.major_adjust_system.model.DetailwarningTable">
+  		SELECT * FROM `detailwarning_table` WHERE `major_code`=#{majorCode}
+  </select>
+  
 </mapper>
