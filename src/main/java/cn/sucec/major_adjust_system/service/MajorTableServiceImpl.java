@@ -135,4 +135,9 @@ public class MajorTableServiceImpl extends BaseServiceImpl<MajorTable> implement
 	public List<MajorTable> getMajorLess20QuNian(int year) {
 		return majorTableDao.getMajorLess20QuNian(year);
 	}
+
+	@Override
+	public List<MajorTable> getWuNianWeiZhaoSheng() {
+		return majorTableDao.getWuNianWeiZhaoSheng();
+	}
 }

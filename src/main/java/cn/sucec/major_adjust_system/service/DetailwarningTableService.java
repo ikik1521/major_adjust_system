@@ -9,6 +9,9 @@ public interface DetailwarningTableService extends BaseService<DetailwarningTabl
 	public List<DetailwarningTable> getWarningMajorByYear(int year);
 
 	public List<DetailwarningTable> getWarningMajorByMajorCode(String majoeCode);
+	
+	// 把五年内累计三次列入预警名单的专业代码选出来
+	public String getcauseMajorCode();
 
 
 }

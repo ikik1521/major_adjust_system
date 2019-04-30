@@ -12,5 +12,7 @@ public interface DetailwarningTableDao extends BaseDao {
 
 	public List<DetailwarningTable> getWarningMajorByMajorCode(@Param("majorCode") String majorCode);
 
+	// 把五年内累计三次列入预警名单的专业代码选出来
+	public String getcauseMajorCode();
 	
 }

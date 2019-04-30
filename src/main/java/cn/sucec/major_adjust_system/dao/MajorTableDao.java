@@ -49,5 +49,7 @@ public interface MajorTableDao extends BaseDao {
 	 */
 	public List<MajorTable> getMajorLess20QuNian(@Param("nowYear") Integer nowYear);
 	
+	public List<MajorTable> getWuNianWeiZhaoSheng();
+	
 	
 }

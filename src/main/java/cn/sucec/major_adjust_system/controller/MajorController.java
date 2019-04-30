@@ -18,8 +18,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import cn.sucec.major_adjust_system.model.CancleTable;
 import cn.sucec.major_adjust_system.model.DetailwarningTable;
 import cn.sucec.major_adjust_system.model.PauseTable;
+import cn.sucec.major_adjust_system.service.CancleTableService;
 import cn.sucec.major_adjust_system.service.DetailwarningTableService;
 import cn.sucec.major_adjust_system.service.MajorTableService;
 import cn.sucec.major_adjust_system.service.PauseTableService;
@@ -35,6 +37,9 @@ public class MajorController {
 	
 	@Autowired
 	private PauseTableService pauseTableService;
+	
+	@Autowired
+	private CancleTableService cancleTableService;
 
 	// 上传文件会自动绑定到MultipartFile中
 	@RequestMapping(value = "/upload", method = RequestMethod.POST)
@@ -82,6 +87,8 @@ public class MajorController {
 		majorTableService.zhuanYeFenXi(year);
 		// 对预警专业数据表进行分析，挑出要暂停招生的专业
 		pauseTableService.fenXiZanTingZhuanYe(year);
+		// 对预警专业表和majorTaxble表进行分析，挑出要进行专业撤销的专业
+		cancleTableService.fenXiCheXiaoZhuanYe(year);
 		return "success";
 	}
 	
@@ -116,9 +123,19 @@ public class MajorController {
 		return "success";
 	}
 	
+	@RequestMapping("/chaKanZhuanYeCheXiao")
+	public String chaKanZhuanYeCheXiao() {
+		System.out.println("这里是查看撤销专业名单");
+		List<CancleTable> cancleTables = cancleTableService.selectAll();
+		for (CancleTable cancleMajor : cancleTables) {
+			System.out.println("======撤销专业：" + cancleMajor);
+		}
+		return "success";
+	}
+	
 	@RequestMapping("/qingkongshuju")
 	public String qingkongshuju() {
-		System.out.println("这里是清空所有数据");
+		System.out.println(""+"这里是清空所有数据");
 		// 通过service调用每一个表的删除方法，除了详细预警专业名单数据表以外的都清除掉
 		
 		return "success";

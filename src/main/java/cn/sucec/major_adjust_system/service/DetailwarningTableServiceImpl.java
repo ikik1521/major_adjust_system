@@ -30,4 +30,9 @@ public class DetailwarningTableServiceImpl extends BaseServiceImpl<Detailwarning
 		return detailwarningTableDao.getWarningMajorByMajorCode(majoeCode);
 	}
 
+	@Override
+	public String getcauseMajorCode() {
+		return detailwarningTableDao.getcauseMajorCode();
+	}
+
 }

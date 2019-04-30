@@ -27,5 +27,6 @@ public interface MajorTableService extends BaseService<MajorTable>{
 
 	public List<MajorTable> getMajorLess20QuNian(int year);
 
+	public List<MajorTable> getWuNianWeiZhaoSheng();
 	
 }
