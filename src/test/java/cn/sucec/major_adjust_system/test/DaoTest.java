@@ -1,22 +1,31 @@
 package cn.sucec.major_adjust_system.test;
 
 import java.io.InputStream;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
 
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import cn.sucec.major_adjust_system.dao.MajorTableDao;
+import cn.sucec.major_adjust_system.dao.UserDao;
 import cn.sucec.major_adjust_system.model.MajorTable;
+import cn.sucec.major_adjust_system.model.User;
 import cn.sucec.major_adjust_system.tools.Change;
 
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration({ "classpath:spring.xml" })
 public class DaoTest {
+	
+	@Autowired
+	private UserDao UserDao;
+	
 	
 	Change change = new Change();
 
@@ -47,4 +56,10 @@ public class DaoTest {
 		System.out.println(count);
 	}
 	
+	@Test
+	public void testGetUser() {
+		User adminUser=UserDao.queryuser();
+		
+		System.out.println(adminUser);
+	}
 }

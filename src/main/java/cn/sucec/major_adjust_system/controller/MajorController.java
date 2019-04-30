@@ -10,21 +10,26 @@ import java.util.List;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import cn.sucec.major_adjust_system.model.CancleTable;
 import cn.sucec.major_adjust_system.model.DetailwarningTable;
 import cn.sucec.major_adjust_system.model.PauseTable;
+import cn.sucec.major_adjust_system.model.User;
 import cn.sucec.major_adjust_system.service.CancleTableService;
 import cn.sucec.major_adjust_system.service.DetailwarningTableService;
 import cn.sucec.major_adjust_system.service.MajorTableService;
 import cn.sucec.major_adjust_system.service.PauseTableService;
+import cn.sucec.major_adjust_system.service.UserService;
 
 @Controller
 public class MajorController {
@@ -40,6 +45,9 @@ public class MajorController {
 	
 	@Autowired
 	private CancleTableService cancleTableService;
+	
+	@Autowired
+	private UserService userService;
 
 	// 上传文件会自动绑定到MultipartFile中
 	@RequestMapping(value = "/upload", method = RequestMethod.POST)
@@ -139,5 +147,38 @@ public class MajorController {
 		// 通过service调用每一个表的删除方法，除了详细预警专业名单数据表以外的都清除掉
 		
 		return "success";
+	}
+
+	@RequestMapping(value="/login",produces = "text/plain;charset=utf-8")
+	@ResponseBody
+	public String login(@RequestParam("username") String username,
+			@RequestParam("password") String password,Model model,
+			HttpSession session,HttpServletRequest req, HttpServletResponse resp) throws IOException {
+		
+		User admin=userService.getAdmin();
+		
+		if(username.equals(admin.getName())&&password.equals(admin.getPassword())) {
+			
+			session.setAttribute("USER_INFO",admin);
+			
+			resp.sendRedirect("context.jsp");
+			return "登陆成功";
+			
+			
+
+		}else {
+			System.out.println("用户名或密码错误，请重新登录");
+			
+			resp.sendRedirect("index.jsp");
+			return "用户名或密码错误，请重新登录";
+		}
+	}
+	
+	@RequestMapping("/logout")
+	public void logout(HttpSession session,HttpServletResponse response) throws IOException {
+		session.invalidate();
+		System.out.println("已退出");
+		
+		response.sendRedirect("index.jsp");
 	}
 }

@@ -22,7 +22,23 @@
     </form>
     
     <a href="download">文件下载</a>
-    
+    <form action="login"  method="post">
+        <table>
+            <tr>
+                <td>名字</td>
+                <td><input type="text" name="username"></td>
+            </tr>
+            <tr>
+            <td>密码</td>
+                <td><input type="password" name="password"></td>
+            </tr>
+            <tr>
+                <td><input type="submit" value="提交"></td>
+            </tr>
+        </table>
+    </form>
+    <br>
+    <a href="logout">退出</a>
     <br/>
     <a href="zhuanyefenxi">开始进行专业分析</a>
     

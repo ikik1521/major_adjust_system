@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.sucec.major_adjust_system.dao.WarningTableDao">
+  
+   <select id="getAll" resultType="cn.sucec.major_adjust_system.model.WarningTable">
+  		SELECT * FROM `warning_table`
+   </select>
+   
+   <delete id="deleteWarningReasonNull">
+   		DELETE FROM `warning_table` WHERE `warning_reason`="";
+   </delete>
+   
+   <select id="chongfuWarningMajor" resultType="cn.sucec.major_adjust_system.model.WarningTable">
+   		SELECT * FROM `warning_table` GROUP BY `major_code` HAVING COUNT(`major_code`) >1
+   </select>
+   
+   <select id="getWarningTableByMajorCode" resultType="cn.sucec.major_adjust_system.model.WarningTable">
+  		SELECT * FROM `warning_table` WHERE `major_code`=#{majorCode}
+   </select>
+  
+</mapper>
