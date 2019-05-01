@@ -99,6 +99,7 @@ public class MajorTableServiceImpl extends BaseServiceImpl<MajorTable> implement
 	public void zhuanYeFenXi(int year) {
 		// 获取所有作为基数的专业列表
 		List<MajorTable> majors = selectAll(year);
+		System.out.println("hahahahah" + majors);
 		// 确定要取倒数几个专业
 		int number = majors.size();
 		int count = (int) Math.round(number * 0.05);
@@ -116,7 +117,7 @@ public class MajorTableServiceImpl extends BaseServiceImpl<MajorTable> implement
 		
 		// 根据文档第十五条的五条规则，加入简易的预警专业名单中
 		// 这个时候在简易的预警专业名单中，有通过预预警专业过来的也有直接通过文档第十五条5条规则挑出来的
-		// 所以设计到重复的问题要进行排掉之后重新添加到详细的预警专业名单中
+		// 所以涉及到重复的问题要进行排掉之后重新添加到详细的预警专业名单中
 		Change.ZuiZhongYuJingZhuanYe(majors, year, count);
 		// 把简易预警专业中的重复的预警专业集合挑出来
 		List<WarningTable> chongfuWarningMajor = warningTableService.getChongFu();

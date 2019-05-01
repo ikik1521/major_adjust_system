@@ -478,7 +478,7 @@ public class Change {
 			}
 			// 以上，已经将重复的预警专业的原因加上了，现在要把这些整理好原因的专业放到详细预警专业的数据表中去
 			MajorTable major = change.majorTableService.selectOne(warningMajorCode);
-			System.out.println(major);
+			//System.out.println(major);
 			DetailwarningTable detailwarningMajor = new DetailwarningTable(year,major.getMajorCode(),
 					major.getMajorName(), major.getEnrollmentYear(), major.getContinuousEnrollment(), major.getYears(),
 					major.getArt(), major.getProvinceWarning(), major.getSchoolWarning(), major.getLastAdjustment(),

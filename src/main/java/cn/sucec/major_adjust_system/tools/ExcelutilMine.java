@@ -28,69 +28,69 @@ public class ExcelutilMine {
 	public static List<MajorTable> importExcel(InputStream in) throws IOException {
 
 		/**
-		 * POIï¼šç”¨æ¥è¯»å–Excel
+		 * POI£ºÓÃÀ´¶ÁÈ¡Excel
 		 * 
-		 * Excelä¸­å› ä¸ºè®¡ç®—åŸå› ä¼šå‡ºç°#N/Açš„æƒ…å†µï¼Œä¸ºé¿å…è·å–æ—¶å‡ºé”™æ­¤å¤„ç»Ÿä¸€ç”¨äº†try-catchè¯­å¥
-		 * å…¶å®è¦å¯¹ä»˜çš„åªæœ‰æ ¹æ®äººæ•°é‚£é‡Œï¼Œå› ä¸ºå°±ç®—æ˜¯å…¶ä»–ä¸ºç©ºä½†æ˜¯åœ¨ç­›é€‰ä¹‹å‰å°±å·²ç»è¢«æ’é™¤æ‰äº†
-		 * è¿™é‡Œè¯´æ˜æ¯ä¸€é¡¹ä¸ºç©ºçš„æ—¶å€™é‡‡å–çš„æªæ–½
-		 * åºå·idï¼šä¸ä¼šä¸ºç©ºï¼Œå°±ç®—æ˜¯ç©ºåˆ™è®¾ä¸º10000
-		 * ä¸“ä¸šä»£ç ï¼šä¸ä¼šä¸ºç©º
-		 * ä¸“ä¸šåç§°ï¼šä¸ä¼šä¸ºç©º
-		 * æ‹›ç”Ÿå¹´ä»½ï¼šè‹¥æ˜¯ç©ºåˆ™è®¾ç½®ä¸º10000
-		 * æ˜¯å¦è¿ç»­5å¹´æœªæ‹›ç”Ÿï¼šè¿™ä¸ªä¸ä¼šä¸ºç©º
-		 * å¹´åˆ¶ï¼šå¹´åˆ¶ä¸ä¼šä¸ºç©º
-		 * æ˜¯å¦è‰ºä½“ç±»ä¸“ä¸šï¼šæ˜¯å¦è‰ºä½“ä¸ä¼šä¸ºç©º
-		 * æ˜¯å¦åœ¨çœéƒ¨çº§è¯„ä¼°ä¸­è¢«é¢„è­¦î„Ÿï¼šä¸ä¼šä¸ºç©º
-		 * æ˜¯å¦åœ¨æ ¡çº§è¯„ä¼°ä¸­è¢«é¢„è­¦ï¼šä¸ä¼šä¸ºç©º
-		 * ä¸“ä¸šè°ƒå‰‚ç‡-å»å¹´çš„ï¼šè‹¥ä¸ºç©ºï¼Œè®¾ç½®ä¸º900.0
-		 * ä¸“ä¸šè°ƒå‰‚ç‡-ä»Šå¹´çš„ï¼šè‹¥ä¸ºç©ºï¼Œè®¾ç½®ä¸º900.0
-		 * LastTransferï¼š900.0
-		 * MiddleTransferï¼š900.0
+		 * ExcelÖĞÒòÎª¼ÆËãÔ­Òò»á³öÏÖ#N/AµÄÇé¿ö£¬Îª±ÜÃâ»ñÈ¡Ê±³ö´í´Ë´¦Í³Ò»ÓÃÁËtry-catchÓï¾ä
+		 * ÆäÊµÒª¶Ô¸¶µÄÖ»ÓĞ¸ù¾İÈËÊıÄÇÀï£¬ÒòÎª¾ÍËãÊÇÆäËûÎª¿Õµ«ÊÇÔÚÉ¸Ñ¡Ö®Ç°¾ÍÒÑ¾­±»ÅÅ³ıµôÁË
+		 * ÕâÀïËµÃ÷Ã¿Ò»ÏîÎª¿ÕµÄÊ±ºò²ÉÈ¡µÄ´ëÊ©
+		 * ĞòºÅid£º²»»áÎª¿Õ£¬¾ÍËãÊÇ¿ÕÔòÉèÎª10000
+		 * ×¨Òµ´úÂë£º²»»áÎª¿Õ
+		 * ×¨ÒµÃû³Æ£º²»»áÎª¿Õ
+		 * ÕĞÉúÄê·İ£ºÈôÊÇ¿ÕÔòÉèÖÃÎª10000
+		 * ÊÇ·ñÁ¬Ğø5ÄêÎ´ÕĞÉú£ºÕâ¸ö²»»áÎª¿Õ
+		 * ÄêÖÆ£ºÄêÖÆ²»»áÎª¿Õ
+		 * ÊÇ·ñÒÕÌåÀà×¨Òµ£ºÊÇ·ñÒÕÌå²»»áÎª¿Õ
+		 * ÊÇ·ñÔÚÊ¡²¿¼¶ÆÀ¹ÀÖĞ±»Ô¤¾¯­¦£º²»»áÎª¿Õ
+		 * ÊÇ·ñÔÚĞ£¼¶ÆÀ¹ÀÖĞ±»Ô¤¾¯£º²»»áÎª¿Õ
+		 * ×¨Òµµ÷¼ÁÂÊ-È¥ÄêµÄ£ºÈôÎª¿Õ£¬ÉèÖÃÎª900.0
+		 * ×¨Òµµ÷¼ÁÂÊ-½ñÄêµÄ£ºÈôÎª¿Õ£¬ÉèÖÃÎª900.0
+		 * LastTransfer£º900.0
+		 * MiddleTransfer£º900.0
 		 * ThisTransfer:900.0
-		 * HighStudentNumberï¼š10000
-		 * LowStudentNumberï¼š10000
-		 * FirstEmploymentRateï¼š900.0
-		 * SecondEmploymentRateï¼š900.0
-		 * CurrentPosrgraduteRateï¼š900.0
+		 * HighStudentNumber£º10000
+		 * LowStudentNumber£º10000
+		 * FirstEmploymentRate£º900.0
+		 * SecondEmploymentRate£º900.0
+		 * CurrentPosrgraduteRate£º900.0
 		 * 
-		 * Integer ç±»å‹catchåç½®ä¸º10000ï¼›
-		 * Double ç±»å‹catchåç½®ä¸º900.0ï¼›
-		 * ç™¾åˆ†æ•°è·å–åä¸ºå°æ•°ï¼Œå­˜å…¥æ•°æ®åº“æ—¶ä¼šå‡ºç°å››èˆäº”å…¥ç°è±¡ï¼Œæ•…æ”¾å¤§äº†100å€
+		 * Integer ÀàĞÍcatchºóÖÃÎª10000£»
+		 * Double ÀàĞÍcatchºóÖÃÎª900.0£»
+		 * °Ù·ÖÊı»ñÈ¡ºóÎªĞ¡Êı£¬´æÈëÊı¾İ¿âÊ±»á³öÏÖËÄÉáÎåÈëÏÖÏó£¬¹Ê·Å´óÁË100±¶
 		 * */
 		
 		List<MajorTable> majorExceList = new ArrayList<MajorTable>();
 		FileInputStream fileIn = (FileInputStream) in;
 
 		Workbook wb0 = new XSSFWorkbook(fileIn);
-		// è·å–Excelæ–‡æ¡£ä¸­çš„ç¬¬ä¸€ä¸ªè¡¨å•
+		// »ñÈ¡ExcelÎÄµµÖĞµÄµÚÒ»¸ö±íµ¥
 		Sheet sheet = wb0.getSheetAt(0);
 
-		// éå†æ‰€æœ‰è¡Œ
+		// ±éÀúËùÓĞĞĞ
 		for (Row row : sheet) {
 
-			// å»æ‰ç©ºè¡Œ
+			// È¥µô¿ÕĞĞ
 			if (row == null) {
 				continue;
 			}
-			// éå†æ‰€æœ‰çš„åˆ—
+			// ±éÀúËùÓĞµÄÁĞ
 
 			Integer Id;
-			Integer EnrollmentYear; // æ‹›ç”Ÿå¹´ä»½
-			String ContinuousEnrollment; // æ˜¯å¦è¿ç»­5å¹´æœªæ‹›ç”Ÿ
-			Integer Years; // å¹´åˆ¶
-			String Art; // æ˜¯å¦è‰ºä½“ç±»ä¸“ä¸š
-			String ProvinceWarning; // æ˜¯å¦åœ¨çœéƒ¨çº§è¯„ä¼°ä¸­è¢«é¢„è­¦
-			String SchoolWarning; // æ˜¯å¦åœ¨æ ¡çº§ä¸“ä¸šè¯„ä¼°ä¸­è¢«é¢„è­¦
-			Double LastAdjustment; // ä¸“ä¸šè°ƒå‰‚ç‡-å»å¹´çš„
-			Double ThisAdjustment; // ä¸“ä¸šè°ƒå‰‚ç‡-ä»Šå¹´çš„
-			Double LastTransfer; // ç”³è¯·è½¬å‡ºäººæ•°/è¯¥ä¸“ä¸šæœ¬å¹´çº§åœ¨ç±åœ¨å†Œåœ¨æ ¡ç”Ÿäººæ•°çš„æ¯”ä¾‹
-			Double MiddleTransfer; // ç”³è¯·è½¬å‡ºäººæ•°/è¯¥ä¸“ä¸šæœ¬å¹´çº§åœ¨ç±åœ¨å†Œåœ¨æ ¡ç”Ÿäººæ•°çš„æ¯”ä¾‹
-			Double ThisTransfer; // ç”³è¯·è½¬å‡ºäººæ•°/è¯¥ä¸“ä¸šæœ¬å¹´çº§åœ¨ç±åœ¨å†Œåœ¨æ ¡ç”Ÿäººæ•°çš„æ¯”ä¾‹
-			Integer HighStudentNumber; // è½¬ä¸“ä¸šæˆ–ä¸“ä¸šåˆ†æµåå­¦ç”Ÿäººæ•°-å»å¹´çš„
-			Integer LowStudentNumber; // è½¬ä¸“ä¸šæˆ–ä¸“ä¸šåˆ†æµåå­¦ç”Ÿäººæ•°-ä»Šå¹´çš„
-			Double FirstEmploymentRate; // åˆæ¬¡å°±ä¸šç‡-å»å¹´çš„
-			Double SecondEmploymentRate; // åˆæ¬¡å°±ä¸šç‡-ä»Šå¹´çš„
-			Double CurrentPosrgraduteRate; // åº”å±Šæ¯•ä¸šç”Ÿè€ƒç ”ç‡
+			Integer EnrollmentYear; // ÕĞÉúÄê·İ
+			String ContinuousEnrollment; // ÊÇ·ñÁ¬Ğø5ÄêÎ´ÕĞÉú
+			Integer Years; // ÄêÖÆ
+			String Art; // ÊÇ·ñÒÕÌåÀà×¨Òµ
+			String ProvinceWarning; // ÊÇ·ñÔÚÊ¡²¿¼¶ÆÀ¹ÀÖĞ±»Ô¤¾¯
+			String SchoolWarning; // ÊÇ·ñÔÚĞ£¼¶×¨ÒµÆÀ¹ÀÖĞ±»Ô¤¾¯
+			Double LastAdjustment; // ×¨Òµµ÷¼ÁÂÊ-È¥ÄêµÄ
+			Double ThisAdjustment; // ×¨Òµµ÷¼ÁÂÊ-½ñÄêµÄ
+			Double LastTransfer; // ÉêÇë×ª³öÈËÊı/¸Ã×¨Òµ±¾Äê¼¶ÔÚ¼®ÔÚ²áÔÚĞ£ÉúÈËÊıµÄ±ÈÀı
+			Double MiddleTransfer; // ÉêÇë×ª³öÈËÊı/¸Ã×¨Òµ±¾Äê¼¶ÔÚ¼®ÔÚ²áÔÚĞ£ÉúÈËÊıµÄ±ÈÀı
+			Double ThisTransfer; // ÉêÇë×ª³öÈËÊı/¸Ã×¨Òµ±¾Äê¼¶ÔÚ¼®ÔÚ²áÔÚĞ£ÉúÈËÊıµÄ±ÈÀı
+			Integer HighStudentNumber; // ×ª×¨Òµ»ò×¨Òµ·ÖÁ÷ºóÑ§ÉúÈËÊı-È¥ÄêµÄ
+			Integer LowStudentNumber; // ×ª×¨Òµ»ò×¨Òµ·ÖÁ÷ºóÑ§ÉúÈËÊı-½ñÄêµÄ
+			Double FirstEmploymentRate; // ³õ´Î¾ÍÒµÂÊ-È¥ÄêµÄ
+			Double SecondEmploymentRate; // ³õ´Î¾ÍÒµÂÊ-½ñÄêµÄ
+			Double CurrentPosrgraduteRate; // Ó¦½ì±ÏÒµÉú¿¼ÑĞÂÊ
 
 			try {
 				Id = (int) row.getCell(0).getNumericCellValue();
@@ -98,52 +98,52 @@ public class ExcelutilMine {
 				Id = 10000;
 			}
 
-			// ä¸“ä¸šä»£ç å’Œä¸“ä¸šåç§°ä¸å¯èƒ½ä¸º#N/A
+			// ×¨Òµ´úÂëºÍ×¨ÒµÃû³Æ²»¿ÉÄÜÎª#N/A
 			String MajorCode = row.getCell(1).getStringCellValue();
 			String MajorName = row.getCell(2).getStringCellValue();
 
 			try {
-				EnrollmentYear = (int) row.getCell(3).getNumericCellValue();//æ‹›ç”Ÿå¹´ä»½
+				EnrollmentYear = (int) row.getCell(3).getNumericCellValue();//ÕĞÉúÄê·İ
 			} catch (IllegalStateException e) {
 				EnrollmentYear = 10000;
 			}
 			try {
-				ContinuousEnrollment = row.getCell(4).getStringCellValue();//æ˜¯å¦è¿ç»­äº”å¹´æœªæ‹›ç”Ÿ
+				ContinuousEnrollment = row.getCell(4).getStringCellValue();//ÊÇ·ñÁ¬ĞøÎåÄêÎ´ÕĞÉú
 			} catch (Exception e) {
 				ContinuousEnrollment="NULL";
 			}
 			
 			try {
-				Years = (int) row.getCell(5).getNumericCellValue();//å¹´åˆ¶
+				Years = (int) row.getCell(5).getNumericCellValue();//ÄêÖÆ
 			} catch (Exception e) {
 				Years = 10000;
 			}
 
 			try {
-				Art = row.getCell(6).getStringCellValue();//æ˜¯å¦è‰ºä½“
+				Art = row.getCell(6).getStringCellValue();//ÊÇ·ñÒÕÌå
 			} catch (Exception e) {
 				Art = "NULL";
 			}
 			try {
-				ProvinceWarning = row.getCell(7).getStringCellValue();//çœé¢„è­¦
+				ProvinceWarning = row.getCell(7).getStringCellValue();//Ê¡Ô¤¾¯
 			} catch (Exception e) {
 				ProvinceWarning = "NULL";
 			}
 			try {
-				SchoolWarning = row.getCell(8).getStringCellValue();//æ ¡é¢„è­¦
+				SchoolWarning = row.getCell(8).getStringCellValue();//Ğ£Ô¤¾¯
 			} catch (Exception e) {
 				SchoolWarning = "NULL";
 			}
 
 			try {
-				LastAdjustment =100*( row.getCell(9).getNumericCellValue());//å»å¹´è°ƒå‰‚ç‡
+				LastAdjustment =100*( row.getCell(9).getNumericCellValue());//È¥Äêµ÷¼ÁÂÊ
 			} catch (Exception e) {
-				LastAdjustment = 900.0;//å–é«˜å€¼ï¼Œé»˜è®¤ä¸º0.0ï¼Œä¸‹åŒ
+				LastAdjustment = 900.0;//È¡¸ßÖµ£¬Ä¬ÈÏÎª0.0£¬ÏÂÍ¬
 			}
 			try {
 				ThisAdjustment = 100*(row.getCell(10).getNumericCellValue());
 			} catch (Exception e) {
-				ThisAdjustment = 900.0;//å–é«˜å€¼ï¼Œé»˜è®¤ä¸º0.0
+				ThisAdjustment = 900.0;//È¡¸ßÖµ£¬Ä¬ÈÏÎª0.0
 			}
 			try {
 				LastTransfer = 100*(row.getCell(11).getNumericCellValue());
@@ -164,7 +164,7 @@ public class ExcelutilMine {
 			try {
 				HighStudentNumber = (int) row.getCell(14).getNumericCellValue();
 			} catch (Exception e) {
-				HighStudentNumber = 10000;//äººæ•°å–ä½å€¼ï¼Œé»˜è®¤10000
+				HighStudentNumber = 10000;//ÈËÊıÈ¡µÍÖµ£¬Ä¬ÈÏ10000
 			}
 			try {
 				LowStudentNumber = (int) row.getCell(15).getNumericCellValue();
@@ -174,7 +174,7 @@ public class ExcelutilMine {
 			try {
 				FirstEmploymentRate = 100*(row.getCell(16).getNumericCellValue());
 			} catch (Exception e) {
-				FirstEmploymentRate = 900.0;//å°±ä¸šç‡å–ä½å€¼ï¼Œé»˜è®¤900
+				FirstEmploymentRate = 900.0;//¾ÍÒµÂÊÈ¡µÍÖµ£¬Ä¬ÈÏ900
 			}
 			try {
 				SecondEmploymentRate = 100*(row.getCell(17).getNumericCellValue());
@@ -184,7 +184,7 @@ public class ExcelutilMine {
 			try {
 				CurrentPosrgraduteRate = 100*(row.getCell(18).getNumericCellValue());
 			} catch (Exception e) {
-				CurrentPosrgraduteRate = 900.0;//è€ƒç ”ç‡å–ä½å€¼ï¼Œé»˜è®¤900
+				CurrentPosrgraduteRate = 900.0;//¿¼ÑĞÂÊÈ¡µÍÖµ£¬Ä¬ÈÏ900
 			}
 
 			MajorTable major = new MajorTable(Id, MajorCode, MajorName, EnrollmentYear, ContinuousEnrollment, Years, Art,
@@ -199,19 +199,19 @@ public class ExcelutilMine {
 
 	public static void createExcelFile(String sheetName, List<WarningTable> list,ServletOutputStream outputStream) throws IOException {
 
-		// åˆ›å»ºæ–°çš„Excelå·¥ä½œç°¿
+		// ´´½¨ĞÂµÄExcel¹¤×÷²¾
 		XSSFWorkbook workbook = new XSSFWorkbook();
-		// åœ¨Excelå·¥ä½œç°¿ä¸­å»ºä¸€å·¥ä½œè¡¨ï¼Œå…¶åä¸ºç¼ºçœå€¼, ä¹Ÿå¯ä»¥æŒ‡å®šSheetåç§°
+		// ÔÚExcel¹¤×÷²¾ÖĞ½¨Ò»¹¤×÷±í£¬ÆäÃûÎªÈ±Ê¡Öµ, Ò²¿ÉÒÔÖ¸¶¨SheetÃû³Æ
 		XSSFSheet sheet = workbook.createSheet(sheetName);
 
-		/* è®¾ç½®æ ·å¼ */
+		/* ÉèÖÃÑùÊ½ */
 
 		XSSFCellStyle cellStyle = workbook.createCellStyle();
-		// æ³¨æ„ï¼š4.0ä»¥ä¸Šç‰ˆæœ¬å¿…é¡»è¿™æ ·å†™ï¼Œä¼ ç»Ÿæ–¹å¼æ— æ•ˆ
-		cellStyle.setAlignment(HorizontalAlignment.CENTER);// æ°´å¹³å±…ä¸­
-		cellStyle.setVerticalAlignment(org.apache.poi.ss.usermodel.VerticalAlignment.CENTER);// å‚ç›´å±…ä¸­
+		// ×¢Òâ£º4.0ÒÔÉÏ°æ±¾±ØĞëÕâÑùĞ´£¬´«Í³·½Ê½ÎŞĞ§
+		cellStyle.setAlignment(HorizontalAlignment.CENTER);// Ë®Æ½¾ÓÖĞ
+		cellStyle.setVerticalAlignment(org.apache.poi.ss.usermodel.VerticalAlignment.CENTER);// ´¹Ö±¾ÓÖĞ
 
-		// è®¾ç½®è¾¹æ¡†
+		// ÉèÖÃ±ß¿ò
 		/*
 		 * cellStyle.setBorderBottom(BorderStyle.THIN);
 		 * cellStyle.setBorderTop(BorderStyle.THIN);
@@ -219,48 +219,48 @@ public class ExcelutilMine {
 		 * cellStyle.setBorderRight(BorderStyle.THIN);
 		 */
 
-		sheet.setDefaultRowHeightInPoints(20);// è®¾ç½®ç¼ºçœåˆ—é«˜
-		sheet.setDefaultColumnWidth(30);// è®¾ç½®ç¼ºçœåˆ—å®½
-		// sheet.setColumnWidth(3, 50);// è®¾ç½®æŒ‡å®šåˆ—çš„åˆ—å®½
+		sheet.setDefaultRowHeightInPoints(20);// ÉèÖÃÈ±Ê¡ÁĞ¸ß
+		sheet.setDefaultColumnWidth(30);// ÉèÖÃÈ±Ê¡ÁĞ¿í
+		// sheet.setColumnWidth(3, 50);// ÉèÖÃÖ¸¶¨ÁĞµÄÁĞ¿í
 
-		/** åˆ›å»ºå†…å®¹ */
+		/** ´´½¨ÄÚÈİ */
 
-		// åœ¨sheeté‡Œåˆ›å»ºç¬¬ä¸€è¡Œï¼Œå‚æ•°ä¸ºè¡Œç´¢å¼•(excelçš„è¡Œ)ï¼Œå¯ä»¥æ˜¯0ï½65535ä¹‹é—´çš„ä»»ä½•ä¸€ä¸ª
+		// ÔÚsheetÀï´´½¨µÚÒ»ĞĞ£¬²ÎÊıÎªĞĞË÷Òı(excelµÄĞĞ)£¬¿ÉÒÔÊÇ0¡«65535Ö®¼äµÄÈÎºÎÒ»¸ö
 		XSSFRow row1 = sheet.createRow(0);
-		// åˆ›å»ºå•å…ƒæ ¼ï¼ˆexcelçš„å•å…ƒæ ¼ï¼Œå‚æ•°ä¸ºåˆ—ç´¢å¼•ï¼Œå¯ä»¥æ˜¯0ï½255ä¹‹é—´çš„ä»»ä½•ä¸€ä¸ª
+		// ´´½¨µ¥Ôª¸ñ£¨excelµÄµ¥Ôª¸ñ£¬²ÎÊıÎªÁĞË÷Òı£¬¿ÉÒÔÊÇ0¡«255Ö®¼äµÄÈÎºÎÒ»¸ö
 		XSSFCell cell = row1.createCell(0);
-		// è®¾ç½®åˆå¹¶å•å…ƒæ ¼å†…å®¹ï¼ˆç¬¬ä¸€è¡Œçš„è¡¨åï¼‰
-		cell.setCellValue("é¢„è­¦ä¸“ä¸š");
+		// ÉèÖÃºÏ²¢µ¥Ôª¸ñÄÚÈİ£¨µÚÒ»ĞĞµÄ±íÃû£©
+		cell.setCellValue("Ô¤¾¯×¨Òµ");
 
-		// åˆå¹¶å•å…ƒæ ¼CellRangeAddressæ„é€ å‚æ•°ä¾æ¬¡è¡¨ç¤ºèµ·å§‹è¡Œï¼Œæˆªè‡³è¡Œï¼Œèµ·å§‹åˆ—ï¼Œ æˆªè‡³åˆ—
+		// ºÏ²¢µ¥Ôª¸ñCellRangeAddress¹¹Ôì²ÎÊıÒÀ´Î±íÊ¾ÆğÊ¼ĞĞ£¬½ØÖÁĞĞ£¬ÆğÊ¼ÁĞ£¬ ½ØÖÁÁĞ
 		sheet.addMergedRegion(new CellRangeAddress(0, 0, 0, 3));
 
-		// è¡¨å¤´
+		// ±íÍ·
 		XSSFRow row2 = sheet.createRow(1);
 		Cell cell0 = row2.createCell(0);
-		cell0.setCellValue("å¹´ä»½");
-		cell0.setCellStyle(cellStyle);//è®¾ç½®æ ¼å¼ä¸ºå±…ä¸­
+		cell0.setCellValue("Äê·İ");
+		cell0.setCellStyle(cellStyle);//ÉèÖÃ¸ñÊ½Îª¾ÓÖĞ
 		Cell cell1 = row2.createCell(1);
-		cell1.setCellValue("ä¸“ä¸šä»£ç ");
+		cell1.setCellValue("×¨Òµ´úÂë");
 		cell1.setCellStyle(cellStyle);
 		Cell cell2 = row2.createCell(2);
-		cell2.setCellValue("ä¸“ä¸šåç§°");
+		cell2.setCellValue("×¨ÒµÃû³Æ");
 		cell2.setCellStyle(cellStyle);
 		Cell cell3 = row2.createCell(3);
-		cell3.setCellValue("é¢„è­¦åŸå› ");
+		cell3.setCellValue("Ô¤¾¯Ô­Òò");
 		cell3.setCellStyle(cellStyle);
 
 		/*
-		 * row2.createCell(1).setCellValue("ä¸“ä¸šä»£ç ");
-		 * row2.createCell(2).setCellValue("ä¸“ä¸šåç§°");
-		 * row2.createCell(3).setCellValue("é¢„è­¦åŸå› ");
+		 * row2.createCell(1).setCellValue("×¨Òµ´úÂë");
+		 * row2.createCell(2).setCellValue("×¨ÒµÃû³Æ");
+		 * row2.createCell(3).setCellValue("Ô¤¾¯Ô­Òò");
 		 */
 
 		cell.setCellStyle(cellStyle);
 		row1.setRowStyle(cellStyle);
 		row2.setRowStyle(cellStyle);
 
-		// å¡«å……è¡¨å•å†…å®¹
+		// Ìî³ä±íµ¥ÄÚÈİ
 		int i = 2;
 		for (WarningTable wt : list) {
 
@@ -288,7 +288,7 @@ public class ExcelutilMine {
 			i++;
 		}
 
-		//å†™å…¥ç¡¬ç›˜æ–‡ä»¶
+		//Ğ´ÈëÓ²ÅÌÎÄ¼ş
 			workbook.write(outputStream);
 			workbook.close();
 		

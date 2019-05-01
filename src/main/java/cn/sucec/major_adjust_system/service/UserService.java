@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 import cn.sucec.major_adjust_system.dao.UserDao;
 import cn.sucec.major_adjust_system.model.User;
 
-@Service
+@Service("userService")
 public class UserService {
 	@Autowired
 	private UserDao userDao;

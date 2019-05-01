@@ -1,37 +1,55 @@
-/*package cn.sucec.major_adjust_system.controller;
+package cn.sucec.major_adjust_system.controller;
 
 import java.beans.IntrospectionException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.lang.reflect.InvocationTargetException;
-import java.util.ArrayList;
+import java.text.ParseException;
 import java.util.Calendar;
 import java.util.List;
 
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
-import cn.sucec.major_adjust_system.model.Major;
-import cn.sucec.major_adjust_system.model.WaringTable;
-import cn.sucec.major_adjust_system.service.MajorService;
-import net.sf.jsqlparser.parser.ParseException;
+import cn.sucec.major_adjust_system.model.CancleTable;
+import cn.sucec.major_adjust_system.model.DetailwarningTable;
+import cn.sucec.major_adjust_system.model.PauseTable;
+import cn.sucec.major_adjust_system.model.User;
+import cn.sucec.major_adjust_system.service.CancleTableService;
+import cn.sucec.major_adjust_system.service.DetailwarningTableService;
+import cn.sucec.major_adjust_system.service.MajorTableService;
+import cn.sucec.major_adjust_system.service.PauseTableService;
+import cn.sucec.major_adjust_system.service.UserService;
 
 @Controller
 public class Test2 {
-
 	@Autowired
-	MajorService majorService;
+	private MajorTableService majorTableService;
 	
-	 上传文件：upload
+	@Autowired
+	private DetailwarningTableService detailwarningTableService;
+	
+	@Autowired
+	private PauseTableService pauseTableService;
+	
+	@Autowired
+	private CancleTableService cancleTableService;
+	
+	@Autowired
+	private UserService userService;
+	
+	 /*上传文件：upload
 	 查看今年预警专业：thisYear
 	 查看往年预警专业：lastYear
 	 暂停招生专业：stopMajor
@@ -42,7 +60,7 @@ public class Test2 {
 	 退出登录：logout
 	
 	 URL前缀：/major_adjust_system/
-	
+	*/
 	
 
 	// 上传文件
@@ -51,10 +69,9 @@ public class Test2 {
 
 		InputStream inputExcel = file.getInputStream();
 
-		majorService.importExcelInfo(inputExcel);
+		majorTableService.importExcelInfo(inputExcel);
 
 		inputExcel.close();
-
 	}
 
 	//下载文件：download
@@ -68,7 +85,7 @@ public class Test2 {
 				"attachment;filename=" + new String("预警名单.xlsx".getBytes(), "ISO-8859-1"));
 		ServletOutputStream outputStream = response.getOutputStream();
 
-		majorService.exportExcelInfo(outputStream);
+		majorTableService.exportExcelInfo(outputStream);
 
 		if (outputStream != null) {
 			outputStream.close();
@@ -79,48 +96,33 @@ public class Test2 {
 	// 查看今年预警专业：thisYear
 	@RequestMapping("/thisYear")
 	@ResponseBody
-	public String queryThisYearWaringMajor() {
+	public List<DetailwarningTable> queryThisYearWaringMajor() {
 		
 		Calendar cale = null;  
         cale = Calendar.getInstance();  
         int year = cale.get(Calendar.YEAR);
 
-//根据年份查询预警专业
-		List<majorTable> warningTable=majorService.querythisYear(year);
-       
-       //预警专业数据库中需要放入的对象
-       List<WaringTable> waringTables=new ArrayList<WaringTable>();
-
-       //为预警专业属性赋值
-       for (Major majorTable : warningTable) {
-    	   
-    	   WaringTable waringTable=new WaringTable();
-    	   waringTable.setMajor_code(majorTable.getMajorCode());
-    	   waringTable.setMajor_name(majorTable.getMajorName());
-    	   waringTable.setWaring_year(year);
-    	   //为原因属性赋值
-    	   waringTable.setWaring_reason(waring_reason);
-    	   //将预警专业放入list中
-    	   waringTables.add(waringTable);
-    	   
-	}
-      //将今年预警专业放到数据库中
-      //majorService.saveStopMajor(List<WaringTable> waringTables);
-      		
-		return null;  
-	}
-	
-	
-	//查看往年预警专业：lastYear
-	@RequestMapping("/lastYear")
-	@ResponseBody
-	public String queryLastYearWaringMajor() {
+        //根据年份查询预警专业
+        List<DetailwarningTable> detailwarningMajors = detailwarningTableService.getWarningMajorByYear(year);
+		for (DetailwarningTable detailwarningMajor : detailwarningMajors) {
+			System.out.println(detailwarningMajor);
+      		} 
+		return detailwarningMajors;
+      	}
+      	
+      	
+      	//查看往年预警专业：lastYear
+      	@RequestMapping("/lastYear")
+      	@ResponseBody
+      	public List<DetailwarningTable> queryLastYearWaringMajor() {
 		
-		//查询往年预警专业名单，返回List<WarningTable>。WarningTable对象只有四个属性：年份，代码，名字 ，原因
-		//List<WarningTable> lasTables=majorService.getLastWaringMajor();
+		System.out.println("这里是查看往年预警专业");
+		List<DetailwarningTable> detailwarningMajors = detailwarningTableService.selectAll();
+		for (DetailwarningTable detailwarningMajor : detailwarningMajors) {
+			System.out.println(detailwarningMajor);
+		}
 		
-		
-		return null;
+		return detailwarningMajors;
 		
 	}
 	
@@ -128,46 +130,29 @@ public class Test2 {
 //	 暂停招生专业：stopMajor
 	@RequestMapping("/stopMajor")
 	@ResponseBody
-	public String queryStopMajor() {
+	public List<PauseTable> queryStopMajor() {
 		
-		//查询暂停招生专业，返回List<StopMajor>， StopMajor对象只有四个属性：年份，代码，名字 ，原因
-		//List<stopMajor> lastTables=majorService.getStopMajor();
+		System.out.println("这里是查看暂停招生预警专业");
+		List<PauseTable> pauseMajors = pauseTableService.selectAll();
+		for (PauseTable pauseMajor : pauseMajors) {
+			System.out.println(pauseMajor);
+		}
 		
-		
-		//预警专业数据库中需要放入的对象
-	       List<WaringTable> waringTables=new ArrayList<WaringTable>();
-
-	       //为预警专业属性赋值
-	       for (Major majorTable : warningTable) {
-	    	   
-	    	   WaringTable waringTable=new WaringTable();
-	    	   
-	    	   stopMajor.setMajor_code(majorTable.getMajorCode());
-	    	   stopMajor.setMajor_name(majorTable.getMajorName());
-	    	   stopMajor.setWaring_year(year);
-	    	   //为原因属性赋值
-	    	   stopMajor.setWaring_reason(waring_reason);
-	    	   //将预警专业放入list中
-	    	   waringTables.add(waringTable);
-	    	   
-		}		//将暂停招生专业放到数据库中
-		//majorService.saveStopMajor(lastTables);
-		
-		return null;
+		return pauseMajors;
 		
 	}
 	
 //	 撤销专业：cancleMajor
 	@RequestMapping("/cancleMajor")
 	@ResponseBody
-	public String queryCancleMajor() {
+	public List<CancleTable> queryCancleMajor() {
 		
-		//查询暂停招生专业，返回List<StopMajor>， StopMajor对象只有四个属性：年份，代码，名字 ，原因
-		//List<cancleMajor> cancleMajors =majorService.CancleMajor();
-		
-		//将撤销专业放到数据库中
-		//majorService.saveCancleMajor(cancleMajors)
-		return null;
+		System.out.println("这里是查看撤销专业名单");
+		List<CancleTable> cancleTables = cancleTableService.selectAll();
+		for (CancleTable cancleMajor : cancleTables) {
+			System.out.println("======撤销专业：" + cancleMajor);
+		}
+		return cancleTables;
 	}
 		
 	
@@ -181,15 +166,38 @@ public class Test2 {
 	}
 	
 //登录
-	@RequestMapping("/login")
+	@RequestMapping(value="/login",produces = "text/plain;charset=utf-8")
 	@ResponseBody
-	public void  login(String user,String password) {}
+	public String login(@RequestParam("username") String username,
+			@RequestParam("password") String password,Model model,
+			HttpSession session,HttpServletRequest req, HttpServletResponse resp) throws IOException {
+		
+		User admin=userService.getAdmin();
+		
+		if(username.equals(admin.getName())&&password.equals(admin.getPassword())) {
+			
+			session.setAttribute("USER_INFO",admin);
+			
+			resp.sendRedirect("context.jsp");
+			return "登陆成功";
+			
+			
+
+		}else {
+			System.out.println("用户名或密码错误，请重新登录");
+			
+			resp.sendRedirect("index.jsp");
+			return "用户名或密码错误，请重新登录";
+		}
+	}
 		
 //	 退出登录：logout
-	@RequestMapping("/login")
-	@ResponseBody
-	public void  logout(String user,String password) {}
+	@RequestMapping("/logout")
+	public void logout(HttpSession session,HttpServletResponse response) throws IOException {
+		session.invalidate();
+		System.out.println("已退出");
 		
+		response.sendRedirect("index.jsp");
+	}
 	
 }
-*/

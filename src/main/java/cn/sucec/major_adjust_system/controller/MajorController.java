@@ -94,9 +94,9 @@ public class MajorController {
 		// 对传上来的表进行数据分析，挑出预警专业放入详细预警专业数据表中
 		majorTableService.zhuanYeFenXi(year);
 		// 对预警专业数据表进行分析，挑出要暂停招生的专业
-		pauseTableService.fenXiZanTingZhuanYe(year);
+		//pauseTableService.fenXiZanTingZhuanYe(year);
 		// 对预警专业表和majorTaxble表进行分析，挑出要进行专业撤销的专业
-		cancleTableService.fenXiCheXiaoZhuanYe(year);
+		//cancleTableService.fenXiCheXiaoZhuanYe(year);
 		return "success";
 	}
 	
