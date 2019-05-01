@@ -51,7 +51,7 @@ public abstract class BaseServiceImpl<T> implements BaseService<T> {
 				e.printStackTrace();
 			}
 		}
-		System.out.println("*******" + getBaseDao());
+		//System.out.println("*******" + getBaseDao());
 		//System.out.println("******" + tableName);
 		getBaseDao().add(tableName, list.toArray());
 	}
