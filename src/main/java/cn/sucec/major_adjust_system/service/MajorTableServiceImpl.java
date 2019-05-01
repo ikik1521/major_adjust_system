@@ -141,4 +141,9 @@ public class MajorTableServiceImpl extends BaseServiceImpl<MajorTable> implement
 	public List<MajorTable> getWuNianWeiZhaoSheng() {
 		return majorTableDao.getWuNianWeiZhaoSheng();
 	}
+
+	@Override
+	public void clearDate() {
+		majorTableDao.clearDate();
+	}
 }

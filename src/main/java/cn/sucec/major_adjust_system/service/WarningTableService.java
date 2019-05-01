@@ -12,4 +12,6 @@ public interface WarningTableService extends BaseService<WarningTable>{
 
 	public List<WarningTable> getWarningTableByMajorCode(String majorCode);
 	
+	public void clearDate();
+	
 }

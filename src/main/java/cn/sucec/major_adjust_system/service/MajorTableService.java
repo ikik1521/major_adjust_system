@@ -29,4 +29,6 @@ public interface MajorTableService extends BaseService<MajorTable>{
 
 	public List<MajorTable> getWuNianWeiZhaoSheng();
 	
+	public void clearDate();
+	
 }

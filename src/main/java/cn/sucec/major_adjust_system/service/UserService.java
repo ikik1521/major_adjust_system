@@ -8,14 +8,20 @@ import cn.sucec.major_adjust_system.model.User;
 
 @Service("userService")
 public class UserService {
+	
 	@Autowired
 	private UserDao userDao;
 	
 	public User getAdmin() {
 		
-		User admin=userDao.queryuser();
+		User admin = userDao.queryuser();
 		return admin;
+	}
+	
+	public User getUserByUserName(String username) {
 		
+		User user = userDao.getUserByUserName(username);
+		return user;
 	}
 
 }

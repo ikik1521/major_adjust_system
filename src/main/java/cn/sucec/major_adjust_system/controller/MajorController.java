@@ -29,7 +29,9 @@ import cn.sucec.major_adjust_system.service.CancleTableService;
 import cn.sucec.major_adjust_system.service.DetailwarningTableService;
 import cn.sucec.major_adjust_system.service.MajorTableService;
 import cn.sucec.major_adjust_system.service.PauseTableService;
+import cn.sucec.major_adjust_system.service.PwarningTableService;
 import cn.sucec.major_adjust_system.service.UserService;
+import cn.sucec.major_adjust_system.service.WarningTableService;
 
 @Controller
 public class MajorController {
@@ -45,6 +47,12 @@ public class MajorController {
 	
 	@Autowired
 	private CancleTableService cancleTableService;
+	
+	@Autowired
+	private PwarningTableService pwarningTableService;
+	
+	@Autowired
+	private WarningTableService warningTableService;
 	
 	@Autowired
 	private UserService userService;
@@ -94,9 +102,9 @@ public class MajorController {
 		// 对传上来的表进行数据分析，挑出预警专业放入详细预警专业数据表中
 		majorTableService.zhuanYeFenXi(year);
 		// 对预警专业数据表进行分析，挑出要暂停招生的专业
-		//pauseTableService.fenXiZanTingZhuanYe(year);
+		pauseTableService.fenXiZanTingZhuanYe(year);
 		// 对预警专业表和majorTaxble表进行分析，挑出要进行专业撤销的专业
-		//cancleTableService.fenXiCheXiaoZhuanYe(year);
+		cancleTableService.fenXiCheXiaoZhuanYe(year);
 		return "success";
 	}
 	
@@ -145,7 +153,11 @@ public class MajorController {
 	public String qingkongshuju() {
 		System.out.println(""+"这里是清空所有数据");
 		// 通过service调用每一个表的删除方法，除了详细预警专业名单数据表以外的都清除掉
-		
+		cancleTableService.clearDate();
+		majorTableService.clearDate();
+		pauseTableService.clearDate();
+		pwarningTableService.clearDate();
+		warningTableService.clearDate();
 		return "success";
 	}
 
@@ -155,22 +167,18 @@ public class MajorController {
 			@RequestParam("password") String password,Model model,
 			HttpSession session,HttpServletRequest req, HttpServletResponse resp) throws IOException {
 		
-		User admin=userService.getAdmin();
+		User user = userService.getUserByUserName(username);
 		
-		if(username.equals(admin.getName())&&password.equals(admin.getPassword())) {
+		if(user != null && password.equals(user.getPassword())) {
 			
-			session.setAttribute("USER_INFO",admin);
+			session.setAttribute("USER_INFO",user);
 			
 			resp.sendRedirect("context.jsp");
 			return "登陆成功！";
-			
-			
-
 		}else {
-			System.out.println("用户名或密码错误，请重新登录");
-			
+			//System.out.println("用户名或密码错误，请重新登录");
 			resp.sendRedirect("index.jsp");
-			return "用户名或密码错误，请重新登录";
+			return "用户名或密码错误，请重新登录！";
 		}
 	}
 	

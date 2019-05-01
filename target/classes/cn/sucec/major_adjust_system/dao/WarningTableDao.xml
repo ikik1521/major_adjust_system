@@ -19,5 +19,9 @@
    <select id="getWarningTableByMajorCode" resultType="cn.sucec.major_adjust_system.model.WarningTable">
   		SELECT * FROM `warning_table` WHERE `major_code`=#{majorCode}
    </select>
+   
+   <update id="clearDate">
+  		TRUNCATE TABLE `warning_table`
+   </update>
   
 </mapper>

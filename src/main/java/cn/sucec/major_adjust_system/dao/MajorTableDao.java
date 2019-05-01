@@ -51,5 +51,7 @@ public interface MajorTableDao extends BaseDao {
 	
 	public List<MajorTable> getWuNianWeiZhaoSheng();
 	
+	public void clearDate();
+	
 	
 }

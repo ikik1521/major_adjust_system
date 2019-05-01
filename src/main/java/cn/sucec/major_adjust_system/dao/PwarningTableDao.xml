@@ -17,4 +17,8 @@
   	SELECT * FROM `pwarning_table` WHERE `pmajor_code`=#{majorCode}
   </select>
   
+   <update id="clearDate">
+  		TRUNCATE TABLE `pwarning_table`
+  </update>
+  
 </mapper>

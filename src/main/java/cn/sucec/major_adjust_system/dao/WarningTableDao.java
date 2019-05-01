@@ -16,5 +16,5 @@ public interface WarningTableDao extends BaseDao{
 	
 	public List<WarningTable> getWarningTableByMajorCode(@Param("majorCode") String majorCode);
 
-	
+	public void clearDate();
 }

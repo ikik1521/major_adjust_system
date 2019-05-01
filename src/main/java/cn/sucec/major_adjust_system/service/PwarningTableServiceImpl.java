@@ -36,4 +36,9 @@ public class PwarningTableServiceImpl extends BaseServiceImpl<PwarningTable> imp
 		return pwarningTableDao.getPwarningTableByMajorCode(majorCode);
 	}
 
+	@Override
+	public void clearDate() {
+		pwarningTableDao.clearDate();
+	}
+
 }

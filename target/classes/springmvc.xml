@@ -19,7 +19,7 @@
     	<property name="suffix" value=".jsp"></property>
     </bean>
     
-    <!-- 3.最重要的一个综合的注解，帮助注入到ioc容器的多种bean -->
+    <!-- 3.最重要的一个综合的注解， 帮助注入到ioc容器的多种bean -->
     <mvc:annotation-driven />
     
     <!-- 4.对静态资源(js,css,jepg等)的处理的注解 -->

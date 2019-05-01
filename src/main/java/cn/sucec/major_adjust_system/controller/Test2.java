@@ -32,7 +32,7 @@ import cn.sucec.major_adjust_system.service.MajorTableService;
 import cn.sucec.major_adjust_system.service.PauseTableService;
 import cn.sucec.major_adjust_system.service.UserService;
 
-@Controller
+//@Controller
 public class Test2 {
 	@Autowired
 	private MajorTableService majorTableService;

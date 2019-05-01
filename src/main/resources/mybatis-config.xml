@@ -28,7 +28,6 @@
 		<mapper resource="cn/sucec/major_adjust_system/dao/MajorTableDao.xml" />
 		<mapper resource="cn/sucec/major_adjust_system/dao/CancleTableDao.xml" />
 		<mapper resource="cn/sucec/major_adjust_system/dao/PauseTableDao.xml" />
-		<mapper resource="cn/sucec/major_adjust_system/dao/ReasonTableDao.xml" />
 		<mapper resource="cn/sucec/major_adjust_system/dao/WarningTableDao.xml" />
 		<mapper resource="cn/sucec/major_adjust_system/dao/PwarningTableDao.xml" />
 	</mappers>     -->
