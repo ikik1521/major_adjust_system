@@ -162,7 +162,7 @@ public class MajorController {
 			session.setAttribute("USER_INFO",admin);
 			
 			resp.sendRedirect("context.jsp");
-			return "登陆成功";
+			return "登陆成功！";
 			
 			
 
@@ -177,7 +177,7 @@ public class MajorController {
 	@RequestMapping("/logout")
 	public void logout(HttpSession session,HttpServletResponse response) throws IOException {
 		session.invalidate();
-		System.out.println("已退出");
+		System.out.println(" 已退出");
 		
 		response.sendRedirect("index.jsp");
 	}
