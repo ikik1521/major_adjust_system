@@ -3,6 +3,7 @@ package cn.sucec.major_adjust_system.service;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.ServletOutputStream;
 
@@ -10,8 +11,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import cn.sucec.major_adjust_system.dao.BaseDao;
+import cn.sucec.major_adjust_system.dao.DetailwarningTableDao;
 import cn.sucec.major_adjust_system.dao.MajorTableDao;
 import cn.sucec.major_adjust_system.dao.WarningTableDao;
+import cn.sucec.major_adjust_system.model.DetailwarningTable;
 import cn.sucec.major_adjust_system.model.MajorTable;
 import cn.sucec.major_adjust_system.model.PwarningTable;
 import cn.sucec.major_adjust_system.model.WarningTable;
@@ -36,7 +39,7 @@ public class MajorTableServiceImpl extends BaseServiceImpl<MajorTable> implement
 	}
 
 	@Autowired
-	private WarningTableDao warningTableDao;
+	private DetailwarningTableDao detailwarningTableDao;
 
 	/**
 	 * 导入Excel
@@ -62,8 +65,8 @@ public class MajorTableServiceImpl extends BaseServiceImpl<MajorTable> implement
 	@Override
 	public void exportExcelInfo(ServletOutputStream outputStream) {
 		// 根据条件查询数据，把数据装载到一个list中
-		List<WarningTable> list = warningTableDao.getAll();
-
+		List<DetailwarningTable> list =detailwarningTableDao.getAll();
+		
 		// 调用ExcelUtil的方法
 		try {
 			ExcelutilMine.createExcelFile("专业预警", list, outputStream);
@@ -99,7 +102,6 @@ public class MajorTableServiceImpl extends BaseServiceImpl<MajorTable> implement
 	public void zhuanYeFenXi(int year) {
 		// 获取所有作为基数的专业列表
 		List<MajorTable> majors = selectAll(year);
-		//System.out.println("hahahahah" + majors);
 		// 确定要取倒数几个专业
 		int number = majors.size();
 		int count = (int) Math.round(number * 0.05);
@@ -140,5 +142,16 @@ public class MajorTableServiceImpl extends BaseServiceImpl<MajorTable> implement
 	@Override
 	public List<MajorTable> getWuNianWeiZhaoSheng() {
 		return majorTableDao.getWuNianWeiZhaoSheng();
+	}
+
+	@Override
+	public void clearDate() {
+		majorTableDao.clearDate();
+	}
+
+	@Override
+	public int existed(int year) {
+		
+		return majorTableDao.existed(year);
 	}
 }

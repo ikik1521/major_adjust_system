@@ -98,4 +98,9 @@ public class PauseTableServiceImpl extends BaseServiceImpl<PauseTable> implement
 		}
 	}
 
+	@Override
+	public void clearDate() {
+		pauseTableDao.clearDate();
+	}
+
 }

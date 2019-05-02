@@ -62,4 +62,9 @@ public class CancleTableServiceImpl extends BaseServiceImpl<CancleTable> impleme
 
 	}
 
+	@Override
+	public void clearDate() {
+		cancleTableDao.clearDate();
+	}
+
 }

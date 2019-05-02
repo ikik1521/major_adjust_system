@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>hahahh</title>
+<title>登陆成功</title>
 </head>
 <body>
 		<h4>登陆成功</h4>

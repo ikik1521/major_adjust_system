@@ -16,4 +16,7 @@
   		SELECT `major_code` FROM `detailwarning_table` GROUP BY `major_code` HAVING COUNT(`major_code`) >2
   </select>
   
+  <select id="getAll" resultType="cn.sucec.major_adjust_system.model.DetailwarningTable">
+  	select * from detailwarning_table
+  </select>
 </mapper>

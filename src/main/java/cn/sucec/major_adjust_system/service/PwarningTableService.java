@@ -12,4 +12,6 @@ public interface PwarningTableService extends BaseService<PwarningTable> {
 	
 	public List<PwarningTable> getPwarningTableByMajorCode(String majorCode);
 	
+	public void clearDate();
+	
 }

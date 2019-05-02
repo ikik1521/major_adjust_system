@@ -14,4 +14,6 @@ public interface PwarningTableDao extends BaseDao {
 	
 	public List<PwarningTable> getPwarningTableByMajorCode(@Param("majorCode") String majorCode);
 	
+	public void clearDate();
+	
 }

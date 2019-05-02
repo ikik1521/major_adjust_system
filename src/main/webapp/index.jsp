@@ -22,6 +22,7 @@
     </form>
     
     <a href="download">文件下载</a>
+    
     <form action="login"  method="post">
         <table>
             <tr>
@@ -33,29 +34,29 @@
                 <td><input type="password" name="password"></td>
             </tr>
             <tr>
-                <td><input type="submit" value="提交"></td>
+                <td><input type="submit" value="登陆"></td>
             </tr>
         </table>
     </form>
-    <br>
     <a href="logout">退出</a>
-    <br/>
-    <a href="zhuanyefenxi">开始进行专业分析</a>
+    
+    <br/><br/><br/>
+    
     
     <br/>
-    <a href="chakanjinnianyujing">查看今年预警专业</a>
+    <a href="thisYear">查看今年预警专业</a>
     
     <br/>
-    <a href="chakanwangnianyujing">查看往年预警专业</a>
+    <a href="lastYear">查看往年预警专业</a>
     
     <br/>
-    <a href="chaKanZanTingZhuanYe">查看暂停招生专业</a>
+    <a href="stopMajor">查看暂停招生专业</a>
     
     <br/>
-    <a href="chaKanZhuanYeCheXiao">查看专业撤销名单</a>
+    <a href="cancleMajor">查看专业撤销名单</a>
     
     <br/>
-    <a href="qingkongshuju">清空数据</a>
+    <a href="deleteAll">清空数据</a>
     
     
     

@@ -35,4 +35,9 @@ public class WarningTableServiceImpl extends BaseServiceImpl<WarningTable> imple
 		return warningTableDao.getWarningTableByMajorCode(majorCode);
 	}
 
+	@Override
+	public void clearDate() {
+		warningTableDao.clearDate();
+	}
+
 }

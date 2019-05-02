@@ -6,4 +6,6 @@ public interface CancleTableService extends BaseService<CancleTable> {
 	
 	// 对预警专业表和majorTaxble表进行分析，挑出要进行专业撤销的专业
 	public void fenXiCheXiaoZhuanYe(int year);
+	
+	public void clearDate();
 }

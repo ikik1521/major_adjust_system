@@ -31,5 +31,12 @@
   	<select id="getWuNianWeiZhaoSheng" resultType="cn.sucec.major_adjust_system.model.MajorTable">
   		SELECT * FROM `major_table` WHERE `continuous_enrollment` = "是"
   	</select>
+  	
+  	<select id="existed" resultType="java.lang.Integer">
+  		SELECT COUNT(*) FROM `detailwarning_table` WHERE `warning_year`=#{year}
+  	</select>
+  	<update id="clearDate">
+  		TRUNCATE TABLE `major_table`
+    </update>
  	
 </mapper>

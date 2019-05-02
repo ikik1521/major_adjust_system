@@ -20,6 +20,7 @@ import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
+import cn.sucec.major_adjust_system.model.DetailwarningTable;
 import cn.sucec.major_adjust_system.model.MajorTable;
 import cn.sucec.major_adjust_system.model.WarningTable;
 
@@ -197,7 +198,7 @@ public class ExcelutilMine {
 		return majorExceList;
 	}
 
-	public static void createExcelFile(String sheetName, List<WarningTable> list,ServletOutputStream outputStream) throws IOException {
+	public static void createExcelFile(String sheetName, List<DetailwarningTable> list,ServletOutputStream outputStream) throws IOException {
 
 		// 创建新的Excel工作簿
 		XSSFWorkbook workbook = new XSSFWorkbook();
@@ -262,7 +263,7 @@ public class ExcelutilMine {
 
 		// 填充表单内容
 		int i = 2;
-		for (WarningTable wt : list) {
+		for (DetailwarningTable wt : list) {
 
 			XSSFRow row = sheet.createRow(i);
 			Cell cell00 = row.createCell(0);

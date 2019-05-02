@@ -72,7 +72,7 @@ public class Change {
 		});
 
 		List<MajorTable> newList = majorTables.subList(0, count);
-		System.out.println(newList);
+		//System.out.println(newList);
 		int pwarningYear = nowYear;
 		String pmajorCode = null;
 		String pmajorName = null;
