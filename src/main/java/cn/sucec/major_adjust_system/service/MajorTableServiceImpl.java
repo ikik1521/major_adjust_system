@@ -99,7 +99,7 @@ public class MajorTableServiceImpl extends BaseServiceImpl<MajorTable> implement
 	public void zhuanYeFenXi(int year) {
 		// 获取所有作为基数的专业列表
 		List<MajorTable> majors = selectAll(year);
-		System.out.println("hahahahah" + majors);
+		//System.out.println("hahahahah" + majors);
 		// 确定要取倒数几个专业
 		int number = majors.size();
 		int count = (int) Math.round(number * 0.05);

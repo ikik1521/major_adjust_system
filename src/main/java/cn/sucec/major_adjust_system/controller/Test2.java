@@ -1,6 +1,6 @@
 package cn.sucec.major_adjust_system.controller;
 
-import java.beans.IntrospectionException;
+/*import java.beans.IntrospectionException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.lang.reflect.InvocationTargetException;
@@ -49,7 +49,7 @@ public class Test2 {
 	@Autowired
 	private UserService userService;
 	
-	 /*上传文件：upload
+	 上传文件：upload
 	 查看今年预警专业：thisYear
 	 查看往年预警专业：lastYear
 	 暂停招生专业：stopMajor
@@ -60,7 +60,7 @@ public class Test2 {
 	 退出登录：logout
 	
 	 URL前缀：/major_adjust_system/
-	*/
+	
 	
 
 	// 上传文件
@@ -201,3 +201,4 @@ public class Test2 {
 	}
 	
 }
+*/
