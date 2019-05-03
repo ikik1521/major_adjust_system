@@ -35,4 +35,9 @@ public class DetailwarningTableServiceImpl extends BaseServiceImpl<Detailwarning
 		return detailwarningTableDao.getcauseMajorCode();
 	}
 
+	@Override
+	public void deleteByYearAndMajorCode(int year, String majorCode) {
+		detailwarningTableDao.deleteByYearAndMajorCode(year, majorCode);
+	}
+
 }

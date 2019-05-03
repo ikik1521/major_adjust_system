@@ -103,4 +103,9 @@ public class PauseTableServiceImpl extends BaseServiceImpl<PauseTable> implement
 		pauseTableDao.clearDate();
 	}
 
+	@Override
+	public void deleteByYearAndMajorCode(int year, String majorCode) {
+		pauseTableDao.deleteByYearAndMajorCode(year, majorCode);
+	}
+
 }

@@ -17,6 +17,11 @@
   </select>
   
   <select id="getAll" resultType="cn.sucec.major_adjust_system.model.DetailwarningTable">
-  	select * from detailwarning_table
+  		select * from detailwarning_table
   </select>
+  
+  <delete id="deleteByYearAndMajorCode">
+  		DELETE FROM `detailwarning_table` WHERE `warning_year`=#{year} AND `major_code`=#{majorCode}
+  </delete>
+  
 </mapper>

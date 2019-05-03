@@ -8,4 +8,8 @@
   		TRUNCATE TABLE `cancle_table`
   </update>
   
+  <delete id="deleteByYearAndMajorCode">
+  		DELETE FROM `cancle_table` WHERE `cancle_year`=#{year} AND `major_code`=#{majorCode}
+  </delete>
+  
 </mapper>
