@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="html lang=zh-cmn-Hans">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Index</title>
+    <link rel="stylesheet" type="text/css" href="./css/index.css" />
+    <!-- <script src="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.js"></script> -->
+    <!-- <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script> -->
+    <script src="./js/jquery-3.4.1.min.js"></script>
+    <script src="./js/vue.min.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <header class="top">
+            <div class="top-l">
+                <img src="" alt="">
+                <span>中南民族大学专业动态调整系统</span>
+            </div>
+            <div class="top-r">
+                <img src="./images/user.png" alt="">
+                <span>{{index[0].id}}</span>
+                <img src="./images/time.png" alt="">
+                <span class="time"></span>
+                <img src="./images/logout.png" alt="" style="cursor:pointer;margin-right: 6px" v-on:click="logout">
+            </div>
+        </header>
+        <section id="middle">
+            <div class="left">
+                <span>导航模块/Nav Module</span>
+                <ul>
+                    <li v-on:click="shangchuan"><img src="./images/+.png" alt="">上传文件</li>
+                    <li><img src="./images/+.png" alt="">查看预警专业
+                        <ul>
+                            <li v-on:click="biaoge"><img src="./images/-.png" alt="">今年预警专业</li>
+                            <li v-on:click="biaoge"><img src="./images/-.png" alt="">往年预警专业</li>
+                        </ul>
+                    </li>
+                    <li><img src="./images/+.png" alt="">查看退出专业
+                        <ul>
+                            <li v-on:click="biaoge"><img src="./images/-.png" alt="">暂停招生专业</li>
+                            <li v-on:click="biaoge"><img src="./images/-.png" alt="">撤销专业</li>
+                        </ul>
+                    </li>
+                    <li v-on:click="xiazai"><img src="./images/+.png" alt="">下载文件</li>
+                    <li v-on:click="qingkong"><img src="./images/+.png" alt="">清空数据</li>
+                </ul>
+            </div>
+            <div class="right">
+                <table v-if="isActive">
+                    <tr>
+                        <td></td>
+                        <td>代码</td>
+                        <td>专业名称</td>
+                        <td>招生年份</td>
+                        <td>是否连续五年未招生</td>
+                        <td>年制</td>
+                        <td>是否艺体类专业</td>
+                        <td>是否在省部级评估中被预警</td>
+                        <td>是否在校级专业评估中预警</td>
+                        <td>专业调剂率（2017年）</td>
+                        <td>专业调剂率（2018年）</td>
+                        <td>申请转出人数/该专业本年级在籍在册在校生人数的比例（2017级-17年）</td>
+                        <td>申请转出人数/该专业本年级在籍在册在校生人数的比例（2017级-18年）</td>
+                        <td>申请转出人数/该专业本年级在籍在册在校生人数的比例（2018级-18年）</td>
+                        <td>申请转出人数/该专业本年级在籍在册在校生人数的比例（2018级-19年）</td>
+                        <td>转专业或专业分流后学生人数（2017级-18年）</td>
+                        <td>转专业或专业分流后学生人数（2018级-18年）</td>
+                        <td>初次就业率（17年）</td>
+                        <td>初次就业率（18年）</td>
+                        <td>应届毕业生考研率（18年）</td>
+                    </tr>
+                    <tr v-for="(value,name,index) in tables" :key="value.id">
+                        <td><button style="cursor:pointer" v-on:click="shanchu(value.id)">删除</button></td>
+                        <td>{{value.id}}</td>
+                        <td style="cursor:pointer;" v-on:click="reason">{{value.resname}}</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                </table>
+                <table v-if="isReason">
+                    <tr>
+                        <td>预警原因</td>
+                    </tr>
+                    <tr v-for="item in reasons">
+                        <td>{{item.id}}</td>
+                    </tr>
+                </table>
+            </div>
+        </section>
+    </div>
+</body>
+<script src="./js/main.js"></script>
+
+</html>

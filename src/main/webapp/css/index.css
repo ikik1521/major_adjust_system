@@ -1,0 +1,99 @@
+body {
+  height: 100%;
+  width: 100%;
+  margin: 0;
+}
+a {
+  text-decoration: none;
+}
+ul,
+li {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+header {
+  width: 100%;
+  height: 60px;
+  background-color: #222222;
+  color: #fff;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+header .top-r {
+  width: 230px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+section {
+  width: 100%;
+  min-height: 1000px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+section div {
+  display: inline-block;
+}
+section .left {
+  width: 14%;
+  height: 1000px;
+  background-color: #f0f0f0;
+  font-size: 16px;
+}
+section .left span {
+  display: inline-block;
+  width: 100%;
+  text-align: center;
+  margin-top: 20px;
+}
+section .left ul,
+section .left li {
+  cursor: pointer;
+}
+section .left > ul {
+  margin-top: 40px;
+  margin-left: 30px;
+}
+section .left > ul li {
+  display: flex;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  margin-top: 10px;
+}
+section .left > ul li img {
+  margin-right: 8px;
+}
+section .left > ul li > ul {
+  margin-left: 22px;
+}
+section .right {
+  width: 85%;
+}
+section .right table {
+  table-layout: fixed;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  font-size: 16px;
+  text-align: center;
+}
+section .right table tr:first-child {
+  background-color: rgba(128, 128, 128, 0.8);
+}
+section .right table tr:first-child td:nth-child(2n+0) {
+  background-color: #fff;
+}
+section .right table td {
+  border-right: 1px solid gray;
+  border-bottom: 1px solid gray;
+}
+section .right table tr {
+  width: 100%;
+}
+section .right table tr td {
+  height: 100px;
+  width: 5%;
+}

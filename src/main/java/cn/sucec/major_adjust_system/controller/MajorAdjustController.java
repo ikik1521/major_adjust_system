@@ -203,7 +203,7 @@ public class MajorAdjustController {
 	// 登录
 	@RequestMapping(value = "/login", produces = "text/plain;charset=utf-8")
 	@ResponseBody
-	public String login(@RequestParam("username") String username, @RequestParam("password") String password,
+	public User login(@RequestParam("username") String username, @RequestParam("password") String password,
 			Model model, HttpSession session, HttpServletRequest req, HttpServletResponse resp) throws IOException {
 
 		User user = userService.getUserByUserName(username);
@@ -213,13 +213,14 @@ public class MajorAdjustController {
 			session.setAttribute("USER_INFO", user);
 
 			resp.sendRedirect("context.jsp");
-			return "登陆成功";
+			
+			return user;
 
 		} else {
-			System.out.println("用户名或密码错误，请重新登录");
-
-			resp.sendRedirect("index.jsp");
-			return "用户名或密码错误，请重新登录";
+			//System.out.println("用户名或密码错误，请重新登录");
+			//resp.sendRedirect("index.jsp");
+			User user2=new User();
+			return user2;
 		}
 	}
 
