@@ -8,4 +8,6 @@ public interface CancleTableService extends BaseService<CancleTable> {
 	public void fenXiCheXiaoZhuanYe(int year);
 	
 	public void clearDate();
+	
+	public void deleteByYearAndMajorCode(int year, String majorCode);
 }

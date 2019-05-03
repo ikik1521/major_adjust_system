@@ -8,4 +8,6 @@ public interface PauseTableService extends BaseService<PauseTable> {
 	
 	public void clearDate();
 
+	public void deleteByYearAndMajorCode(int year, String majorCode);
+	
 }

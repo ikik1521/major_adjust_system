@@ -442,7 +442,7 @@ public class Change {
 		for (MajorTable majorTable : majors) {
 			String warningReason = "";
 			if (majorTable.getProvinceWarning().equals("是")) {
-				warningReason = warningReason + "在教育部或湖北省教育厅组织的评估中被预警的";
+				warningReason = warningReason + "，在教育部或湖北省教育厅组织的评估中被预警的";
 			}
 			if (majorTable.getSchoolWarning().equals("是")) {
 				warningReason = warningReason + "，在学校组织的专业评估中被预警的";

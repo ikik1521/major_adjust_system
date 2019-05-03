@@ -3,7 +3,6 @@ package cn.sucec.major_adjust_system.service;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.ServletOutputStream;
 
@@ -13,7 +12,6 @@ import org.springframework.stereotype.Service;
 import cn.sucec.major_adjust_system.dao.BaseDao;
 import cn.sucec.major_adjust_system.dao.DetailwarningTableDao;
 import cn.sucec.major_adjust_system.dao.MajorTableDao;
-import cn.sucec.major_adjust_system.dao.WarningTableDao;
 import cn.sucec.major_adjust_system.model.DetailwarningTable;
 import cn.sucec.major_adjust_system.model.MajorTable;
 import cn.sucec.major_adjust_system.model.PwarningTable;

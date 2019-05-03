@@ -67,4 +67,9 @@ public class CancleTableServiceImpl extends BaseServiceImpl<CancleTable> impleme
 		cancleTableDao.clearDate();
 	}
 
+	@Override
+	public void deleteByYearAndMajorCode(int year, String majorCode) {
+		cancleTableDao.deleteByYearAndMajorCode(year, majorCode);
+	}
+
 }
