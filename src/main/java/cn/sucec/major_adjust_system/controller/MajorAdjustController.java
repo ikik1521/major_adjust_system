@@ -19,6 +19,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -206,7 +207,7 @@ public class MajorAdjustController {
 	public User login(@RequestParam("username") String username, @RequestParam("password") String password,
 			Model model, HttpSession session, HttpServletRequest req, HttpServletResponse resp) throws IOException {
 		
-		System.out.println("服务器"+username);
+		//System.out.println("服务器"+username);
 		
 		User user = userService.getUserByUserName(username);
 		System.out.println(user);

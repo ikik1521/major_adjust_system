@@ -7,12 +7,12 @@ var day = now.getDate();
 var time = document.getElementsByClassName('time');
 time[0].innerHTML += fullYear + "-" + month + "-" + day;
 
-$(document).ready(function () { //用户ID的获取
-	alert(fullYear);
-    $.getJSON("../ceshi.json", function (result, status) {
-        v.index = result;
-    })
-});
+//$(document).ready(function () { //用户ID的获取
+//	alert(fullYear);
+//    $.getJSON("../ceshi.json", function (result, status) {
+//        v.index = result;
+//   })
+//});
 
 var v = new Vue({
     el: '#app',
