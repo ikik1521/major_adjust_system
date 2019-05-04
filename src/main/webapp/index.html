@@ -9,8 +9,7 @@
     <link rel="stylesheet" type="text/css" href="./css/index.css" />
     <!-- <script src="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.js"></script> -->
     <!-- <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script> -->
-    <script src="./js/jquery-3.4.1.min.js"></script>
-    <script src="./js/vue.min.js"></script>
+
 </head>
 
 <body>
@@ -18,7 +17,7 @@
         <header class="top">
             <div class="top-l">
                 <img src="" alt="">
-                <span>中南民族大学专业动态调整系统</span>
+                <span>&nbsp;&nbsp;&nbsp;&nbsp;中南民族大学专业动态调整系统</span>
             </div>
             <div class="top-r">
                 <img src="./images/user.png" alt="">
@@ -30,7 +29,7 @@
         </header>
         <section id="middle">
             <div class="left">
-                <span>导航模块/Nav Module</span>
+                <span>功能选择</span>
                 <ul>
                     <li v-on:click="shangchuan"><img src="./images/+.png" alt="">上传文件</li>
                     <li><img src="./images/+.png" alt="">查看预警专业
@@ -61,8 +60,8 @@
                         <td>是否艺体类专业</td>
                         <td>是否在省部级评估中被预警</td>
                         <td>是否在校级专业评估中预警</td>
-                        <td>专业调剂率（2017年）</td>
-                        <td>专业调剂率（2018年）</td>
+                        <td>专业调剂率（17年）</td>
+                        <td>专业调剂率（18年）</td>
                         <td>申请转出人数/该专业本年级在籍在册在校生人数的比例（2017级-17年）</td>
                         <td>申请转出人数/该专业本年级在籍在册在校生人数的比例（2017级-18年）</td>
                         <td>申请转出人数/该专业本年级在籍在册在校生人数的比例（2018级-18年）</td>
@@ -71,7 +70,7 @@
                         <td>转专业或专业分流后学生人数（2018级-18年）</td>
                         <td>初次就业率（17年）</td>
                         <td>初次就业率（18年）</td>
-                        <td>应届毕业生考研率（18年）</td>
+                        <td>应届毕业生考研率</td>
                     </tr>
                     <tr v-for="(value,name,index) in tables" :key="value.id">
                         <td><button style="cursor:pointer" v-on:click="shanchu(value.id)">删除</button></td>
@@ -108,6 +107,9 @@
         </section>
     </div>
 </body>
-<script src="./js/main.js"></script>
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+<script src="/js/vue.min.js"></script>
+<script src="/js/main.js"></script>
 
 </html>

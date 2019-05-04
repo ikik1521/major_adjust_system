@@ -8,7 +8,8 @@ var time = document.getElementsByClassName('time');
 time[0].innerHTML += fullYear + "-" + month + "-" + day;
 
 $(document).ready(function () { //用户ID的获取
-    $.getJSON("./ceshi.json", function (result, status) {
+	alert(fullYear);
+    $.getJSON("../ceshi.json", function (result, status) {
         v.index = result;
     })
 });

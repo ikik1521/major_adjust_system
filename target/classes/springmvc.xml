@@ -20,10 +20,23 @@
     </bean>
     
     <!-- 3.最重要的一个综合的注解， 帮助注入到ioc容器的多种bean -->
-    <mvc:annotation-driven />
+    <mvc:annotation-driven content-negotiation-manager="contentNegotiationManager" />
+    
+   <!-- 以.html为后缀名访问，默认返回数据类型是 text/html， 所以要修改返回的数据类型 -->
+	<bean id="contentNegotiationManager"
+		class="org.springframework.web.accept.ContentNegotiationManagerFactoryBean">
+		<property name="mediaTypes">
+			<map>
+				<entry key="html" value="application/json;charset=UTF-8" />
+			</map>
+		</property>
+	</bean>
     
     <!-- 4.对静态资源(js,css,jepg等)的处理的注解 -->
     <mvc:default-servlet-handler/>
+    
+    <mvc:resources location="css/" mapping="css/**"></mvc:resources>
+    <mvc:resources location="images/" mapping="images/**"></mvc:resources>
     
     <bean id="multipartResolver"  
         class="org.springframework.web.multipart.commons.CommonsMultipartResolver">  
