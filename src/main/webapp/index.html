@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="html lang=zh-cmn-Hans">
+<html lang="zh-cmn-Hans">
 
 <head>
     <meta charset="UTF-8">
@@ -9,6 +9,9 @@
     <link rel="stylesheet" type="text/css" href="./css/index.css" />
     <!-- <script src="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.js"></script> -->
     <!-- <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script> -->
+    <script src="./js/jquery-3.4.1.min.js"></script>
+    <script src="./js/vue.min.js"></script>
+
 </head>
 
 <body>
@@ -16,41 +19,66 @@
         <header class="top">
             <div class="top-l">
                 <img src="" alt="">
-                <span>&nbsp;&nbsp;&nbsp;&nbsp;中南民族大学专业动态调整系统</span>
+                <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;中南民族大学专业动态调整系统</span>
             </div>
             <div class="top-r">
-                <img src="./images/user.png" alt="">
-                <span>{{index[0].id}}</span>
+               <!--  <img src="./images/user.png" alt=""> -->
+                <!-- <span>{{index[0].id}}</span> -->
                 <img src="./images/time.png" alt="">
                 <span class="time"></span>
-                <img src="./images/logout.png" alt="" style="cursor:pointer;margin-right: 6px" v-on:click="logout">
+                <img v-on:click="tiaoZhuan('logout')" src="./images/logout.png" alt=""
+                    style="cursor:pointer;margin-right: 6px">
             </div>
         </header>
         <section id="middle">
             <div class="left">
-                <span>功能选择</span>
+                <span>导航模块/Nav Module</span>
                 <ul>
-                    <li v-on:click="shangchuan"><img src="./images/+.png" alt="">上传文件</li>
-                    <li><img src="./images/+.png" alt="">查看预警专业
-                        <ul>
-                            <li v-on:click="biaoge"><img src="./images/-.png" alt="">今年预警专业</li>
-                            <li v-on:click="biaoge"><img src="./images/-.png" alt="">往年预警专业</li>
+                    <li style="cursor:pointer;" v-on:click="shangchuan">
+                        <img src="./images/+.png" alt="">上传文件
+                        <form style="display:none;"enctype="multipart/form-data">
+                            <input type="file" name="file" id="FileUpload"
+                                accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.ms-excel">
+                            <button type="submit" id="upload"></button>
+                        </form>
+                    </li>
+                    <li><img src="./images/+.png" alt="" v-on:click="yujing">
+                        <p>查看预警专业</p>
+                        <ul v-if="isYujing">
+                            <li v-on:click="biaoge('thisYear')">
+                                 <img src="./images/-.png" alt=""> 
+                                今年预警专业
+                            </li>
+                            <li v-on:click="wangnian('lastYear')">
+                                <img src="./images/-.png" alt=""> 
+                                往年预警专业
+                            </li>
                         </ul>
                     </li>
-                    <li><img src="./images/+.png" alt="">查看退出专业
-                        <ul>
-                            <li v-on:click="biaoge"><img src="./images/-.png" alt="">暂停招生专业</li>
-                            <li v-on:click="biaoge"><img src="./images/-.png" alt="">撤销专业</li>
+                    <li><img src="./images/+.png" alt="" v-on:click="tuichu">
+                        <p>查看退出专业</p>
+                        <ul v-if="isTuichu">
+                            <li v-on:click="biaoge('stopMajor')">
+                                <img src="./images/-.png" alt="">
+                                暂停招生专业
+                            </li>
+                            <li v-on:click="biaoge('cancleMajor')">
+                                <img src="./images/-.png" alt=""> 
+                                撤销专业
+                            </li>
                         </ul>
                     </li>
-                    <li v-on:click="xiazai"><img src="./images/+.png" alt="">下载文件</li>
-                    <li v-on:click="qingkong"><img src="./images/+.png" alt="">清空数据</li>
+                    <li v-on:click="tiaoZhuan('download')" style="cursor:pointer;"><img src="./images/+.png" alt="">下载文件
+                    </li>
+                    <li v-on:click="tiaoZhuan('deleteAll')" style="cursor:pointer;"><img src="./images/+.png"
+                            alt="">清空数据</li>
                 </ul>
             </div>
             <div class="right">
                 <table v-if="isActive">
                     <tr>
-                        <td></td>
+                        <td v-if="isDelete && isWangnian && !isReason"></td>
+                        <td>预警年份</td>
                         <td>代码</td>
                         <td>专业名称</td>
                         <td>招生年份</td>
@@ -59,58 +87,89 @@
                         <td>是否艺体类专业</td>
                         <td>是否在省部级评估中被预警</td>
                         <td>是否在校级专业评估中预警</td>
-                        <td>专业调剂率（17年）</td>
-                        <td>专业调剂率（18年）</td>
-                        <td>申请转出人数/该专业本年级在籍在册在校生人数的比例（2017级-17年）</td>
-                        <td>申请转出人数/该专业本年级在籍在册在校生人数的比例（2017级-18年）</td>
-                        <td>申请转出人数/该专业本年级在籍在册在校生人数的比例（2018级-18年）</td>
-                        <td>申请转出人数/该专业本年级在籍在册在校生人数的比例（2018级-19年）</td>
-                        <td>转专业或专业分流后学生人数（2017级-18年）</td>
-                        <td>转专业或专业分流后学生人数（2018级-18年）</td>
-                        <td>初次就业率（17年）</td>
-                        <td>初次就业率（18年）</td>
-                        <td>应届毕业生考研率</td>
+                        <td>专业调剂率（{{fullYear - 2}}年）</td>
+                        <td>专业调剂率（{{fullYear - 1}}年）</td>
+                        <td>申请转出人数/该专业本年级在籍在册在校生人数的比例（{{fullYear - 2}}级-{{fullYear - 2}}年）</td>
+                        <td>申请转出人数/该专业本年级在籍在册在校生人数的比例（{{fullYear - 2}}级-{{fullYear - 1}}年）</td>
+                        <td>申请转出人数/该专业本年级在籍在册在校生人数的比例（{{fullYear - 1}}级-{{fullYear - 1}}年）</td>
+                        <td>转专业或专业分流后学生人数（{{fullYear - 2}}级-{{fullYear - 1}}年）</td>
+                        <td>转专业或专业分流后学生人数（{{fullYear - 1}}级-{{fullYear - 1}}年）</td>
+                        <td>初次就业率（{{fullYear - 2}}年）</td>
+                        <td>初次就业率（{{fullYear - 1}}年）</td>
+                        <td>应届毕业生考研率（{{fullYear - 1}}年）</td>
                     </tr>
                     <tr v-for="(value,name,index) in tables" :key="value.id">
-                        <td><button style="cursor:pointer" v-on:click="shanchu(value.id)">删除</button></td>
-                        <td>{{value.id}}</td>
-                        <td style="cursor:pointer;" v-on:click="reason">{{value.resname}}</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
+                        <td v-if="isDelete && isWangnian && !isReason"><button style="cursor:pointer"
+                                v-on:click="shanchu(value.warningYear,value.majorCode)">删除</button>
+                        </td>
+                        <td>{{value.warningYear}}</td>
+                        <td>{{value.majorCode}}</td>
+                        <td style="cursor:pointer;" v-on:click="reason">{{value.majorName}}</td>
+                        <td>{{value.enrollmentYear}}</td>
+                        <td>{{value.continuousEnrollment}}</td>
+                        <td>{{value.years}}</td>
+                        <td>{{value.art}}</td>
+                        <td>{{value.provinceWarning}}</td>
+                        <td>{{value.schoolWarning}}</td>
+                        <td>{{value.lastAdjustment + '%'}}</td>
+                        <td>{{value.thisAdjustment + '%'}}</td>
+                        <td>{{value.lastTransfer + '%'}}</td>
+                        <td>{{value.middleTransfer + '%'}}</td>
+                        <td>{{value.thisTransfer + '%'}}</td>
+                        <td>{{value.highStudentNumber}}</td>
+                        <td>{{value.lowStudentNumber}}</td>
+                        <td>{{value.firstEmploymentRate + '%'}}</td>
+                        <td>{{value.secondEmploymentRate + '%'}}</td>
+                        <td>{{value.currentPosrgraduteRate + '%'}}</td>
                     </tr>
                 </table>
+                <button v-if="isWangnian && !isReason && !isDelete" v-on:click="deleteButton">删除</button>
                 <table v-if="isReason">
                     <tr>
                         <td>预警原因</td>
                     </tr>
-                    <tr v-for="item in reasons">
-                        <td>{{item.id}}</td>
+                    <tr v-for="item in tables">
+                        <td>{{item.warningReason}}</td>
                     </tr>
                 </table>
             </div>
         </section>
     </div>
-    	<script src="./js/jquery-3.4.1.min.js"></script>
-	<script src="./js/vue.min.js"></script>
-	<script src="./js/main.js"></script>
-    
 </body>
+<script src="./js/main.js"></script>
+<script>
+    $('form').submit(function (event) {
 
+        event.preventDefault();
+        var form = $(this);
 
+        // mulitipart form,如文件上传类
+        var formData = new FormData(this);
+
+        let myFile = document.getElementById('FileUpload');
+        formData.append('myFile', myFile.files[0]);
+        console.log(myFile.files[0]);
+
+        var val = $('#FileUpload').val();
+
+        $.ajax({
+            type: 'POST',
+            url: 'upload',
+            data: formData,
+            mimeType: "multipart/form-data",
+            contentType: false,
+            cache: false,
+            processData: false,
+            success: function () {
+                alert("提交成功");
+                val = '';
+            },
+            error: function () {
+                alert("提交失败");
+                val = '';
+            }
+        });
+    });
+</script>
 
 </html>

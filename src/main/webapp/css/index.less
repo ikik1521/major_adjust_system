@@ -6,6 +6,7 @@ body {
 
 a {
     text-decoration: none;
+    color: black;
 }
 
 ul,
@@ -65,7 +66,9 @@ section {
 
         ul,
         li {
-            cursor: pointer;
+            img {
+                cursor: pointer;
+            }
         }
 
         >ul {
@@ -76,15 +79,30 @@ section {
                 display: flex;
                 align-items: flex-start;
                 flex-wrap: wrap;
-                margin-top: 10px;
+                margin-bottom: 10px;
 
-                img {
-                    margin-right: 8px;
+                // >a {
+                //     display: flex;
+                // }
+
+                p {
+                    margin: 0;
                 }
+
+                // img {
+                //     margin-right: 8px;
+                // }
 
                 >ul {
                     margin-left: 22px;
 
+                    li {
+                        cursor: pointer;
+                    }
+
+                    li:first-child {
+                        margin-top: 10px;
+                    }
                 }
             }
         }
@@ -103,16 +121,18 @@ section {
             text-align: center;
 
             tr:first-child {
-                background-color: rgba(128, 128, 128,.8);
+                background-color: rgba(128, 128, 128, .8);
 
                 td:nth-child(2n+0) {
                     background-color: #fff;
                 }
             }
-            td{
+
+            td {
                 border-right: 1px solid gray;
                 border-bottom: 1px solid gray;
             }
+
             tr {
                 width: 100%;
 

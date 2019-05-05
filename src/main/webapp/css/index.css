@@ -5,6 +5,7 @@ body {
 }
 a {
   text-decoration: none;
+  color: black;
 }
 ul,
 li {
@@ -49,8 +50,8 @@ section .left span {
   text-align: center;
   margin-top: 20px;
 }
-section .left ul,
-section .left li {
+section .left ul img,
+section .left li img {
   cursor: pointer;
 }
 section .left > ul {
@@ -61,13 +62,19 @@ section .left > ul li {
   display: flex;
   align-items: flex-start;
   flex-wrap: wrap;
-  margin-top: 10px;
+  margin-bottom: 10px;
 }
-section .left > ul li img {
-  margin-right: 8px;
+section .left > ul li p {
+  margin: 0;
 }
 section .left > ul li > ul {
   margin-left: 22px;
+}
+section .left > ul li > ul li {
+  cursor: pointer;
+}
+section .left > ul li > ul li:first-child {
+  margin-top: 10px;
 }
 section .right {
   width: 85%;

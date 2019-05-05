@@ -7,13 +7,12 @@ var day = now.getDate();
 var time = document.getElementsByClassName('time');
 time[0].innerHTML += fullYear + "-" + month + "-" + day;
 
-//$(document).ready(function () { //用户ID的获取
-//	alert(fullYear);
-//    $.getJSON("../ceshi.json", function (result, status) {
-//        v.index = result;
-//   })
-//});
-
+/*$(document).ready(function () { //用户ID的获取
+    $.getJSON("./ceshi.json", function (result, status) {
+        v.index = result;
+    })
+});
+*/
 var v = new Vue({
     el: '#app',
     data: {
@@ -24,14 +23,22 @@ var v = new Vue({
 
         isActive: false,
         isReason: false,
+        isDelete: false,
+        isWangnian: false,
+
+        isYujing: false,
+        isTuichu: false,
 
         index: Object,
         tables: Object,
         reasons: Object
     },
     methods: {
-        biaoge: function () {
-            $.getJSON("./ceshi.json", function (result, status) {
+        biaoge: function (url) {
+        	
+            v.isWangnian = false;
+            v.isDelete = false;
+            $.getJSON(url, function (result, status) {
                 if (v.isActive == false && v.isReason == false) {
                     v.isActive = true;
                     v.tables = result;
@@ -42,18 +49,34 @@ var v = new Vue({
                 }
             })
         },
-        shanchu: function (aaa, bbb) {
+        yujing: function () {
+            if (v.isYujing == false) {
+                v.isYujing = true;
+            } else {
+                v.isYujing = false;
+            }
+
+        },
+        tuichu: function () {
+            if (v.isTuichu == false) {
+                v.isTuichu = true;
+            } else {
+                v.isTuichu = false;
+            }
+        },
+        shanchu: function (aaa, bbb) { //点击删除按钮后表格里面的删除
             console.log(typeof aaa);
             $.ajax({
-                url: "/major_adjust_system/xxxxxx",
+                url: "deleteOne",
                 type: 'POST',
                 dataType: 'JSON',
                 data: {
-                    majorID: aaa,
-                    nianfen: bbb
+                	warningYear: aaa,
+                	majorCode: bbb
                 },
-                success: function () {
-                    $.getJSON("./ceshi1.json", function (result, status) {
+                success: function (data) {
+                    console.log(data);
+                    $.getJSON("lastYear", function (result, status) {
                         v.tables = result;
                     })
                 },
@@ -63,42 +86,58 @@ var v = new Vue({
 
             })
         },
-        reason: function () {
-            $.getJSON("./ceshi.json", function (result, status) {
+        reason: function () { //预警原因
+        
                 if (v.isActive == true && v.isReason == false) {
                     v.isReason = true;
                     v.isActive = false;
                     v.reasons = result;
                 }
-            })
+            
+        },
+        wangnian: function (url) {
+            v.biaoge(url);
+            v.isWangnian = true;
+        },
+        deleteButton: function () { //往年预警下面的删除按钮
+            v.isDelete = true;
+        },
+        tiaoZhuan: function (url) { //退出 清空数据 下载
+
+            switch (url) {
+                case 'download':
+                    var newWindow = window.open(url);
+                    setTimeout(function () {
+                        newWindow.close();
+                    }, 1000);
+                    break;
+                case 'deleteAll':
+                    alert("清除数据中");
+
+                    var newWindow = window.open(url);
+                    setTimeout(function () {
+                        newWindow.close();
+                    }, 1000);
+                    window.location.href = 'index.html'
+                    break;
+                case 'logout':
+                    var newWindow = window.open(url);
+                    setTimeout(function () {
+                        newWindow.close();
+                    }, 1000);
+                    window.location.href = 'login.html'
+                    break;
+                default:
+                    break;
+            }
         },
         shangchuan: function () {
 
-        },
-        xiazai: function () {
-
-        },
-        qingkong: function () {
-
-        },
-        logout: function () {
-            $.ajax({
-                url: "/major_adjust_system/logout",
-                type: 'POST',
-                dataType: 'JSON',
-                data: 1,
-                success: function (data) {
-                    console.log(data);
-                    alert("已退出登录,即将返回登录界面");
-                    setTimeout(() => {
-                        location.href = "/major_adjust_system/login"
-                    }, 2000);
-                },
-                errorr: function () {
-                    alert("退出登录失败");
-                }
-
+            $('#FileUpload').click();
+            $('#FileUpload').change(function () {
+                $('#upload').click();
             })
-        },
+            
+        }
     }
 })

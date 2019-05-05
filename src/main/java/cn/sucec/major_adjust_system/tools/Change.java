@@ -80,7 +80,7 @@ public class Change {
 		for (MajorTable pwarningMajor : newList) {
 			pmajorCode = pwarningMajor.getMajorCode();
 			pmajorName = pwarningMajor.getMajorName();
-			pwarningReason = "，当年专业调剂率位于所有招生专业的前5%";
+			pwarningReason = "  第十四条:(一) 当年专业调剂率位于所有招生专业的前5%。";
 			PwarningTable pwarningMajor2 = new PwarningTable(pwarningYear, pmajorCode, pmajorName, pwarningReason);
 			// System.out.println("======" + pwarningMajor2);
 			// System.out.println("-=-=-=-" + change.pwarningTableService);
@@ -138,7 +138,7 @@ public class Change {
 		for (MajorTable pwarningMajor : newList) {
 			pmajorCode = pwarningMajor.getMajorCode();
 			pmajorName = pwarningMajor.getMajorName();
-			pwarningReason = "，当年申请转出人数/该专业本年级在籍在册在校人数的比例位于所有招生专业的前5%";
+			pwarningReason = "  第十四条:(二) 在当年转专业或专业分流工作结束后，申请转出学生人数与该专业本年级在籍在校生人数的比例位于全校前5%。";
 			PwarningTable pwarningMajor2 = new PwarningTable(pwarningYear, pmajorCode, pmajorName, pwarningReason);
 			change.pwarningTableService.add(pwarningMajor2);
 		}
@@ -199,7 +199,7 @@ public class Change {
 		for (MajorTable pwarningMajor : newList) {
 			pmajorCode = pwarningMajor.getMajorCode();
 			pmajorName = pwarningMajor.getMajorName();
-			pwarningReason = "，当年毕业生初次就业率位于所有招生专业的后5%";
+			pwarningReason = "  第十四条:(四) 当年毕业生初次就业率位于所有招生专业的后5%。";
 			PwarningTable pwarningMajor2 = new PwarningTable(pwarningYear, pmajorCode, pmajorName, pwarningReason);
 			change.pwarningTableService.add(pwarningMajor2);
 		}
@@ -233,7 +233,7 @@ public class Change {
 		for (MajorTable pwarningMajor : newList) {
 			pmajorCode = pwarningMajor.getMajorCode();
 			pmajorName = pwarningMajor.getMajorName();
-			pwarningReason = "，当年应届毕生生考研率为位于所有招生专业的后5%";
+			pwarningReason = "  第十四条:(五) 当年应届毕生生考研率为位于所有招生专业的后5%。";
 			PwarningTable pwarningMajor2 = new PwarningTable(pwarningYear, pmajorCode, pmajorName, pwarningReason);
 			change.pwarningTableService.add(pwarningMajor2);
 		}
@@ -246,7 +246,7 @@ public class Change {
 		int pwarningYear = nowYear;
 		String pmajorCode = null;
 		String pmajorName = null;
-		String pwarningReason = "，当年转专业或专业分流工作结束后学生人数不足20人";
+		String pwarningReason = "  第十四条:(三) 当年转专业或专业分流工作结束后学生人数不足20人。";
 		for (MajorTable majorTable : majorTables) {
 			if (majorTable.getLowStudentNumber() < 20) {
 				pmajorCode = majorTable.getMajorCode();
@@ -442,19 +442,19 @@ public class Change {
 		for (MajorTable majorTable : majors) {
 			String warningReason = "";
 			if (majorTable.getProvinceWarning().equals("是")) {
-				warningReason = warningReason + "，在教育部或湖北省教育厅组织的评估中被预警的";
+				warningReason = warningReason + "  第十五条:(一) 在教育部或湖北省教育厅组织的评估中被预警的。";
 			}
 			if (majorTable.getSchoolWarning().equals("是")) {
-				warningReason = warningReason + "，在学校组织的专业评估中被预警的";
+				warningReason = warningReason + "  第十五条:(二)在学校组织的专业评估中被预警的。";
 			}
 			if (twoYearThisAdjustment.contains(majorTable)) {
-				warningReason = warningReason + "，连续两年专业调剂率位于当年所有招生专业前5%";
+				warningReason = warningReason + "  第十五条:(三)连续两年专业调剂率位于当年所有招生专业前5%。";
 			}
 			if (twoYearsThisTransfer.contains(majorTable)) {
-				warningReason = warningReason + "，连续两年申请转出学生人数与该专业本年级在籍在校人数的比例位于全校前5%";
+				warningReason = warningReason + "  第十五条:(四)连续两年申请转出学生人数与该专业本年级在籍在校人数的比例位于全校前5%。";
 			}
 			if (twoYearsFirstEmploymentRate.contains(majorTable)) {
-				warningReason = warningReason + "，连续两年初次就业率位于全校后5%";
+				warningReason = warningReason + "  第十五条:(五)连续两年初次就业率位于全校后5%。";
 			}
 			// System.out.println("=====warningReason:" + warningReason);
 			WarningTable warningMajor = new WarningTable(warningYear, majorTable.getMajorCode(),

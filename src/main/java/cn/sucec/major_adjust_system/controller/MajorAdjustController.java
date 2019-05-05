@@ -16,6 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -72,9 +73,9 @@ public class MajorAdjustController {
 	// 上传文件
 	@RequestMapping(value = "/upload", method = RequestMethod.POST)
 	@ResponseBody
-	public String upload(HttpServletRequest request, @RequestParam("file") MultipartFile file) throws Exception {
+	public String upload(HttpServletRequest request, @RequestParam("file") MultipartFile upfile) throws Exception {
 
-		InputStream inputExcel = file.getInputStream();
+		InputStream inputExcel = upfile.getInputStream();
 
 		majorTableService.importExcelInfo(inputExcel);
 
@@ -198,7 +199,9 @@ public class MajorAdjustController {
 	
 	//单项删除
 	@RequestMapping("/deleteOne")
-	public void deleteDetail() {
+	public void deleteDetail(@RequestParam("warningYear") int year,@RequestParam("majorCode") String majorCode) {
+		detailwarningTableService.deleteByYearAndMajorCode(year, majorCode);
+		System.out.println("已执行删除操作！");
 		
 	}
 	// 登录
