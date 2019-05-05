@@ -23,4 +23,6 @@ public interface DetailwarningTableDao extends BaseDao {
 	 */
 	public void deleteByYearAndMajorCode(@Param("year") int year, @Param("majorCode") String majorCode);
 	
+	/* public List<DetailwarningTable> getAll(); */
+	
 }

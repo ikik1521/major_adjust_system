@@ -148,7 +148,7 @@ public class MajorAdjustController {
 	public List<DetailwarningTable> queryLastYearWaringMajor() {
 
 		System.out.println("这里是查看往年预警专业");
-		List<DetailwarningTable> detailwarningMajors = detailwarningTableService.selectAll();
+		List<DetailwarningTable> detailwarningMajors = detailwarningTableService.getAll();
 		for (DetailwarningTable detailwarningMajor : detailwarningMajors) {
 			System.out.println(detailwarningMajor);
 		}
