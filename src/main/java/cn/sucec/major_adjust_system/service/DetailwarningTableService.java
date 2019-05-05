@@ -14,6 +14,8 @@ public interface DetailwarningTableService extends BaseService<DetailwarningTabl
 	public String getcauseMajorCode();
 	
 	public void deleteByYearAndMajorCode(int year, String majorCode);
+	
+	public List<DetailwarningTable> getAll();
 
 
 }

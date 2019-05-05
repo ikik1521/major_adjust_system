@@ -17,7 +17,7 @@ public class MapToEntityTool {
 	 * @param map
 	 * @param entityClass
 	 * @return
-	 */
+	 */ 
 	public static <T> T map2entity(Map<Object, Object> map,Class<T> entityClass) {
 		//一进来，直接尝试从缓存中获取EntityCacheItem对象
 		EntityCacheItem entityCacheItem = convertItemCache.get(entityClass.getName());
@@ -105,6 +105,7 @@ public class MapToEntityTool {
 		public List<String> getFieldNameList() {
 			return fieldNameList;
 		}
+		
 		public Map<String, Method> getSetMethodMap() {
 			return setMethodMap;
 		}

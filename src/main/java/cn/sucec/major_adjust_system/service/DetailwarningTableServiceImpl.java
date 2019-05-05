@@ -2,6 +2,7 @@ package cn.sucec.major_adjust_system.service;
 
 import java.util.List;
 
+import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -38,6 +39,11 @@ public class DetailwarningTableServiceImpl extends BaseServiceImpl<Detailwarning
 	@Override
 	public void deleteByYearAndMajorCode(int year, String majorCode) {
 		detailwarningTableDao.deleteByYearAndMajorCode(year, majorCode);
+	}
+
+	@Override
+	public List<DetailwarningTable> getAll() {
+		return detailwarningTableDao.getAll();
 	}
 
 }
