@@ -87,7 +87,7 @@ public class PauseTableServiceImpl extends BaseServiceImpl<PauseTable> implement
 				// 这里从详细预警专业名单中去除的是重复的集合，但是只要专业代码和名字就可以了
 				MajorTable major = majorTableService.selectOne(item);
 				PauseTable pauseMajor = new PauseTable(year, item, major.getMajorName(),
-						"，连续两年转专业或专业分流后学生人数不足20人");
+						"#连续两年转专业或专业分流后学生人数不足20人");
 				resultList2.add(pauseMajor);
 			}
 		}

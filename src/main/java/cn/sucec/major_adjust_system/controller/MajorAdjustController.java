@@ -199,6 +199,7 @@ public class MajorAdjustController {
 	
 	//单项删除
 	@RequestMapping("/deleteOne")
+	@ResponseBody
 	public void deleteDetail(@RequestParam("warningYear") int year,@RequestParam("majorCode") String majorCode) {
 		detailwarningTableService.deleteByYearAndMajorCode(year, majorCode);
 		System.out.println("已执行删除操作！");

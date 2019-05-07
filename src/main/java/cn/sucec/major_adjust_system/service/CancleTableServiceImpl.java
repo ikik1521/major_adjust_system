@@ -39,7 +39,7 @@ public class CancleTableServiceImpl extends BaseServiceImpl<CancleTable> impleme
 			// System.out.println(cancleMajorCode);
 			String cancleMajorName = majorTableService.getMajorName(cancleMajorCode);
 			// System.out.println(cancleMajorName);
-			String cancleReason1 = "，五年内累计三次列入预警名单";
+			String cancleReason1 = "#五年内累计三次列入预警名单";
 			CancleTable cancleMajor = new CancleTable(year, cancleMajorCode, cancleMajorName, cancleReason1);
 			add(cancleMajor);
 		} else {
@@ -50,7 +50,7 @@ public class CancleTableServiceImpl extends BaseServiceImpl<CancleTable> impleme
 		List<MajorTable> cancleMajors = majorTableService.getWuNianWeiZhaoSheng();
 		// System.out.println(cancleMajors);
 		if (cancleMajors != null) {
-			String cancleReason2 = "，连续五年未招生的专业";
+			String cancleReason2 = "#连续五年未招生的专业";
 			for (MajorTable cancleMajor1 : cancleMajors) {
 				CancleTable cancleTable2 = new CancleTable(year, cancleMajor1.getMajorCode(),
 						cancleMajor1.getMajorName(), cancleReason2);

@@ -7,12 +7,12 @@ var day = now.getDate();
 var time = document.getElementsByClassName('time');
 time[0].innerHTML += fullYear + "-" + month + "-" + day;
 
-/*$(document).ready(function () { //用户ID的获取
-    $.getJSON("./ceshi.json", function (result, status) {
-        v.index = result;
-    })
-});
-*/
+// $(document).ready(function () { //用户ID的获取
+//     $.getJSON("./ceshi.json", function (result, status) {
+//         v.index = result;
+//     })
+// });
+
 var v = new Vue({
     el: '#app',
     data: {
@@ -20,36 +20,26 @@ var v = new Vue({
         year: year,
         month: month,
         day: day,
+        counter: 0,
 
-        isActive: false,
+        isActive1: false,
+        isActive2: false,
+        isActive3: false,
         isReason: false,
-        isDelete: false,
-        isWangnian: false,
 
-        isYujing: false,
-        isTuichu: false,
+        isDeleteButton: false,
+        isDeleting: false,
+
+        isYujing: true,
+        isTuichu: true,
 
         index: Object,
         tables: Object,
-        reasons: Object
+        // newTable: Object,
+        reasons: Array
     },
     methods: {
-        biaoge: function (url) {
-        	
-            v.isWangnian = false;
-            v.isDelete = false;
-            $.getJSON(url, function (result, status) {
-                if (v.isActive == false && v.isReason == false) {
-                    v.isActive = true;
-                    v.tables = result;
-                }
-                if (v.isActive == false && v.isReason == true) {
-                    v.isActive = true;
-                    v.isReason = false;
-                }
-            })
-        },
-        yujing: function () {
+        yujing: function () { //二级菜单
             if (v.isYujing == false) {
                 v.isYujing = true;
             } else {
@@ -57,75 +47,156 @@ var v = new Vue({
             }
 
         },
-        tuichu: function () {
+        tuichu: function () { //二级菜单
             if (v.isTuichu == false) {
                 v.isTuichu = true;
             } else {
                 v.isTuichu = false;
             }
         },
-        shanchu: function (aaa, bbb) { //点击删除按钮后表格里面的删除
-            console.log(typeof aaa);
-            $.ajax({
-                url: "deleteOne",
-                type: 'POST',
-                dataType: 'JSON',
-                data: {
-                	warningYear: aaa,
-                	majorCode: bbb
-                },
-                success: function (data) {
-                    console.log(data);
-                    $.getJSON("lastYear", function (result, status) {
-                        v.tables = result;
-                    })
-                },
-                errorr: function () {
-                    alert("删除失败");
-                }
+        biaoge: function (url) {
+            v.tables = '';
+            // console.log(v.tables);
 
-            })
-        },
-        reason: function () { //预警原因
-        
-                if (v.isActive == true && v.isReason == false) {
-                    v.isReason = true;
-                    v.isActive = false;
-                    v.reasons = result;
+            v.isDeleteButton = false;
+            v.isDeleting = false;
+
+            $.ajax({
+                type: 'GET',
+                url: url,
+                dataType: 'json',
+                success: function (result, status) {
+                    v.tables = result;
+                    if (url == 'thisYear' || url == 'lastYear') {
+
+                        // console.log("表格ajax的状态:" + status);
+                        if (v.isActive1 == false && v.isReason == false) {
+                            v.isActive2 = false;
+                            v.isActive3 = false;
+
+                            v.isActive1 = true;
+                            // console.log("A:" + v.isActive1);
+                            // console.log("R:" + v.isReason);
+                            // console.log(v.tables);
+                        } else if (v.isActive1 == false && v.isReason == true) {
+                            v.isActive2 = false;
+                            v.isActive3 = false;
+
+                            v.isActive1 = true;
+                            v.isReason = false;
+                            // console.log("A:" + v.isActive1);
+                            // console.log("R:" + v.isReason);
+                            // console.log(v.tables);
+                        }
+                    } else if (url == 'stopMajor') {
+
+                        if (v.isActive2 == false) {
+                            v.isReason = false;
+                            v.isActive1 = false;
+                            v.isActive3 = false;
+
+                            v.isActive2 = true;
+                        }
+                    } else if (url == 'cancleMajor') {
+
+                        if (v.isActive3 == false) {
+                            v.isReason = false;
+                            v.isActive1 = false;
+                            v.isActive2 = false;
+
+                            v.isActive3 = true;
+                        }
+                    }
+                },
+                error: function (xhr, status, error) {
+                    alert("暂无数据");
+                    window.location.reload();
+
+                    console.log(xhr);
+                    console.log("表格ajax的状态:" + status);
+                    console.log(error);
                 }
-            
+            });
         },
         wangnian: function (url) {
             v.biaoge(url);
-            v.isWangnian = true;
+            v.isDeleteButton = true;
         },
-        deleteButton: function () { //往年预警下面的删除按钮
-            v.isDelete = true;
+        shanchu: function (aaa, bbb) { //点击删除按钮后表格里面的删除
+
+            $.ajax({ //单项删除请求
+                type: 'POST',
+                url: "deleteOne",
+                dataType: 'JSON',
+                data: {
+                    warningYear: aaa, //年份是数值
+                    majorCode: bbb //专业代码是字符串
+                },
+                success: function () {                  
+                },
+                errorr: function () {
+                    alert("删除失败");
+                },
+                complete: function(){
+                	alert("删除成功");
+                    $.ajax({
+                        type: 'GET',
+                        url: 'lastYear',
+                        dataType: 'json',
+                        success: function (result, status) {
+                            //视图需要重新渲染
+                        	//console.log(result);
+                        	v.tables = '';
+                            v.tables = result;
+                            v.counter++;
+                        },
+                        error: function (xhr, status, error) {
+                            alert("暂无数据");
+                            window.location.reload();
+
+                            console.log(xhr);
+                            console.log("原因ajax的状态:" + status);
+                            console.log(error);
+                        }
+                    });
+                }
+            })
+            
+        },
+        reason: function (qqq) { //预警原因
+            v.reasons = [];
+            //console.log(qqq);
+            var bbb = qqq.split("#");
+            bbb.shift();
+            
+            //console.log(bbb);
+
+            if (v.isActive1 == true && v.isReason == false) {
+                v.isReason = true;
+                v.isActive1 = false;
+                v.reasons = bbb;
+            }
         },
         tiaoZhuan: function (url) { //退出 清空数据 下载
 
             switch (url) {
                 case 'download':
-                    var newWindow = window.open(url);
-                    setTimeout(function () {
-                        newWindow.close();
-                    }, 1000);
+                    $('iframe').attr('src', url);
+
                     break;
                 case 'deleteAll':
                     alert("清除数据中");
+                    $('iframe').attr('src', url);
+                    alert("清除成功");
+                    v.isActive1 = false;
+                    v.isReason = false;
 
-                    var newWindow = window.open(url);
-                    setTimeout(function () {
-                        newWindow.close();
-                    }, 1000);
-                    window.location.href = 'index.html'
                     break;
                 case 'logout':
-                    var newWindow = window.open(url);
-                    setTimeout(function () {
-                        newWindow.close();
-                    }, 1000);
-                    window.location.href = 'login.html'
+                    $('iframe').attr('src', url);
+                    alert("已退出登录");
+                    window.location.href = 'login.html';
+
                     break;
                 default:
                     break;
@@ -136,8 +207,10 @@ var v = new Vue({
             $('#FileUpload').click();
             $('#FileUpload').change(function () {
                 $('#upload').click();
+                $('#FileUpload').off('change');
+                console.log(event);
             })
-            
+
         }
     }
 })

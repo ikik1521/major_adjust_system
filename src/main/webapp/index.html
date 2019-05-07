@@ -7,22 +7,28 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Index</title>
     <link rel="stylesheet" type="text/css" href="./css/index.css" />
-    <!-- <script src="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.js"></script> -->
-    <!-- <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script> -->
-    <script src="./js/jquery-3.4.1.min.js"></script>
-    <script src="./js/vue.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.js"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <!-- <script src="./js/jquery-3.4.1.min.js"></script> -->
+    <!-- <script src="./js/vue.min.js"></script> -->
 
 </head>
 
 <body>
-    <div id="app">
+<style>
+    [v-cloak] {
+        display: none
+    }
+</style>
+
+    <div id="app" v-cloak>
         <header class="top">
             <div class="top-l">
                 <img src="" alt="">
-                <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;中南民族大学专业动态调整系统</span>
-            </div>
+                <span>中南民族大学专业动态调整系统</span>
+            </div>           
             <div class="top-r">
-               <!--  <img src="./images/user.png" alt=""> -->
+                <!-- <img src="./images/user.png" alt=""> -->
                 <!-- <span>{{index[0].id}}</span> -->
                 <img src="./images/time.png" alt="">
                 <span class="time"></span>
@@ -34,37 +40,38 @@
             <div class="left">
                 <span>导航模块/Nav Module</span>
                 <ul>
-                    <li style="cursor:pointer;" v-on:click="shangchuan">
-                        <img src="./images/+.png" alt="">上传文件
-                        <form style="display:none;"enctype="multipart/form-data">
+                    <li style="cursor:pointer;">
+                        <span v-on:click="shangchuan"><img src="./images/+.png" alt="">上传文件</span>
+                        <form style="display:none;" enctype="multipart/form-data" id="form">
                             <input type="file" name="file" id="FileUpload"
                                 accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.ms-excel">
                             <button type="submit" id="upload"></button>
+                            <button type="reset" id="reset"></button>
                         </form>
                     </li>
                     <li><img src="./images/+.png" alt="" v-on:click="yujing">
                         <p>查看预警专业</p>
                         <ul v-if="isYujing">
-                            <li v-on:click="biaoge('thisYear')">
-                                 <img src="./images/-.png" alt=""> 
-                                今年预警专业
+                            <li>
+                                <img src="./images/-.png" alt="" v-on:click="yujing"><span
+                                    v-on:click="biaoge('thisYear')">今年预警专业</span>
                             </li>
-                            <li v-on:click="wangnian('lastYear')">
-                                <img src="./images/-.png" alt=""> 
-                                往年预警专业
+                            <li>
+                                <img src="./images/-.png" alt="" v-on:click="yujing"><span
+                                    v-on:click="wangnian('lastYear')">往年预警专业</span>
                             </li>
                         </ul>
                     </li>
                     <li><img src="./images/+.png" alt="" v-on:click="tuichu">
                         <p>查看退出专业</p>
                         <ul v-if="isTuichu">
-                            <li v-on:click="biaoge('stopMajor')">
-                                <img src="./images/-.png" alt="">
-                                暂停招生专业
+                            <li>
+                                <img src="./images/-.png" alt="" v-on:click="tuichu"><span
+                                    v-on:click="biaoge('stopMajor')">暂停招生专业</span>
                             </li>
-                            <li v-on:click="biaoge('cancleMajor')">
-                                <img src="./images/-.png" alt=""> 
-                                撤销专业
+                            <li>
+                                <img src="./images/-.png" alt="" v-on:click="tuichu"><span
+                                    v-on:click="biaoge('cancleMajor')">撤销专业</span>
                             </li>
                         </ul>
                     </li>
@@ -75,9 +82,10 @@
                 </ul>
             </div>
             <div class="right">
-                <table v-if="isActive">
+            	<button v-if="isDeleteButton && !isReason" v-on:click="isDeleting = true;isDeleteButton = false;">删除</button>
+                <table v-if="isActive1">
                     <tr>
-                        <td v-if="isDelete && isWangnian && !isReason"></td>
+                        <td v-if="!isDeleteButton && isDeleting"></td>
                         <td>预警年份</td>
                         <td>代码</td>
                         <td>专业名称</td>
@@ -99,12 +107,11 @@
                         <td>应届毕业生考研率（{{fullYear - 1}}年）</td>
                     </tr>
                     <tr v-for="(value,name,index) in tables" :key="value.id">
-                        <td v-if="isDelete && isWangnian && !isReason"><button style="cursor:pointer"
-                                v-on:click="shanchu(value.warningYear,value.majorCode)">删除</button>
-                        </td>
+                        <td v-if="!isDeleteButton && isDeleting"><button style="cursor:pointer"
+                                v-on:click="shanchu(value.warningYear,value.majorCode)">删除</button></td>
                         <td>{{value.warningYear}}</td>
                         <td>{{value.majorCode}}</td>
-                        <td style="cursor:pointer;" v-on:click="reason">{{value.majorName}}</td>
+                        <td style="cursor:pointer;" v-on:click="reason(value.warningReason)">{{value.majorName}}</td>
                         <td>{{value.enrollmentYear}}</td>
                         <td>{{value.continuousEnrollment}}</td>
                         <td>{{value.years}}</td>
@@ -120,38 +127,63 @@
                         <td>{{value.lowStudentNumber}}</td>
                         <td>{{value.firstEmploymentRate + '%'}}</td>
                         <td>{{value.secondEmploymentRate + '%'}}</td>
-                        <td>{{value.currentPosrgraduteRate + '%'}}</td>
+                        <td>{{value.currentPosrgraduteRate + '%'}}</td>                      
                     </tr>
                 </table>
-                <button v-if="isWangnian && !isReason && !isDelete" v-on:click="deleteButton">删除</button>
                 <table v-if="isReason">
                     <tr>
                         <td>预警原因</td>
                     </tr>
-                    <tr v-for="item in tables">
-                        <td>{{item.warningReason}}</td>
+                    <tr v-for="item in reasons">                    
+                        <td>{{item}}</td>
+                    </tr>
+                </table>
+                <table v-if="isActive2">
+                <tr>
+                	<td>年份</td>
+                	<td>专业代码</td>
+                	<td>专业名称</td>
+                	<td>原因</td>
+                <tr/>
+                    <tr v-for="(value,name,index) in tables" :key="value.id">
+                        <td>{{value.pauseYear}}</td>
+                        <td>{{value.majorCode}}</td>
+                        <td>{{value.majorName}}</td>
+                        <td>{{value.pauseReason}}</td>
+                    </tr>
+                </table>
+                <table v-if="isActive3">
+                <tr>
+                	<td>年份</td>
+                	<td>专业代码</td>
+                	<td>专业名称</td>
+                	<td>原因</td>
+                <tr/>
+                    <tr v-for="(value,name,index) in tables" :key="value.id">
+                        <td>{{value.cancleYear}}</td>
+                        <td>{{value.majorCode}}</td>
+                        <td>{{value.majorName}}</td>
+                        <td>{{value.cancleReason}}</td>
                     </tr>
                 </table>
             </div>
+            <iframe style="display:none;" src="" frameborder="0"></iframe>
         </section>
     </div>
 </body>
-<script src="./js/main.js"></script>
+<script type="text/javascript" src="./js/main.js"></script>
 <script>
     $('form').submit(function (event) {
-
         event.preventDefault();
         var form = $(this);
-
         // mulitipart form,如文件上传类
         var formData = new FormData(this);
-
         let myFile = document.getElementById('FileUpload');
         formData.append('myFile', myFile.files[0]);
+
         console.log(myFile.files[0]);
 
-        var val = $('#FileUpload').val();
-
+        //var val = $('#FileUpload').val();
         $.ajax({
             type: 'POST',
             url: 'upload',
@@ -162,11 +194,11 @@
             processData: false,
             success: function () {
                 alert("提交成功");
-                val = '';
+                //val = '';
             },
             error: function () {
                 alert("提交失败");
-                val = '';
+                //val = '';
             }
         });
     });

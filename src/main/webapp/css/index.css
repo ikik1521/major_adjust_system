@@ -44,7 +44,7 @@ section .left {
   background-color: #f0f0f0;
   font-size: 16px;
 }
-section .left span {
+section .left > span {
   display: inline-block;
   width: 100%;
   text-align: center;
@@ -57,6 +57,9 @@ section .left li img {
 section .left > ul {
   margin-top: 40px;
   margin-left: 30px;
+}
+section .left > ul li:first-child > span {
+  display: flex;
 }
 section .left > ul li {
   display: flex;
@@ -77,7 +80,10 @@ section .left > ul li > ul li:first-child {
   margin-top: 10px;
 }
 section .right {
-  width: 85%;
+  width: 86%;
+}
+section .right >table {
+	border-collapse:collapse;
 }
 section .right table {
   table-layout: fixed;
@@ -102,5 +108,4 @@ section .right table tr {
 }
 section .right table tr td {
   height: 100px;
-  width: 5%;
 }
