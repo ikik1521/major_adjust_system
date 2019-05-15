@@ -27,6 +27,7 @@ header .top-r {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  
 }
 section {
   width: 100%;

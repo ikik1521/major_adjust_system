@@ -5,6 +5,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.servlet.ServletOutputStream;
 
@@ -276,7 +278,14 @@ public class ExcelutilMine {
 			cell02.setCellValue(wt.getMajorName());
 			cell02.setCellStyle(cellStyle);
 			Cell cell03 = row.createCell(3);
-			cell03.setCellValue(wt.getWarningReason());
+			
+			//使用正则表达式去除原因文本中的分隔符号
+			String reasonString=wt.getWarningReason();
+			Pattern pattern=Pattern.compile("#");
+			Matcher matcher=pattern.matcher(reasonString);
+			matcher.replaceAll("");
+			
+			cell03.setCellValue( reasonString);
 			cell03.setCellStyle(cellStyle);
 
 			/*

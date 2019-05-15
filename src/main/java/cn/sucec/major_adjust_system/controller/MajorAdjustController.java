@@ -120,6 +120,40 @@ public class MajorAdjustController {
 			System.out.println("已分析，若要重新分析请删除数据库中当年的数据");
 			
 			List<DetailwarningTable> detailwarningMajors = detailwarningTableService.getWarningMajorByYear(year);
+			// 替换掉特殊值
+						for (DetailwarningTable detailwarningTable : detailwarningMajors) {
+							if (detailwarningTable.getLastAdjustment() == 900.0) {
+								detailwarningTable.setLastAdjustment(null);
+							}
+							if (detailwarningTable.getThisAdjustment() == 900.0) {
+								detailwarningTable.setThisAdjustment(null);
+							}
+							if (detailwarningTable.getLastTransfer() == 900.0) {
+								detailwarningTable.setLastTransfer(null);
+							}
+							if (detailwarningTable.getMiddleTransfer() == 900.0) {
+								detailwarningTable.setMiddleTransfer(null);
+							}
+							if (detailwarningTable.getThisTransfer() == 900.0) {
+								detailwarningTable.setThisTransfer(null);
+							}
+							if (detailwarningTable.getHighStudentNumber() == 10000) {
+								detailwarningTable.setHighStudentNumber(null);
+							}
+							if (detailwarningTable.getLowStudentNumber() == 10000) {
+								detailwarningTable.setLowStudentNumber(null);
+							}
+							if (detailwarningTable.getFirstEmploymentRate() == 900.0) {
+								detailwarningTable.setFirstEmploymentRate(null);
+							}
+							if (detailwarningTable.getSecondEmploymentRate() == 900.0) {
+								detailwarningTable.setSecondEmploymentRate(null);
+							}
+							if (detailwarningTable.getCurrentPosrgraduteRate() == 900.0) {
+								detailwarningTable.setCurrentPosrgraduteRate(null);
+							}
+						}
+						
 			for (DetailwarningTable detailwarningMajor : detailwarningMajors) {
 				System.out.println(detailwarningMajor);
 			}
@@ -134,6 +168,40 @@ public class MajorAdjustController {
 			
 			// 根据年份查询预警专业
 			List<DetailwarningTable> detailwarningMajors = detailwarningTableService.getWarningMajorByYear(year);
+			// 替换掉特殊值
+			for (DetailwarningTable detailwarningTable : detailwarningMajors) {
+				if (detailwarningTable.getLastAdjustment() == 900.0) {
+					detailwarningTable.setLastAdjustment(null);
+				}
+				if (detailwarningTable.getThisAdjustment() == 900.0) {
+					detailwarningTable.setThisAdjustment(null);
+				}
+				if (detailwarningTable.getLastTransfer() == 900.0) {
+					detailwarningTable.setLastTransfer(null);
+				}
+				if (detailwarningTable.getMiddleTransfer() == 900.0) {
+					detailwarningTable.setMiddleTransfer(null);
+				}
+				if (detailwarningTable.getThisTransfer() == 900.0) {
+					detailwarningTable.setThisTransfer(null);
+				}
+				if (detailwarningTable.getHighStudentNumber() == 10000) {
+					detailwarningTable.setHighStudentNumber(null);
+				}
+				if (detailwarningTable.getLowStudentNumber() == 10000) {
+					detailwarningTable.setLowStudentNumber(null);
+				}
+				if (detailwarningTable.getFirstEmploymentRate() == 900.0) {
+					detailwarningTable.setFirstEmploymentRate(null);
+				}
+				if (detailwarningTable.getSecondEmploymentRate() == 900.0) {
+					detailwarningTable.setSecondEmploymentRate(null);
+				}
+				if (detailwarningTable.getCurrentPosrgraduteRate() == 900.0) {
+					detailwarningTable.setCurrentPosrgraduteRate(null);
+				}
+			}
+			
 			for (DetailwarningTable detailwarningMajor : detailwarningMajors) {
 				System.out.println(detailwarningMajor);
 			}
@@ -149,6 +217,40 @@ public class MajorAdjustController {
 
 		System.out.println("这里是查看往年预警专业");
 		List<DetailwarningTable> detailwarningMajors = detailwarningTableService.getAll();
+		// 替换掉特殊值
+		for (DetailwarningTable detailwarningTable : detailwarningMajors) {
+			if (detailwarningTable.getLastAdjustment() == 900.0) {
+				detailwarningTable.setLastAdjustment(null);
+			}
+			if (detailwarningTable.getThisAdjustment() == 900.0) {
+				detailwarningTable.setThisAdjustment(null);
+			}
+			if (detailwarningTable.getLastTransfer() == 900.0) {
+				detailwarningTable.setLastTransfer(null);
+			}
+			if (detailwarningTable.getMiddleTransfer() == 900.0) {
+				detailwarningTable.setMiddleTransfer(null);
+			}
+			if (detailwarningTable.getThisTransfer() == 900.0) {
+				detailwarningTable.setThisTransfer(null);
+			}
+			if (detailwarningTable.getHighStudentNumber() == 10000) {
+				detailwarningTable.setHighStudentNumber(null);
+			}
+			if (detailwarningTable.getLowStudentNumber() == 10000) {
+				detailwarningTable.setLowStudentNumber(null);
+			}
+			if (detailwarningTable.getFirstEmploymentRate() == 900.0) {
+				detailwarningTable.setFirstEmploymentRate(null);
+			}
+			if (detailwarningTable.getSecondEmploymentRate() == 900.0) {
+				detailwarningTable.setSecondEmploymentRate(null);
+			}
+			if (detailwarningTable.getCurrentPosrgraduteRate() == 900.0) {
+				detailwarningTable.setCurrentPosrgraduteRate(null);
+			}
+		}
+
 		for (DetailwarningTable detailwarningMajor : detailwarningMajors) {
 			System.out.println(detailwarningMajor);
 		}
