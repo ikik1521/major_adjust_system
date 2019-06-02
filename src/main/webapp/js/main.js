@@ -36,7 +36,8 @@ var v = new Vue({
         index: Object,
         tables: Object,
         // newTable: Object,
-        reasons: Array
+        reasons: Array,
+        search: fullYear
     },
     methods: {
         yujing: function () { //二级菜单
@@ -67,6 +68,7 @@ var v = new Vue({
                 dataType: 'json',
                 success: function (result, status) {
                     v.tables = result;
+
                     if (url == 'thisYear' || url == 'lastYear') {
 
                         // console.log("表格ajax的状态:" + status);
@@ -107,6 +109,7 @@ var v = new Vue({
                             v.isActive3 = true;
                         }
                     }
+                    v.tihuan();
                 },
                 error: function (xhr, status, error) {
                     alert("暂无数据");
@@ -115,14 +118,27 @@ var v = new Vue({
                     console.log(xhr);
                     console.log("表格ajax的状态:" + status);
                     console.log(error);
+                },
+                complete: function (XMLHttpRequest, textStatus) {
+                    // 通过XMLHttpRequest取得响应头，sessionstatus
+                    var sessionstatus = XMLHttpRequest.getResponseHeader("sessionstatus");
+                    if (sessionstatus == "TIMEOUT") {
+                        var win = window;
+                        while (win != win.top) {
+                            win = win.top;
+                        }
+                        win.location.href = XMLHttpRequest.getResponseHeader("CONTEXTPATH");
+                    }
                 }
             });
+
+            
         },
         wangnian: function (url) {
             v.biaoge(url);
             v.isDeleteButton = true;
         },
-        shanchu: function (aaa, bbb) { //点击删除按钮后表格里面的删除
+        shanchu: function (aaa, bbb) { //单项删除
 
             $.ajax({ //单项删除请求
                 type: 'POST',
@@ -132,22 +148,35 @@ var v = new Vue({
                     warningYear: aaa, //年份是数值
                     majorCode: bbb //专业代码是字符串
                 },
-                success: function () {                  
+                success: function () {
                 },
                 errorr: function () {
                     alert("删除失败");
                 },
-                complete: function(){
-                	alert("删除成功");
+                complete: function (XMLHttpRequest, textStatus) {
+
+                    // 通过XMLHttpRequest取得响应头，sessionstatus
+                    var sessionstatus = XMLHttpRequest.getResponseHeader("sessionstatus");
+                    if (sessionstatus == "TIMEOUT") {
+                        var win = window;
+                        while (win != win.top) {
+                            win = win.top;
+                        }
+                        win.location.href = XMLHttpRequest.getResponseHeader("CONTEXTPATH");
+                    }
+
+                    alert("删除成功");
                     $.ajax({
                         type: 'GET',
                         url: 'lastYear',
                         dataType: 'json',
                         success: function (result, status) {
                             //视图需要重新渲染
-                        	//console.log(result);
-                        	v.tables = '';
+                            //console.log(result);
+                            v.tables = '';
                             v.tables = result;
+
+                            v.tihuan();
                             v.counter++;
                         },
                         error: function (xhr, status, error) {
@@ -160,15 +189,17 @@ var v = new Vue({
                         }
                     });
                 }
+
             })
-            
+
+
         },
         reason: function (qqq) { //预警原因
             v.reasons = [];
             //console.log(qqq);
             var bbb = qqq.split("#");
             bbb.shift();
-            
+
             //console.log(bbb);
 
             if (v.isActive1 == true && v.isReason == false) {
@@ -211,6 +242,78 @@ var v = new Vue({
                 console.log(event);
             })
 
+        },
+        sousuo: function (www) {
+            // alert(v.search);
+
+            $.ajax({
+                type: 'POST',
+                url: "searchByYear",
+                dataType: 'JSON',
+                data: {
+                    searchYear: www
+                },
+                success: function (result, status) {
+                	v.tables = '';
+                    v.tables = result;
+
+                    v.tihuan();
+                    v.counter++;
+                },
+                errorr: function () {
+                    // alert("查找失败");
+                },
+                complete: function () {
+                     alert("查找成功");
+                    $.ajax({
+                        /*type: 'GET',
+                        url: 'xxxxxx',
+                        dataType: 'json',*/
+                        success: function (result, status) {
+                            //视图需要重新渲染
+                            //console.log(result);
+                            v.tables = '';
+                            v.tables = result;
+
+                            v.tihuan();
+                            v.counter++;
+                        },
+                        error: function (xhr, status, error) {
+                            alert("暂无数据!");
+                            window.location.reload();
+
+                            console.log(xhr);
+                            console.log("原因ajax的状态:" + status);
+                            console.log(error);
+                        },
+                        complete: function (XMLHttpRequest, textStatus) {
+                            // 通过XMLHttpRequest取得响应头，sessionstatus
+                            var sessionstatus = XMLHttpRequest.getResponseHeader("sessionstatus");
+                            if (sessionstatus == "TIMEOUT") {
+                                var win = window;
+                                while (win != win.top) {
+                                    win = win.top;
+                                }
+                                win.location.href = XMLHttpRequest.getResponseHeader("CONTEXTPATH");
+                            }
+                        }
+                    });
+                }
+            })
+        },
+        tihuan: function () {
+            7
+        	for (let i = 0; i < v.tables.length; i++) {
+        		for(var k in v.tables[i]){
+        			
+        		console.log((v.tables[i])[k]);
+        		
+        			if((v.tables[i])[k] == '900.0'||(v.tables[i])[k] =='10000' ){
+        			Vue.set(v.tables[i],k,'/');
+        		}
+        		
+        		}
+            }
         }
     }
 })

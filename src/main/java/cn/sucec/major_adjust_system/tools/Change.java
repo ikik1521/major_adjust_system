@@ -21,8 +21,6 @@ import cn.sucec.major_adjust_system.service.WarningTableService;
 
 /**
   * 此工具类是进行需要的排序并且存入数据库中
- * @author WangChuo
- * 
  */
 @Component
 public class Change {
@@ -82,8 +80,7 @@ public class Change {
 			pmajorName = pwarningMajor.getMajorName();
 			pwarningReason = "#第十四条:(一) 当年专业调剂率位于所有招生专业的前5%。";
 			PwarningTable pwarningMajor2 = new PwarningTable(pwarningYear, pmajorCode, pmajorName, pwarningReason);
-			// System.out.println("======" + pwarningMajor2);
-			// System.out.println("-=-=-=-" + change.pwarningTableService);
+			
 			change.pwarningTableService.add(pwarningMajor2);
 		}
 	}

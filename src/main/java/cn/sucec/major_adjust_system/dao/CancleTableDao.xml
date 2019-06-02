@@ -12,4 +12,7 @@
   		DELETE FROM `cancle_table` WHERE `cancle_year`=#{year} AND `major_code`=#{majorCode}
   </delete>
   
+  <select id="getAll" resultType="cn.sucec.major_adjust_system.model.CancleTable">
+  	select * from cancle_table
+  </select>
 </mapper>

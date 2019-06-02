@@ -108,4 +108,11 @@ public class PauseTableServiceImpl extends BaseServiceImpl<PauseTable> implement
 		pauseTableDao.deleteByYearAndMajorCode(year, majorCode);
 	}
 
+	@Override
+	public List<PauseTable> getAll() {
+		
+		 List<PauseTable> list =pauseTableDao.getAll();
+		 return list;
+	}
+
 }

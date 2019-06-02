@@ -120,40 +120,7 @@ public class MajorAdjustController {
 			System.out.println("已分析，若要重新分析请删除数据库中当年的数据");
 			
 			List<DetailwarningTable> detailwarningMajors = detailwarningTableService.getWarningMajorByYear(year);
-			// 替换掉特殊值
-						for (DetailwarningTable detailwarningTable : detailwarningMajors) {
-							if (detailwarningTable.getLastAdjustment() == 900.0) {
-								detailwarningTable.setLastAdjustment(null);
-							}
-							if (detailwarningTable.getThisAdjustment() == 900.0) {
-								detailwarningTable.setThisAdjustment(null);
-							}
-							if (detailwarningTable.getLastTransfer() == 900.0) {
-								detailwarningTable.setLastTransfer(null);
-							}
-							if (detailwarningTable.getMiddleTransfer() == 900.0) {
-								detailwarningTable.setMiddleTransfer(null);
-							}
-							if (detailwarningTable.getThisTransfer() == 900.0) {
-								detailwarningTable.setThisTransfer(null);
-							}
-							if (detailwarningTable.getHighStudentNumber() == 10000) {
-								detailwarningTable.setHighStudentNumber(null);
-							}
-							if (detailwarningTable.getLowStudentNumber() == 10000) {
-								detailwarningTable.setLowStudentNumber(null);
-							}
-							if (detailwarningTable.getFirstEmploymentRate() == 900.0) {
-								detailwarningTable.setFirstEmploymentRate(null);
-							}
-							if (detailwarningTable.getSecondEmploymentRate() == 900.0) {
-								detailwarningTable.setSecondEmploymentRate(null);
-							}
-							if (detailwarningTable.getCurrentPosrgraduteRate() == 900.0) {
-								detailwarningTable.setCurrentPosrgraduteRate(null);
-							}
-						}
-						
+			
 			for (DetailwarningTable detailwarningMajor : detailwarningMajors) {
 				System.out.println(detailwarningMajor);
 			}
@@ -168,39 +135,6 @@ public class MajorAdjustController {
 			
 			// 根据年份查询预警专业
 			List<DetailwarningTable> detailwarningMajors = detailwarningTableService.getWarningMajorByYear(year);
-			// 替换掉特殊值
-			for (DetailwarningTable detailwarningTable : detailwarningMajors) {
-				if (detailwarningTable.getLastAdjustment() == 900.0) {
-					detailwarningTable.setLastAdjustment(null);
-				}
-				if (detailwarningTable.getThisAdjustment() == 900.0) {
-					detailwarningTable.setThisAdjustment(null);
-				}
-				if (detailwarningTable.getLastTransfer() == 900.0) {
-					detailwarningTable.setLastTransfer(null);
-				}
-				if (detailwarningTable.getMiddleTransfer() == 900.0) {
-					detailwarningTable.setMiddleTransfer(null);
-				}
-				if (detailwarningTable.getThisTransfer() == 900.0) {
-					detailwarningTable.setThisTransfer(null);
-				}
-				if (detailwarningTable.getHighStudentNumber() == 10000) {
-					detailwarningTable.setHighStudentNumber(null);
-				}
-				if (detailwarningTable.getLowStudentNumber() == 10000) {
-					detailwarningTable.setLowStudentNumber(null);
-				}
-				if (detailwarningTable.getFirstEmploymentRate() == 900.0) {
-					detailwarningTable.setFirstEmploymentRate(null);
-				}
-				if (detailwarningTable.getSecondEmploymentRate() == 900.0) {
-					detailwarningTable.setSecondEmploymentRate(null);
-				}
-				if (detailwarningTable.getCurrentPosrgraduteRate() == 900.0) {
-					detailwarningTable.setCurrentPosrgraduteRate(null);
-				}
-			}
 			
 			for (DetailwarningTable detailwarningMajor : detailwarningMajors) {
 				System.out.println(detailwarningMajor);
@@ -217,40 +151,11 @@ public class MajorAdjustController {
 
 		System.out.println("这里是查看往年预警专业");
 		List<DetailwarningTable> detailwarningMajors = detailwarningTableService.getAll();
-		// 替换掉特殊值
-		for (DetailwarningTable detailwarningTable : detailwarningMajors) {
-			if (detailwarningTable.getLastAdjustment() == 900.0) {
-				detailwarningTable.setLastAdjustment(null);
-			}
-			if (detailwarningTable.getThisAdjustment() == 900.0) {
-				detailwarningTable.setThisAdjustment(null);
-			}
-			if (detailwarningTable.getLastTransfer() == 900.0) {
-				detailwarningTable.setLastTransfer(null);
-			}
-			if (detailwarningTable.getMiddleTransfer() == 900.0) {
-				detailwarningTable.setMiddleTransfer(null);
-			}
-			if (detailwarningTable.getThisTransfer() == 900.0) {
-				detailwarningTable.setThisTransfer(null);
-			}
-			if (detailwarningTable.getHighStudentNumber() == 10000) {
-				detailwarningTable.setHighStudentNumber(null);
-			}
-			if (detailwarningTable.getLowStudentNumber() == 10000) {
-				detailwarningTable.setLowStudentNumber(null);
-			}
-			if (detailwarningTable.getFirstEmploymentRate() == 900.0) {
-				detailwarningTable.setFirstEmploymentRate(null);
-			}
-			if (detailwarningTable.getSecondEmploymentRate() == 900.0) {
-				detailwarningTable.setSecondEmploymentRate(null);
-			}
-			if (detailwarningTable.getCurrentPosrgraduteRate() == 900.0) {
-				detailwarningTable.setCurrentPosrgraduteRate(null);
-			}
+		
+		for (DetailwarningTable detailwarningMajor : detailwarningMajors) {
+			System.out.println(detailwarningMajor);
 		}
-
+		
 		for (DetailwarningTable detailwarningMajor : detailwarningMajors) {
 			System.out.println(detailwarningMajor);
 		}
@@ -258,7 +163,20 @@ public class MajorAdjustController {
 		return detailwarningMajors;
 
 	}
-
+	
+	//根据年份查询某年预警
+	@RequestMapping("/searchByYear")
+	@ResponseBody
+	public List<DetailwarningTable> seachByYear(@RequestParam(value="searchYear") int year) {
+		System.out.println("hello");
+		List<DetailwarningTable> listYear=detailwarningTableService.getWarningMajorByYear(year);
+		
+		for (DetailwarningTable detailwarningTable : listYear) {
+			System.out.println(detailwarningTable);
+		}
+		return listYear;
+	}
+	
 	// 暂停招生专业：stopMajor
 	@RequestMapping("/stopMajor")
 	@ResponseBody
@@ -266,6 +184,7 @@ public class MajorAdjustController {
 
 		System.out.println("这里是查看暂停招生预警专业");
 		List<PauseTable> pauseMajors = pauseTableService.selectAll();
+		
 		for (PauseTable pauseMajor : pauseMajors) {
 			System.out.println(pauseMajor);
 		}
@@ -282,7 +201,7 @@ public class MajorAdjustController {
 		System.out.println("这里是查看撤销专业名单");
 		List<CancleTable> cancleTables = cancleTableService.selectAll();
 		for (CancleTable cancleMajor : cancleTables) {
-			System.out.println("======撤销专业：" + cancleMajor);
+			System.out.println("撤销专业：" + cancleMajor);
 		}
 		return cancleTables;
 	}
@@ -313,23 +232,16 @@ public class MajorAdjustController {
 	public User login(@RequestParam("username") String username, @RequestParam("password") String password,
 			Model model, HttpSession session, HttpServletRequest req, HttpServletResponse resp) throws IOException {
 		
-		//System.out.println("服务器"+username);
-		
 		User user = userService.getUserByUserName(username);
 		System.out.println(user);
 
 		if (user != null && password.equals(user.getPassword())) {
 
 			session.setAttribute("USER_INFO", user);
-
-			//resp.sendRedirect("context.jsp");
-			
-			//return "{'login':true}";
 			return user;
 
 		} else {
 			System.out.println("用户名或密码错误，请重新登录");
-			//resp.sendRedirect("index.jsp");
 			User user2 =new User();
 			return user2;
 		}

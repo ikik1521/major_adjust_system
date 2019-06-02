@@ -1,5 +1,7 @@
 package cn.sucec.major_adjust_system.service;
 
+import java.util.List;
+
 import cn.sucec.major_adjust_system.model.CancleTable;
 
 public interface CancleTableService extends BaseService<CancleTable> {
@@ -10,4 +12,6 @@ public interface CancleTableService extends BaseService<CancleTable> {
 	public void clearDate();
 	
 	public void deleteByYearAndMajorCode(int year, String majorCode);
+	
+	public List<CancleTable> getAll();
 }

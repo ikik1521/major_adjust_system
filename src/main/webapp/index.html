@@ -7,6 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Index</title>
     <link rel="stylesheet" type="text/css" href="./css/index.css" />
+    <link rel="stylesheet" href="./css/buttons.css">
     <script src="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.js"></script>
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <!-- <script src="./js/jquery-3.4.1.min.js"></script> -->
@@ -15,18 +16,18 @@
 </head>
 
 <body>
-<style>
-    [v-cloak] {
-        display: none
-    }
-</style>
+    <style>
+        [v-cloak] {
+            display: none
+        }
+    </style>
 
     <div id="app" v-cloak>
         <header class="top">
             <div class="top-l">
                 <img src="" alt="">
-                <span>&nbsp;&nbsp;&nbsp;&nbsp;中南民族大学专业动态调整系统</span>
-            </div>           
+                <span>中南民族大学专业动态调整系统</span>
+            </div>
             <div class="top-r">
                 <!-- <img src="./images/user.png" alt=""> -->
                 <!-- <span>{{index[0].id}}</span> -->
@@ -82,7 +83,22 @@
                 </ul>
             </div>
             <div class="right">
-            	<button v-if="isDeleteButton && !isReason" v-on:click="isDeleting = true;isDeleteButton = false;">删除</button>
+                <div v-if="isDeleteButton && !isReason" >
+
+                    <!-- v-if="isDeleteButton && !isReason" -->
+					<div>
+					<input v-model="search" @keyup.enter="sousuo(search)"
+                        type="search" name="search" maxlength="4" id="Search" placeholder="请输入年份"
+                        style="height: 38px;width: 88px;font-size: 16px;border-radius: 4px;">
+                        <button v-on:click="sousuo(search)"
+                        class="button button-primary button-rounded button-small">搜索</button>
+					</div>
+                    
+                    <!-- <button v-on:click="isDeleting = true;isDeleteButton = false;">进入删除模式</button> -->
+                    <!-- <button style="cursor:pointer;font-weight: bold" v-on:click="shanchu(value.warningYear,value.majorCode)" class="button button-rounded button-tiny">删除</button> -->
+                    <button v-on:click="isDeleting = true;isDeleteButton = false;"
+                        class="button button-primary button-rounded button-small">删除</button>
+                </div>
                 <table v-if="isActive1">
                     <tr>
                         <td v-if="!isDeleteButton && isDeleting"></td>
@@ -107,8 +123,9 @@
                         <td>应届毕业生考研率（{{fullYear - 1}}年）</td>
                     </tr>
                     <tr v-for="(value,name,index) in tables" :key="value.id">
-                        <td v-if="!isDeleteButton && isDeleting"><button style="cursor:pointer"
-                                v-on:click="shanchu(value.warningYear,value.majorCode)">删除</button></td>
+                        <td v-if="!isDeleteButton && isDeleting"><button style="cursor:pointer;font-weight: bold"
+                                v-on:click="shanchu(value.warningYear,value.majorCode)"
+                                class="button button-rounded button-tiny">删除</button></td>
                         <td>{{value.warningYear}}</td>
                         <td>{{value.majorCode}}</td>
                         <td style="cursor:pointer;" v-on:click="reason(value.warningReason)">{{value.majorName}}</td>
@@ -127,24 +144,24 @@
                         <td>{{value.lowStudentNumber}}</td>
                         <td>{{value.firstEmploymentRate + '%'}}</td>
                         <td>{{value.secondEmploymentRate + '%'}}</td>
-                        <td>{{value.currentPosrgraduteRate + '%'}}</td>                      
+                        <td>{{value.currentPosrgraduteRate + '%'}}</td>
                     </tr>
                 </table>
                 <table v-if="isReason">
                     <tr>
                         <td>预警原因</td>
                     </tr>
-                    <tr v-for="item in reasons">                    
+                    <tr v-for="item in reasons">
                         <td>{{item}}</td>
                     </tr>
                 </table>
                 <table v-if="isActive2">
-                <tr>
-                	<td>年份</td>
-                	<td>专业代码</td>
-                	<td>专业名称</td>
-                	<td>原因</td>
-                <tr/>
+                    <tr>
+                        <td>年份</td>
+                        <td>专业代码</td>
+                        <td>专业名称</td>
+                        <td>原因</td>
+                        <tr />
                     <tr v-for="(value,name,index) in tables" :key="value.id">
                         <td>{{value.pauseYear}}</td>
                         <td>{{value.majorCode}}</td>
@@ -153,12 +170,12 @@
                     </tr>
                 </table>
                 <table v-if="isActive3">
-                <tr>
-                	<td>年份</td>
-                	<td>专业代码</td>
-                	<td>专业名称</td>
-                	<td>原因</td>
-                <tr/>
+                    <tr>
+                        <td>年份</td>
+                        <td>专业代码</td>
+                        <td>专业名称</td>
+                        <td>原因</td>
+                        <tr />
                     <tr v-for="(value,name,index) in tables" :key="value.id">
                         <td>{{value.cancleYear}}</td>
                         <td>{{value.majorCode}}</td>
@@ -201,7 +218,7 @@
                 //val = '';
             }
         });
-    });
+    });    
 </script>
 
 </html>

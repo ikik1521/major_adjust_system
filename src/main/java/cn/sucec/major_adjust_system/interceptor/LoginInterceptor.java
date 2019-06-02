@@ -24,17 +24,35 @@ public class LoginInterceptor implements HandlerInterceptor{
 	}
 
 	@Override
-	public boolean preHandle(HttpServletRequest arg0, HttpServletResponse arg1, Object arg2) throws Exception {
+	public boolean preHandle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object arg2) throws Exception {
 		
-		HttpSession session=arg0.getSession();
+		/*HttpSession session=arg0.getSession();
 		if(session.getAttribute("USER_INFO") != null){
 			return true;
 		}else {
 			
 			redirect(arg0, arg1); 
             return false;
-		}
-		
+		}*/
+		HttpSession session=httpServletRequest.getSession();
+		String homeUrl = httpServletRequest.getContextPath();
+		if (session.getAttribute("USER_INFO") == null) {
+           
+         	// 如果是 ajax 请求，则设置 session 状态 、CONTEXTPATH 的路径值
+         	// 如果是ajax请求响应头会有，x-requested-with
+            if (httpServletRequest.getHeader("x-requested-with") != null && httpServletRequest.getHeader("x-requested-with").equalsIgnoreCase("XMLHttpRequest")){
+                httpServletResponse.setHeader("SESSIONSTATUS", "TIMEOUT");
+                httpServletResponse.setHeader("CONTEXTPATH", homeUrl+"/login.html");
+                // FORBIDDEN，forbidden。也就是禁止、403
+                httpServletResponse.setStatus(HttpServletResponse.SC_FORBIDDEN); 
+                return false;
+            }else{
+                // 如果不是 ajax 请求，则直接跳转即可
+                httpServletResponse.sendRedirect(homeUrl+"/login.html");
+            }
+            return false;
+        }
+        return true;
 	}
 
 	//对于请求是ajax请求重定向问题的处理方法

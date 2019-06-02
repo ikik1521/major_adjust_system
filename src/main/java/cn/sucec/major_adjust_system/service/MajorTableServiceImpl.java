@@ -2,6 +2,7 @@ package cn.sucec.major_adjust_system.service;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Calendar;
 import java.util.List;
 
 import javax.servlet.ServletOutputStream;
@@ -12,8 +13,10 @@ import org.springframework.stereotype.Service;
 import cn.sucec.major_adjust_system.dao.BaseDao;
 import cn.sucec.major_adjust_system.dao.DetailwarningTableDao;
 import cn.sucec.major_adjust_system.dao.MajorTableDao;
+import cn.sucec.major_adjust_system.model.CancleTable;
 import cn.sucec.major_adjust_system.model.DetailwarningTable;
 import cn.sucec.major_adjust_system.model.MajorTable;
+import cn.sucec.major_adjust_system.model.PauseTable;
 import cn.sucec.major_adjust_system.model.PwarningTable;
 import cn.sucec.major_adjust_system.model.WarningTable;
 import cn.sucec.major_adjust_system.tools.Change;
@@ -30,6 +33,11 @@ public class MajorTableServiceImpl extends BaseServiceImpl<MajorTable> implement
 
 	@Autowired
 	private WarningTableService warningTableService;
+	@Autowired
+	private PauseTableService pauseTableService;
+	
+	@Autowired
+	private CancleTableService cancleTableService;
 
 	@Override
 	public BaseDao getBaseDao() {
@@ -63,11 +71,18 @@ public class MajorTableServiceImpl extends BaseServiceImpl<MajorTable> implement
 	@Override
 	public void exportExcelInfo(ServletOutputStream outputStream) {
 		// 根据条件查询数据，把数据装载到一个list中
+		Calendar cale = null;
+		cale = Calendar.getInstance();
+		int year = cale.get(Calendar.YEAR);
+		
+		List<DetailwarningTable> thisYearList=detailwarningTableDao.getWarningMajorByYear(year);
 		List<DetailwarningTable> list =detailwarningTableDao.getAll();
+		List<PauseTable> pauseList=pauseTableService.getAll();
+		List <CancleTable> cancleList=cancleTableService.getAll();
 		
 		// 调用ExcelUtil的方法
 		try {
-			ExcelutilMine.createExcelFile("专业预警", list, outputStream);
+			ExcelutilMine.createExcelFile("专业预警", thisYearList,list, pauseList,cancleList,outputStream);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
