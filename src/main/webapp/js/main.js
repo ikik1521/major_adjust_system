@@ -244,8 +244,7 @@ var v = new Vue({
 
         },
         sousuo: function (www) {
-            // alert(v.search);
-
+          
             $.ajax({
                 type: 'POST',
                 url: "searchByYear",
@@ -261,44 +260,8 @@ var v = new Vue({
                     v.counter++;
                 },
                 errorr: function () {
-                    // alert("查找失败");
+                     alert("查找失败");
                 },
-                complete: function () {
-                     alert("查找成功");
-                    $.ajax({
-                        /*type: 'GET',
-                        url: 'xxxxxx',
-                        dataType: 'json',*/
-                        success: function (result, status) {
-                            //视图需要重新渲染
-                            //console.log(result);
-                            v.tables = '';
-                            v.tables = result;
-
-                            v.tihuan();
-                            v.counter++;
-                        },
-                        error: function (xhr, status, error) {
-                            alert("暂无数据!");
-                            window.location.reload();
-
-                            console.log(xhr);
-                            console.log("原因ajax的状态:" + status);
-                            console.log(error);
-                        },
-                        complete: function (XMLHttpRequest, textStatus) {
-                            // 通过XMLHttpRequest取得响应头，sessionstatus
-                            var sessionstatus = XMLHttpRequest.getResponseHeader("sessionstatus");
-                            if (sessionstatus == "TIMEOUT") {
-                                var win = window;
-                                while (win != win.top) {
-                                    win = win.top;
-                                }
-                                win.location.href = XMLHttpRequest.getResponseHeader("CONTEXTPATH");
-                            }
-                        }
-                    });
-                }
             })
         },
         tihuan: function () {
