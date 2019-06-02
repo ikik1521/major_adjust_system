@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cn.scuec.major_adjust_system.dao.BaseDao">
+	
+	<!-- 增加一条记录 -->
+	<insert id="add">
+		insert into ${tableName} values
+		<foreach collection="objects"  item="param" open="(" separator="," close=")" >
+            #{param}
+        </foreach>
+	</insert>
+	
+	<delete id="delete">
+    	delete from ${tableName} where `major_code`=#{majorCode}
+    </delete>
+    
+    <update id="update">
+        update ${tableName} 
+        <set>
+            <foreach collection="objects"  item="param" >
+                ${param}, 
+            </foreach>
+        </set>
+        where `major_code`=#{majorCode}
+    </update>
+    
+    <!-- 按id查找一个 -->
+    <select id="selectOne" resultType="map">
+        select * from ${tableName} where `major_code`=#{majorCode}
+    </select>
+    
+    <!-- 查询所有 -->
+    <select id="selectAll" resultType="map">
+        select * from ${tableName}
+    </select>
+    
+    <cache type="org.mybatis.caches.ehcache.EhcacheCache"/>
+	
+
+</mapper>

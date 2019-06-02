@@ -12,7 +12,7 @@
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd">
 
 	<!-- 1.排除springmvc扫描的那两个包，其余的全部扫描，因为springmvc相当于spring的子集，所以spring大，全扫描就好除了那两个 -->
-	<context:component-scan base-package="cn.sucec.major_adjust_system">
+	<context:component-scan base-package="cn.scuec.major_adjust_system">
 		<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
         <context:exclude-filter type="annotation" expression="org.springframework.web.bind.annotation.ControllerAdvice"/>
 	</context:component-scan>
@@ -54,7 +54,7 @@
 
 	<!-- 配置事务的切入点 -->
 	<aop:config>
-		<aop:pointcut expression="execution(* cn.sucec.major_adjust_system.service.*.*(..))" id="txPointcut"/>
+		<aop:pointcut expression="execution(* cn.scuec.major_adjust_system.service.*.*(..))" id="txPointcut"/>
 		<aop:advisor advice-ref="txAdvice" pointcut-ref="txPointcut"/>
 	</aop:config>
 	<aop:aspectj-autoproxy  proxy-target-class="true"/>
@@ -63,9 +63,9 @@
 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
 			<property name="dataSource" ref="dataSource"></property>
 			<property name="configLocation" value="classpath:mybatis-config.xml"></property>
-			<property name="mapperLocations" value="classpath:cn/sucec/major_adjust_system/dao/*.xml"></property>
+			<property name="mapperLocations" value="classpath:cn/scuec/major_adjust_system/dao/*.xml"></property>
 	</bean>
 
-	<mybatis-spring:scan base-package="cn.sucec.major_adjust_system.dao"/>
+	<mybatis-spring:scan base-package="cn.scuec.major_adjust_system.dao"/>
 
 </beans>

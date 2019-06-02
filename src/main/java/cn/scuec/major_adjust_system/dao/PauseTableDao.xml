@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.scuec.major_adjust_system.dao.PauseTableDao">
+  
+  <update id="clearDate">
+  		TRUNCATE TABLE `pause_table`
+  </update>
+  
+  <delete id="deleteByYearAndMajorCode">
+  		DELETE FROM `pause_table` WHERE `pause_year`=#{year} AND `major_code`=#{majorCode}
+  </delete>
+  
+  <select id="getAll" resultType="cn.scuec.major_adjust_system.model.PauseTable">
+  	select * from pause_table
+  </select>
+  
+</mapper>
