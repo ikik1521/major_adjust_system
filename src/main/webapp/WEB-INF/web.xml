@@ -4,6 +4,8 @@
 	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
 	id="WebApp_ID" version="3.1">
 
+
+
 	<!-- spring 和 springmvc的基本配置 -->
 	<!-- 1.配置spring的 -->
 	<context-param>

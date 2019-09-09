@@ -7,6 +7,16 @@ var day = now.getDate();
 var time = document.getElementsByClassName('time');
 time[0].innerHTML += fullYear + "-" + month + "-" + day;
 
+var denglu = document.getElementsByClassName('denglu');
+//if (window.XMLHttpRequest){
+//	var sessionstatus = XMLHttpRequest.getResponseHeader("sessionstatus");
+//}
+//denglu[0].innerHTML = "未登录";
+/*if (sessionstatus == "TIMEOUT") {
+	denglu[0].innerHTML = "未登录";
+}else{
+	denglu[0].innerHTML = "已登录";
+}*/
 // $(document).ready(function () { //用户ID的获取
 //     $.getJSON("./ceshi.json", function (result, status) {
 //         v.index = result;
@@ -216,9 +226,9 @@ var v = new Vue({
 
                     break;
                 case 'deleteAll':
-                    alert("清除数据中");
-                    $('iframe').attr('src', url);
                     alert("清除成功");
+                    $('iframe').attr('src', url);
+                    //alert("清除成功");
                     v.isActive1 = false;
                     v.isReason = false;
 
@@ -226,7 +236,7 @@ var v = new Vue({
                 case 'logout':
                     $('iframe').attr('src', url);
                     alert("已退出登录");
-                    window.location.href = 'login.html';
+                    window.location.href = 'index.html';
 
                     break;
                 default:

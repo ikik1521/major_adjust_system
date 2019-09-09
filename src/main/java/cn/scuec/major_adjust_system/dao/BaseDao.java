@@ -8,7 +8,6 @@ import org.apache.ibatis.annotations.Param;
 /**
  * 通用的dao，里面有通用的增删改查，其中查分为查所有和查单个
  * 但是文件规定那个数据表不用去继承basedao，它是特殊的
- * @author WangChuo
  *
  */
 public interface BaseDao {

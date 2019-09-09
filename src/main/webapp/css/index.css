@@ -2,10 +2,10 @@ body {
   height: 100%;
   width: 100%;
   margin: 0;
+    background-image:url(../images/bg.jpg);
 }
 a {
   text-decoration: none;
-  color: black;
 }
 ul,
 li {
@@ -13,121 +13,48 @@ li {
   padding: 0;
   list-style: none;
 }
-
-.button-tiny{
-	font-size:14px!important;
-	padding: 0 10px!important;
+#login {
+  height: 300px;
+  width: 30vw;
+  margin: 25vh auto 0;
+  padding: 30px;
+  background-color: rgba(255, 255, 255, 1);
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
 }
-.button-small{
-	height: 38px!important;
-	font-size: 14px!important;
-	font-weight: bold!important;
-}
-
-
-header {
-  width: 100%;
-  height: 60px;
-  background-color:#0c590ce3;
-  color: #fff;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-header .top-r {
-  width: 230px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-section {
-  width: 100%;
-  min-height: 1000px;
-  display: flex;
-  justify-content: flex-start;
-  align-items: flex-start;
-}
-section div {
-  display: inline-block;
-}
-section .left {
-  width: 14%;
-  height: 1000px;
-  background-color: #f0f0f0;
-  font-size: 16px;
-}
-section .left > span {
-  display: inline-block;
-  width: 100%;
-  text-align: center;
-  margin-top: 20px;
-}
-section .left ul img,
-section .left li img {
-  cursor: pointer;
-}
-section .left > ul {
-  margin-top: 40px;
-  margin-left: 30px;
-}
-section .left > ul li:first-child > span {
-  display: flex;
-}
-section .left > ul li {
-  display: flex;
-  align-items: flex-start;
-  flex-wrap: wrap;
-  margin-bottom: 10px;
-}
-section .left > ul li p {
-  margin: 0;
-}
-section .left > ul li > ul {
-  margin-left: 22px;
-}
-section .left > ul li > ul li {
-  cursor: pointer;
-}
-section .left > ul li > ul li:first-child {
-  margin-top: 10px;
-}
-section .right {
-  width: 86%;
-}
-section .right > div{
-  display: flex;
-  height: 38px;
-  width: 90%;
-  justify-content: space-between;
-  align-items: center;
-  margin: 30px auto;
-}
-section .right >table {
-	border-collapse:collapse;
-}
-section .right table {
-  table-layout: fixed;
-  width: 100%;
-  margin: 0;
-  padding: 0;
-  font-size: 16px;
+#login form > span {
+  display: block;
+  font-size: 30px;
+  letter-spacing: 8px;
+  color: #4e5953;
   text-align: center;
 }
-section .right table tr:first-child {
-  background-color: rgba(128, 128, 128, 0.8);
+#login form > input {
+  display: block;
+  background: #ffffff;
+  border: #B4B6B5 1px solid;
+  border-radius: 8px;
+  outline: none;
+  height: 36px;
+  width: 80%;
+  margin: 0 auto;
+  margin-top: 30px;
+  padding: 6px 12px;
+  font-size: 16px;
 }
-section .right table tr:first-child td:nth-child(2n+0) {
-  background-color: #fff;
+#login form button,#login form input[type='submit'] {
+  box-shadow: 0px 3px 5px #ababab;
+  padding: 6px 16px;
+  height: 40px;
+  font-size: 20px;
+  cursor: pointer;
 }
-section .right table td {
-  border-right: 1px solid gray;
-  border-top: 1px solid gray;
-  border-left: 1px solid gray;
-  border-bottom: 1px solid gray;
+#bottom a {
+  display: block;
+  font-size: 25px;
+  letter-spacing: 5px;
+  color: white;
+  text-align: center;
+  padding-top:285px
 }
-section .right table tr {
-  width: 100%;
-}
-section .right table tr td {
-  height: 100px;
-}
+ 

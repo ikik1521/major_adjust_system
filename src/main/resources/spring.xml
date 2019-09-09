@@ -32,6 +32,15 @@
 		<property name="maxStatements" value="${jdbc.maxStatements}"></property>
 		<property name="maxStatementsPerConnection" value="${jdbc.maxStatementsPerConnection}"></property>
 	</bean>
+	
+	<!-- 整合Mybatis -->
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+			<property name="dataSource" ref="dataSource"></property>
+			<property name="configLocation" value="classpath:mybatis-config.xml"></property>
+			<property name="mapperLocations" value="classpath:cn/scuec/major_adjust_system/dao/*.xml"></property>
+	</bean>
+
+	<mybatis-spring:scan base-package="cn.scuec.major_adjust_system.dao"/>
 
 
 	<!-- 事务配置 -->
@@ -39,7 +48,6 @@
 		<property name="dataSource" ref="dataSource"></property>
 	</bean>
 	
-	<!-- <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver" /> -->
 
 	<!-- 配置事务属性 -->
 	<tx:advice id="txAdvice" transaction-manager="transactionManager">
@@ -59,13 +67,5 @@
 	</aop:config>
 	<aop:aspectj-autoproxy  proxy-target-class="true"/>
 
-	<!-- 整合Mybatis -->
-	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
-			<property name="dataSource" ref="dataSource"></property>
-			<property name="configLocation" value="classpath:mybatis-config.xml"></property>
-			<property name="mapperLocations" value="classpath:cn/scuec/major_adjust_system/dao/*.xml"></property>
-	</bean>
-
-	<mybatis-spring:scan base-package="cn.scuec.major_adjust_system.dao"/>
-
+	
 </beans>

@@ -253,7 +253,7 @@ public class MajorAdjustController {
 		session.invalidate();
 		//System.out.println("ÒÑÍË³ö");
 
-		response.sendRedirect("index.html");
+		response.sendRedirect("main.html");
 	}
 
 }

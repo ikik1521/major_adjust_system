@@ -26,14 +26,7 @@ public class LoginInterceptor implements HandlerInterceptor{
 	@Override
 	public boolean preHandle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object arg2) throws Exception {
 		
-		/*HttpSession session=arg0.getSession();
-		if(session.getAttribute("USER_INFO") != null){
-			return true;
-		}else {
-			
-			redirect(arg0, arg1); 
-            return false;
-		}*/
+		
 		HttpSession session=httpServletRequest.getSession();
 		String homeUrl = httpServletRequest.getContextPath();
 		if (session.getAttribute("USER_INFO") == null) {
@@ -41,14 +34,22 @@ public class LoginInterceptor implements HandlerInterceptor{
          	// 如果是 ajax 请求，则设置 session 状态 、CONTEXTPATH 的路径值
          	// 如果是ajax请求响应头会有，x-requested-with
             if (httpServletRequest.getHeader("x-requested-with") != null && httpServletRequest.getHeader("x-requested-with").equalsIgnoreCase("XMLHttpRequest")){
-                httpServletResponse.setHeader("SESSIONSTATUS", "TIMEOUT");
-                httpServletResponse.setHeader("CONTEXTPATH", homeUrl+"/login.html");
+                httpServletResponse.setHeader("sessionstatus", "TIMEOUT");
+                
+                //部署到nginx时要删掉 homeUrl
+                httpServletResponse.setHeader("CONTEXTPATH", homeUrl+"/index.html");
                 // FORBIDDEN，forbidden。也就是禁止、403
                 httpServletResponse.setStatus(HttpServletResponse.SC_FORBIDDEN); 
+                System.out.println("ajax");
                 return false;
             }else{
                 // 如果不是 ajax 请求，则直接跳转即可
+            	System.out.println("notajax");
                 httpServletResponse.sendRedirect(homeUrl+"/login.html");
+                System.out.println(homeUrl+"/index.html");
+                //部署到nginx时要删掉 homeUrl
+               
+                
             }
             return false;
         }
@@ -63,11 +64,12 @@ public class LoginInterceptor implements HandlerInterceptor{
         if("XMLHttpRequest".equals(request.getHeader("X-Requested-With"))){
             //告诉ajax我是重定向
             response.setHeader("REDIRECT", "REDIRECT");
-            //告诉ajax我重定向的路径
-            response.setHeader("CONTENTPATH", basePath+"/login.html");
+            //告诉ajax我重定向的路径,部署到nginx时要删掉 homeUrl
+            response.setHeader("CONTENTPATH", basePath+"/index.html");
             response.setStatus(HttpServletResponse.SC_FORBIDDEN);
         }else{
-            response.sendRedirect(basePath + "/login.html");
+        	//部署到nginx时要删掉 homeUrl
+            response.sendRedirect( basePath+"/index.html");
         }
     }
 }
