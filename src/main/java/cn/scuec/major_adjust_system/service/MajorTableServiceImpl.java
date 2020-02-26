@@ -2,6 +2,7 @@ package cn.scuec.major_adjust_system.service;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.List;
 
@@ -71,9 +72,13 @@ public class MajorTableServiceImpl extends BaseServiceImpl<MajorTable> implement
 	@Override
 	public void exportExcelInfo(ServletOutputStream outputStream) {
 		// 根据条件查询数据，把数据装载到一个list中
-		Calendar cale = null;
+		/*Calendar cale = null;
 		cale = Calendar.getInstance();
-		int year = cale.get(Calendar.YEAR);
+		int year = cale.get(Calendar.YEAR);*/
+		Calendar calendar=Calendar.getInstance();
+		SimpleDateFormat sm=new SimpleDateFormat("yyyyMM");
+		String now=sm.format(calendar.getTime());
+		Integer year=Integer.parseInt(now);
 		
 		List<DetailwarningTable> thisYearList=detailwarningTableDao.getWarningMajorByYear(year);
 		List<DetailwarningTable> list =detailwarningTableDao.getAll();
@@ -112,9 +117,11 @@ public class MajorTableServiceImpl extends BaseServiceImpl<MajorTable> implement
 	 * 进行专业分析，选出预预警专业
 	 */
 	@Override
-	public void zhuanYeFenXi(int year) {
+	public void zhuanYeFenXi(int year) {//默认传过来的是年份+月份，用于区别分析的时间
 		// 获取所有作为基数的专业列表
-		List<MajorTable> majors = selectAll(year);
+		Calendar cale = Calendar.getInstance();
+		int yyear = cale.get(Calendar.YEAR);
+		List<MajorTable> majors = selectAll(yyear);//此处的year作为“没有两界及以上毕业生的专业”的条件
 		// 确定要取倒数几个专业
 		int number = majors.size();
 		int count = (int) Math.round(number * 0.05);

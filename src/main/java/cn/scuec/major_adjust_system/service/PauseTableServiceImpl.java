@@ -30,12 +30,12 @@ public class PauseTableServiceImpl extends BaseServiceImpl<PauseTable> implement
 	}
 
 	@Override
-	public void fenXiZanTingZhuanYe(int year) {
+	public void fenXiZanTingZhuanYe(int year) {//传过来的是当前年份:2019
 		// 对已经获得的预警专业名单进行分析，计算出暂停招生专业后存入“暂停招生专业”数据表中
-		// 第十七条文档规则有三条，第一条是根据主观判断自己添加的
+		// 第十七条文档规则有三条，第一条为人工操作
 
 		// 第二条是连续两年列为预警专业的：思路：把当年和去年的预警专业的专业代码进行分别取出一个list集合，
-		List<DetailwarningTable> warningMajorQuNian = detailwarningTableService.getWarningMajorByYear(year - 1);
+		List<DetailwarningTable> warningMajorQuNian = detailwarningTableService.getWarningMajorByYear(year-1);
 		List<String> warningMajorCodeQuNian = new ArrayList<>();
 		for (DetailwarningTable warningMajor : warningMajorQuNian) {
 			warningMajorCodeQuNian.add(warningMajor.getMajorCode());

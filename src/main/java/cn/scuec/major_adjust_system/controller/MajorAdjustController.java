@@ -1,12 +1,11 @@
 package cn.scuec.major_adjust_system.controller;
 
-import static org.hamcrest.CoreMatchers.nullValue;
-
 import java.beans.IntrospectionException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.lang.reflect.InvocationTargetException;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -73,7 +72,7 @@ public class MajorAdjustController {
 	// 上传文件
 	@RequestMapping(value = "/upload", method = RequestMethod.POST)
 	@ResponseBody
-	public String upload(HttpServletRequest request, @RequestParam("file") MultipartFile upfile) throws Exception {
+	public String upload(@RequestParam("file") MultipartFile upfile ,HttpServletRequest request ) throws Exception {
 
 		InputStream inputExcel = upfile.getInputStream();
 
@@ -109,9 +108,15 @@ public class MajorAdjustController {
 	@ResponseBody
 	public List<DetailwarningTable> queryThisYearWaringMajor() {
 
-		Calendar cale = null;
+		/*Calendar cale = null;
 		cale = Calendar.getInstance();
-		int year = cale.get(Calendar.YEAR);
+		int year = cale.get(Calendar.YEAR);*/
+		
+		Calendar calendar=Calendar.getInstance();
+		int yyear = calendar.get(Calendar.YEAR);//此处是当前年，如2019
+		SimpleDateFormat sm=new SimpleDateFormat("yyyyMM");
+		String now=sm.format(calendar.getTime());
+		Integer year=Integer.parseInt(now);//此处的年月作为预警年+月，如201906
 
 		//System.out.println("这里是专业分析");
 		int n=majorTableService.existed(year);
@@ -129,7 +134,7 @@ public class MajorAdjustController {
 			// 对传上来的表进行数据分析，挑出预警专业放入详细预警专业数据表中
 			majorTableService.zhuanYeFenXi(year);
 			// 对预警专业数据表进行分析，挑出要暂停招生的专业
-			pauseTableService.fenXiZanTingZhuanYe(year);
+			pauseTableService.fenXiZanTingZhuanYe(yyear);//这里是YYear
 			// 对预警专业表和majorTable表进行分析，挑出要进行专业撤销的专业
 			cancleTableService.fenXiCheXiaoZhuanYe(year);
 			
@@ -206,6 +211,7 @@ public class MajorAdjustController {
 		return cancleTables;
 	}
 
+	
 	// 清空数据：deleteAll
 	@RequestMapping("/deleteAll")
 	public void deleteAll() {

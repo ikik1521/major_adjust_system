@@ -5,7 +5,7 @@
 <mapper namespace="cn.scuec.major_adjust_system.dao.DetailwarningTableDao">
   
   <select id="getWarningMajorByYear" resultType="cn.scuec.major_adjust_system.model.DetailwarningTable">
-  		SELECT * FROM `detailwarning_table` WHERE `warning_year`=#{year}
+  		SELECT * FROM `detailwarning_table` WHERE `warning_year` like CONCAT(#{year},'%') 
   </select>
   
   <select id="getWarningMajorByMajorCode" resultType="cn.scuec.major_adjust_system.model.DetailwarningTable">
