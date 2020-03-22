@@ -285,12 +285,10 @@ public class ExcelutilMine {
 			Cell cell03 = row.createCell(3);
 			
 			//使用正则表达式去除原因文本中的分隔符号
-			String reasonString=wt.getWarningReason();
-			Pattern pattern=Pattern.compile("#");
-			Matcher matcher=pattern.matcher(reasonString);
-			matcher.replaceAll("");
+			String reasonStringTemp=wt.getWarningReason();
+			String reasonString =reasonStringTemp.replaceAll("#", "");
 			
-			cell03.setCellValue( reasonString);
+			cell03.setCellValue(reasonString);
 			cell03.setCellStyle(cellStyle);
 
 			i++;

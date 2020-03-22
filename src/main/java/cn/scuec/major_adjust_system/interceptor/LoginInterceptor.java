@@ -29,6 +29,8 @@ public class LoginInterceptor implements HandlerInterceptor{
 		
 		HttpSession session=httpServletRequest.getSession();
 		String homeUrl = httpServletRequest.getContextPath();
+		//String homeUrl = "";
+		
 		if (session.getAttribute("USER_INFO") == null) {
            
          	// 如果是 ajax 请求，则设置 session 状态 、CONTEXTPATH 的路径值
@@ -40,16 +42,11 @@ public class LoginInterceptor implements HandlerInterceptor{
                 httpServletResponse.setHeader("CONTEXTPATH", homeUrl+"/index.html");
                 // FORBIDDEN，forbidden。也就是禁止、403
                 httpServletResponse.setStatus(HttpServletResponse.SC_FORBIDDEN); 
-                System.out.println("ajax");
                 return false;
             }else{
                 // 如果不是 ajax 请求，则直接跳转即可
-            	System.out.println("notajax");
-                httpServletResponse.sendRedirect(homeUrl+"/login.html");
-                System.out.println(homeUrl+"/index.html");
-                //部署到nginx时要删掉 homeUrl
+                httpServletResponse.sendRedirect(homeUrl+"/index.html");
                
-                
             }
             return false;
         }
@@ -60,6 +57,7 @@ public class LoginInterceptor implements HandlerInterceptor{
     public void redirect(HttpServletRequest request, HttpServletResponse response) throws IOException{
         //获取当前请求的路径
         String basePath = request.getScheme() + "://" + request.getServerName() + ":"  + request.getServerPort()+request.getContextPath();
+        //String basePath = "";
         //如果request.getHeader("X-Requested-With") 返回的是"XMLHttpRequest"说明就是ajax请求，需要特殊处理 否则直接重定向就可以了
         if("XMLHttpRequest".equals(request.getHeader("X-Requested-With"))){
             //告诉ajax我是重定向
@@ -68,7 +66,6 @@ public class LoginInterceptor implements HandlerInterceptor{
             response.setHeader("CONTENTPATH", basePath+"/index.html");
             response.setStatus(HttpServletResponse.SC_FORBIDDEN);
         }else{
-        	//部署到nginx时要删掉 homeUrl
             response.sendRedirect( basePath+"/index.html");
         }
     }

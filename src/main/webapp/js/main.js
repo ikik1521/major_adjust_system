@@ -226,7 +226,7 @@ var v = new Vue({
                 case 'logout':
                     $('iframe').attr('src', url);
                     alert("已退出登录");
-                    window.location.href = 'login.html';
+                    window.location.href = 'index.html';
 
                     break;
                 default:
